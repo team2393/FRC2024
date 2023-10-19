@@ -10,6 +10,7 @@ Timeline
 * January 6: Kickoff
   - Study WPILib manual: https://docs.wpilib.org/en/latest
   - Install WPILib, 3rd party libs (CTRE, Rev)
+    + https://github.com/wpilibsuite/2024Beta
     + https://github.com/wpilibsuite/allwpilib/releases
     + https://github.com/CrossTheRoadElec/Phoenix-Releases/releases
     + https://store.ctr-electronics.com/software
