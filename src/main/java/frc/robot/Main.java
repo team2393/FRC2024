@@ -6,9 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
 
-/** Do not modify this file except to change the parameter class to the
- *  startRobot call.
- */
+/** Java 'Main'. Modify this file to select which robot to run */
 public final class Main
 {
   public static void main(String... args)

@@ -32,10 +32,7 @@ public class CommandRobotBase extends TimedRobot
   }
 
   /** Run command scheduler.
-   * 
-   *  <p>Overriding code should call `super.robotPeriodic()`.
-   * 
-   *  <p>{@inheritDoc}}
+   *  Overriding code should call `super.robotPeriodic()`.
    */
   @Override
   public void robotPeriodic()
@@ -45,9 +42,42 @@ public class CommandRobotBase extends TimedRobot
   }
 
   @Override
+  public void disabledInit()
+  {
+    // Code that would run when robot gets disabled
+  }  
+
+  @Override
   public void disabledPeriodic()
   {
-    // Define as empty to avoid
-    // "Default disabledPeriodic() method... Override me!"
+    // Code that would run while robot is disabled
+  }  
+
+  @Override
+  public void autonomousInit()
+  {
+    // What to do when starting auto-no-mouse operation.
+    // Tends to 'schedule' some auto command
+  }
+  
+  /** Periodic code for autonomous mode should go here. */
+  @Override
+  public void autonomousPeriodic()
+  {
+    // What to do in auto mode.
+    // Usually nothing because we simply run the command
+    // scheduled in autonomousInit()
+  }
+
+  @Override
+  public void teleopInit()
+  {
+    // What to do when starting teleop
+  }
+
+  @Override
+  public void teleopPeriodic()
+  {
+    // What to do while in teleop
   }
 }

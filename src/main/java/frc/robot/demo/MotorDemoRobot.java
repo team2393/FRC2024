@@ -4,15 +4,42 @@
 
 package frc.robot.demo;
 
-import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.CommandRobotBase;
 import frc.robot.OperatorInterface;
+import frc.robot.RobotMap;
 
-/** Base class for a robot that uses Commands */
+/** Motor Demo
+ *  
+ *  CTRE still offers the Phoenix v5 API like
+ *  com.ctre.phoenix.motorcontrol.can.WPI_TalonFX
+ *  as well as a new v6 API like
+ *  com.ctre.phoenix6.hardware.TalonFX
+ * 
+ *  The original Pigeon, however, is only supported
+ *  with the v5 API, so best stay with that as long
+ *  as we have some older hardware?
+ */
 public class MotorDemoRobot extends CommandRobotBase
 {
-    private final TalonFX motor = new TalonFX(1);
+    private final WPI_TalonFX motor = new WPI_TalonFX(RobotMap.FRONT_LEFT_DRIVE);
+
+    @Override
+    public void robotInit()
+    {
+        super.robotInit();
+        motor.clearStickyFaults();
+    }
+
+    @Override
+    public void robotPeriodic()
+    {
+        super.robotPeriodic();
+        SmartDashboard.putNumber("Position", motor.getSelectedSensorPosition());
+        SmartDashboard.putNumber("Speed", motor.getSelectedSensorVelocity());
+    }    
 
     @Override
     public void teleopPeriodic()
