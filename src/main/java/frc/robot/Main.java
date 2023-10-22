@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.RobotBase;
-import frc.robot.led.LEDRingDemoRobot;
 
 /** Do not modify this file except to change the parameter class to the
  *  startRobot call.
@@ -14,7 +13,8 @@ public final class Main
 {
   public static void main(String... args)
   {
-//    RobotBase.startRobot(CommandRobotBase::new);
-    RobotBase.startRobot(LEDRingDemoRobot::new);
+    // RobotBase.startRobot(CommandRobotBase::new);
+    // RobotBase.startRobot(frc.robot.led.LEDRingDemoRobot::new);
+    RobotBase.startRobot(frc.robot.demo.MotorDemoRobot::new);
   }
 }
