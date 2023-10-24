@@ -38,3 +38,9 @@ Timeline
 * March 3-6: Competition? https://frc-events.firstinspires.org/2024/Events/EventList
 * April 3-6: Competition
 
+
+VS Code Settings
+----------------
+
+ * Wpilib: "Skip Select Simulate Extension" to always run SimGUI
+ * "Minimap Enabled": De-select to hide

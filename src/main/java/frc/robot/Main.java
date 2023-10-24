@@ -14,6 +14,7 @@ public final class Main
     // RobotBase.startRobot(CommandRobotBase::new);
     // RobotBase.startRobot(frc.robot.led.LEDRingDemoRobot::new);
     // RobotBase.startRobot(frc.robot.demo.MotorDemoRobot::new);
-    RobotBase.startRobot(frc.robot.swervebot.SwerveModuleDemoRobot::new);
+    // RobotBase.startRobot(frc.robot.swervebot.SwerveModuleDemoRobot::new);
+    RobotBase.startRobot(frc.robot.swervebot.SwerveBot::new);
   }
 }
