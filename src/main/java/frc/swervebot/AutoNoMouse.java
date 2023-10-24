@@ -44,7 +44,7 @@ public class AutoNoMouse
     }
 
     {
-      autos.add(new SequenceWithStart("Circuit", 1.66, 4.47, 0,
+      autos.add(new SequenceWithStart("Circle", 1.66, 4.47, 0,
                                       followPathWeaver(drivetrain, "Circle", 0.0)));
     }
 
