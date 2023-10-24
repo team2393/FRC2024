@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
-
 /** Robot (Hardware) Map: What's connected where? */
 public class RobotMap
 {

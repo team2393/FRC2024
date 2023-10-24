@@ -31,17 +31,16 @@ public class DriverDemoRobot extends CommandRobotBase
       driver.setSpeed(setpoint);
       SmartDashboard.putNumber("Setpoint", setpoint);
     }
-    else if (true)
+    else
     { // Run at entered voltage
       double voltage = SmartDashboard.getNumber("Voltage", 0);
       driver.setVoltage(voltage);
     }
-    else
-    { // Use joystick to control voltages
-      double voltage = -11.0 * joystick.getLeftY();
-      driver.setVoltage(voltage);
-      SmartDashboard.putNumber("Voltage", voltage);
-    }
+    // { // Use joystick to control voltages
+    //   double voltage = -11.0 * joystick.getLeftY();
+    //   driver.setVoltage(voltage);
+    //   SmartDashboard.putNumber("Voltage", voltage);
+    // }
   }
 
   @Override

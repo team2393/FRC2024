@@ -38,13 +38,15 @@ public class AutoNoMouse
     }
 
     {
-      autos.add(new SwerveToPositionCommand(drivetrain, 4, 4)
+      autos.add(new VariableWaitCommand()
+                .andThen(new SwerveToPositionCommand(drivetrain, 4, 4))
                 .andThen(new SwerveToPositionCommand(drivetrain, 9, 3))
                 .withName("4,4 <-> 9,3"));
     }
 
     {
       autos.add(new SequenceWithStart("Circle", 1.66, 4.47, 0,
+                                      new VariableWaitCommand(),
                                       followPathWeaver(drivetrain, "Circle", 0.0)));
     }
 

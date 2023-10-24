@@ -3,19 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.swervebot;
 
-import java.nio.channels.SelectableChannel;
-
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
-import frc.swervelib.StayPutCommand;
 import frc.swervelib.SwerveOI;
-import frc.swervelib.SwerveToPositionCommand;
-import frc.swervelib.VariableWaitCommand;
 import frc.tools.AutoTools;
 import frc.tools.CommandRobotBase;
 
@@ -39,11 +33,6 @@ public class SwerveBot extends CommandRobotBase
     SmartDashboard.putData(autos);
   }
   
-  private final Command auto = new SequentialCommandGroup(
-    new VariableWaitCommand(),
-    new SwerveToPositionCommand(drivetrain, 0, 0),
-    new StayPutCommand(drivetrain, 0));
-
   @Override
   public void disabledPeriodic()
   {
