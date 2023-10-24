@@ -5,7 +5,7 @@ package frc.swervelib;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.CommandRobotBase;
+import frc.tools.CommandRobotBase;
 
 /** Robot for testing rotation motors */
 public class RotatatorDemoRobot extends CommandRobotBase

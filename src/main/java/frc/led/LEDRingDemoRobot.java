@@ -1,7 +1,7 @@
-package frc.robot.led;
+package frc.led;
 
 import edu.wpi.first.wpilibj.util.Color;
-import frc.robot.CommandRobotBase;
+import frc.tools.CommandRobotBase;
 
 public class LEDRingDemoRobot extends CommandRobotBase
 {
