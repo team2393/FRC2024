@@ -13,11 +13,18 @@ public class SequenceWithStart extends SequentialCommandGroup
 {
   private final Pose2d start;
 
-  /** @param name Name of command
-   *  @param x X pos in meters
-   *  @param y Y pos in meters
-   *  @param heading Final heading in degrees
+  /** Create SequentialCommandGroup with initial position
+   *
+   *  Allows displaying the start position on the field
+   *  when selecting auto option
+   *
+   *  @param name Name of command
+   *  @param x Initial X pos in meters
+   *  @param y Initial Y pos in meters
+   *  @param heading Initial heading in degrees
    *  @param commands Commands
+   *
+   *  @see AutoTools#indicateStart()
    */
   public SequenceWithStart(String name, double x, double y, double heading, Command ... commands)
   {
