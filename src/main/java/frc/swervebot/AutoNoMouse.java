@@ -12,6 +12,7 @@ import java.util.List;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.swervelib.SelectAbsoluteTrajectoryCommand;
 import frc.swervelib.SelectRelativeTrajectoryCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveToPositionCommand;
@@ -39,6 +40,7 @@ public class AutoNoMouse
 
     {
       autos.add(new VariableWaitCommand()
+                .andThen(new SelectAbsoluteTrajectoryCommand(drivetrain, 0, 0, 0))
                 .andThen(new SwerveToPositionCommand(drivetrain, 4, 4))
                 .andThen(new SwerveToPositionCommand(drivetrain, 9, 3))
                 .withName("4,4 <-> 9,3"));
@@ -47,6 +49,7 @@ public class AutoNoMouse
     {
       autos.add(new SequenceWithStart("Circle", 1.66, 4.47, 0,
                                       new VariableWaitCommand(),
+                                      new SelectAbsoluteTrajectoryCommand(drivetrain, 0, 0, 0),
                                       followPathWeaver(drivetrain, "Circle", 0.0)));
     }
 
