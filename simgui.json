@@ -19,12 +19,18 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/DemoMechanism": "Mechanism2d",
       "/SmartDashboard/Field": "Field2d",
       "/SmartDashboard/ResetPosition": "Command",
       "/SmartDashboard/Scheduler": "Scheduler",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"
     },
     "windows": {
+      "/SmartDashboard/DemoMechanism": {
+        "window": {
+          "visible": true
+        }
+      },
       "/SmartDashboard/Field": {
         "bottom": 649,
         "builtin": "2021 Infinite Recharge",
