@@ -48,7 +48,7 @@ VS Code Settings
 Git Branches
 ------------
 
-To work on a branch, click on the "main" branch in the bottom left status bar, 
+To work on a branch in VS Code, click on the "main" branch in the bottom left status bar, 
 select "Create new Branch" and enter a name like "idea_xyz".
 
 Change source code as desired.
@@ -59,4 +59,7 @@ renamed into "Publish Branch".
 On https://github.com/team2393/frc2024, there will be an option to "Compare & Pull Request".
 A pull request can be used to review changes, maybe work on some follow-up to add to the branch.
 Finally, the pull request can be "merged".
+
+In VS Code, click on the branch name in the bottom left status bar,
+select the "main" branch again, then "Pull" from the Source Control view.
 
