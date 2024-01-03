@@ -44,3 +44,13 @@ VS Code Settings
 
  * Wpilib: "Skip Select Simulate Extension" to always run SimGUI
  * "Minimap Enabled": De-select to hide
+
+Git Branches
+------------
+
+To work on a branch, click on the "main" branch in the bottom left status bar, 
+select "Create new Branch" and enter a name like "idea_xyz".
+Change source code as desired.
+In the Source Control view you can check for changes, and finally commit and push them.
+Note that the changes will be pushed on the branch.
+
