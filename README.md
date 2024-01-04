@@ -39,6 +39,23 @@ Timeline
 * April 3-6: Competition
 
 
+Software Setup
+--------------
+
+ * Install "WPILib", https://docs.wpilib.org/en/latest/docs/zero-to-robot/step-2/wpilib-setup.html
+ * Install git. For Windows, use https://git-scm.com/. On a Mac, run `git` once from the terminal to trigger installation
+ * Get a copy of the sources:
+   * Start the 2024 WPI Lib version of VS Code
+   * Menu "View", "Command Palette", "Git: Clone"
+   * Enter repository URL `https://github.com/team2393/FRC2024.git`
+   * As a destination, best create a folder "git" in your home directory,
+     so the sources will end up in something like `/Users/YourName/git/FRC2024`.
+
+During the initial "git clone", VS Code will end up opening the folder automatically.
+To get there later on, you can use the VS Code menu "File", "Open Folder" and then select
+`/Users/YourName/git/FRC2024`.
+
+
 VS Code Settings
 ----------------
 
