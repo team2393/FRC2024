@@ -24,8 +24,6 @@ public class SwerveBot extends CommandRobotBase
   private final Command relswerve = new RelativeSwerveCommand(drivetrain);
   private final Command absswerve = new AbsoluteSwerveCommand(drivetrain);
   
-  private final SendableChooser<Command> autos = new SendableChooser<>();
-
   private final DemoMechanism gadget = new DemoMechanism();
   private final Command gadgetcommand = new RunCommand(() ->
   { 
@@ -34,7 +32,9 @@ public class SwerveBot extends CommandRobotBase
     gadget.setLift(0.5 + 0.2*cos(2*PI*sec/4.0));
     // Vary angle +-45 deg every 6 seconds
     gadget.setArm(45.0*cos(2*PI*sec/6.0));
-  });
+  }, gadget);
+
+  private final SendableChooser<Command> autos = new SendableChooser<>();
 
   @Override
   public void robotInit()
@@ -61,6 +61,11 @@ public class SwerveBot extends CommandRobotBase
     // Bind buttons to commands
     SwerveOI.selectRelative().onTrue(relswerve);
     SwerveOI.selectAbsolute().onTrue(absswerve);
+    // Instead of 'binding' commands in ..Init(),
+    // could add this to ..Periodic():
+    //   if (SwerveOI.selectRelative().getAsBoolean())
+    //     relswerve.schedule();
+
     // Start relative mode
     relswerve.schedule();
 

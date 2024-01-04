@@ -27,8 +27,9 @@ public class DemoMechanism extends SubsystemBase
         //         ||
         //        lift
         //         ||
-        //  === center ===
-        
+        //       center
+        //  === bumper ===
+
         // Size of mechanism: 0.8m wide, 1m high
         Mechanism2d mechanism = new Mechanism2d(0.8, 1.0, new Color8Bit(Color.kLightGray));
         // Static base of the robot with bumper
