@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
 import frc.swervelib.SwerveOI;
@@ -25,14 +24,14 @@ public class SwerveBot extends CommandRobotBase
   private final Command absswerve = new AbsoluteSwerveCommand(drivetrain);
   
   private final DemoMechanism gadget = new DemoMechanism();
-  private final Command gadgetcommand = new RunCommand(() ->
+  private final Command gadgetcommand = gadget.run(() ->
   { 
     double sec = Timer.getFPGATimestamp();
     // Vary height from 0.3 to 0.7m every 4 seconds
     gadget.setLift(0.5 + 0.2*cos(2*PI*sec/4.0));
     // Vary angle +-45 deg every 6 seconds
     gadget.setArm(45.0*cos(2*PI*sec/6.0));
-  }, gadget);
+  });
 
   private final SendableChooser<Command> autos = new SendableChooser<>();
 
