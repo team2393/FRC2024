@@ -17,7 +17,7 @@ Timeline
     Original Pigeon is only supported with v5.
     New Phoenix X Tuner can still see, update and plot devices with v5 firmware,
     so starting with that to remain compatible with all test hardware.
-* January 6: Kickoff
+* January 6: Kickoff, https://www.tnfirst.org/frc-events
   - Study WPILib manual: https://docs.wpilib.org/en/latest
   - Install WPILib, 3rd party libs (CTRE, Rev)
     + https://github.com/wpilibsuite/allwpilib/releases
@@ -35,8 +35,8 @@ Timeline
   - Prepare for components of actual robot
 * February 3: Start programming actual robot
 * February 17: Test, tune, practice
-* March 3-6: Competition? https://frc-events.firstinspires.org/2024/Events/EventList
-* April 3-6: Competition
+* March 3-6: Competition? https://frc-events.firstinspires.org/2024/Events/EventList, https://www.tnfirst.org/frc-events
+* April 3-6: Competition?
 
 
 Software Setup
