@@ -3,7 +3,9 @@ Team 2393 FRC Season 2024
 
 Game manual: https://www.firstinspires.org/resource-library/frc/competition-manual-qa-system
 
-Forum: https://www.chiefdelphi.com/, https://www.projectb.net.au/resources/robot-mechanisms
+Software manual: https://docs.wpilib.org/en/latest
+
+Forums: https://www.chiefdelphi.com/, https://www.projectb.net.au/resources/robot-mechanisms
 
 Timeline
 --------
@@ -18,7 +20,6 @@ Timeline
     New Phoenix X Tuner can still see, update and plot devices with v5 firmware,
     so starting with that to remain compatible with all test hardware.
 * January 6: Kickoff, https://www.tnfirst.org/frc-events
-  - Study WPILib manual: https://docs.wpilib.org/en/latest
   - Install WPILib, 3rd party libs (CTRE, Rev)
     + https://github.com/wpilibsuite/allwpilib/releases
     + https://github.com/CrossTheRoadElec/Phoenix-Releases/releases
