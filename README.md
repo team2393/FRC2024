@@ -29,10 +29,11 @@ Timeline
     + https://www.andymark.com
     + https://wcproducts.com
 * January 13: Start programming on drive chassis
-  - Control motors: Set voltage, speed or position
-  - Teleop drive: Basic direction and speed, then "swerve"
-  - Odometry, simulation
+  - Swervebot skeleton
+  - How to run Simulation
+  - Mechanism display
   - Auto drive
+  - Control motors: Set voltage, speed or position
   - Prepare for components of actual robot
 * February 3: Start programming actual robot
 * February 17: Test, tune, practice
