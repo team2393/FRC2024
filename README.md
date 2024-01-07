@@ -10,7 +10,7 @@ Forums: https://www.chiefdelphi.com/, https://www.projectb.net.au/resources/robo
 Timeline
 --------
 
-* 2024 Beta
+* Notes from 2024 Beta
   - See https://github.com/wpilibsuite/2024Beta
   - 2024 Beta versions of RoboRio image, WPILib, CTRE lib all "work" in initial tests,
     but command classes are slightly different and new swervelib additions,
