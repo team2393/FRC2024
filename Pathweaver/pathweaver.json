@@ -4,6 +4,6 @@
   "maxVelocity": 2.0,
   "maxAcceleration": 1.0,
   "trackWidth": 0.8,
-  "gameName": "Destination: Deep Space",
+  "gameName": "Crescendo",
   "outputDir": "../src/main/deploy"
 }
