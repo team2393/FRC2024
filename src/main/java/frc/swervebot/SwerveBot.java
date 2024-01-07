@@ -29,8 +29,10 @@ public class SwerveBot extends CommandRobotBase
     double sec = Timer.getFPGATimestamp();
     // Vary height from 0.3 to 0.7m every 4 seconds
     gadget.setLift(0.5 + 0.2*cos(2*PI*sec/4.0));
-    // Vary angle +-45 deg every 6 seconds
-    gadget.setArm(45.0*cos(2*PI*sec/6.0));
+    // Vary angle from -225 (-45-180) to +45 deg every 6 seconds
+    gadget.setArm(-90+135.0*cos(2*PI*sec/6.0));
+    // Open/close claw every 2 seconds
+    gadget.openClaw( (int)(sec/2) % 2 == 0);
   });
 
   private final SendableChooser<Command> autos = new SendableChooser<>();

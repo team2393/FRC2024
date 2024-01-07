@@ -17,13 +17,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class DemoMechanism extends SubsystemBase
 {
-    private final MechanismLigament2d lift, arm;
+    private final MechanismLigament2d lift, arm, upper_claw, lower_claw;
 
     public DemoMechanism()
     {
         // Somewhat like this:
         //
-        //         *---arm---
+        //                    upper_claw
+        //         *---arm---*
+        //         ||         lower_claw
         //         ||
         //        lift
         //         ||
@@ -43,6 +45,9 @@ public class DemoMechanism extends SubsystemBase
         // Arm starts at end of lift and goes "forward".
         // Horizontal arm == 0 deg means -90 from direction of lift that's pointing up
         arm = lift.append(new MechanismLigament2d("arm", 0.2, -90, 5, new Color8Bit(Color.kRed)));
+
+        upper_claw = arm.append(new MechanismLigament2d("upper_claw", 0.1, 45, 5, new Color8Bit(Color.kAquamarine)));
+        lower_claw = arm.append(new MechanismLigament2d("lower_claw", 0.1, -45, 5, new Color8Bit(Color.kAquamarine)));
 
         // Make available on dashboard
         SmartDashboard.putData("DemoMechanism", mechanism);
@@ -64,4 +69,9 @@ public class DemoMechanism extends SubsystemBase
         arm.setAngle(-90 + degrees);
     }
 
+    public void openClaw(boolean open)
+    {
+        upper_claw.setAngle(open ? 45 : 5);
+        lower_claw.setAngle(open ? -45 : -5);
+    }
 }
