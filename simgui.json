@@ -1,21 +1,4 @@
 {
-  "HALProvider": {
-    "Addressable LEDs": {
-      "0": {
-        "columns": 12
-      },
-      "window": {
-        "visible": true
-      }
-    },
-    "Other Devices": {
-      "Talon FX (Pro)[1]": {
-        "header": {
-          "open": true
-        }
-      }
-    }
-  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -32,41 +15,20 @@
         }
       },
       "/SmartDashboard/Field": {
-        "bottom": 649,
-        "builtin": "2021 Infinite Recharge",
-        "height": 8.210550308227539,
-        "left": 127,
-        "right": 1323,
-        "top": 34,
-        "width": 15.982950210571289,
-        "window": {
-          "visible": true
-        }
-      },
-      "/SmartDashboard/SendableChooser[0]": {
+        "bottom": 544,
+        "builtin": "2024 Crescendo",
+        "height": 8.013679504394531,
+        "left": 46,
+        "right": 1088,
+        "top": 36,
+        "width": 16.541748046875,
         "window": {
           "visible": true
         }
       }
     }
   },
-  "NetworkTables": {
-    "transitory": {
-      "SmartDashboard": {
-        "Field": {
-          "double[]##v_/SmartDashboard/Field/Robot": {
-            "open": true
-          },
-          "open": true
-        },
-        "SendableChooser[0]": {
-          "open": true,
-          "string[]##v_/SmartDashboard/SendableChooser[0]/options": {
-            "open": true
-          }
-        },
-        "open": true
-      }
-    }
+  "NetworkTables Info": {
+    "visible": true
   }
 }
