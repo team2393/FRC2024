@@ -47,7 +47,7 @@ public class AutoTools
 
   /** Create command that follows a PathWeaver path 
    *  @param drivetrain Drivetrain to use
-   *  @param pathname Base name "XXX" for "deploy/output.XXX.wpilib.json"
+   *  @param pathname Base name "XXX" for "deploy/output/XXX.wpilib.json"
    *  @param final_heading .. of robot
    *  @return Command that follows the path
    */
