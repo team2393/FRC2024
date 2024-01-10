@@ -10,7 +10,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.led.ColorPair;
 import frc.led.Comet;
 import frc.led.LEDRing;
@@ -46,8 +51,19 @@ public class SwerveBot extends CommandRobotBase
   {
     super.robotInit();
 
-    ring.setDefaultCommand(new Comet(ring));
-    // ring.setDefaultCommand(new ColorPair(ring, Color.kDarkGreen, Color.kDarkGoldenrod));
+    // ring.setDefaultCommand(
+    //   new RepeatCommand(
+    //     new SequentialCommandGroup(
+    //       new ParallelRaceGroup(new WaitCommand(10), new Comet(ring)),
+    //       new ParallelRaceGroup(new WaitCommand(10), new ColorPair(ring, Color.kDarkGreen, Color.kDarkGoldenrod))
+    //     )));
+
+    ring.setDefaultCommand(
+      new Comet(ring).withTimeout(10)
+                     .andThen(
+                       new ColorPair(ring, Color.kDarkGreen, Color.kDarkGoldenrod).withTimeout(10)
+                             ).repeatedly()
+                          );
 
     // autos.setDefaultOption("Nothing", Commands.print("Do Nothing"));
     autos.setDefaultOption("Nothing", new PrintCommand("Do nothing"));
