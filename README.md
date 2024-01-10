@@ -64,8 +64,12 @@ To get there later on, you can use the VS Code menu "File", "Open Folder" and th
 VS Code Settings
 ----------------
 
+Suggestions for File, Preferences, Settings:
  * Wpilib: "Skip Select Simulate Extension" to always run SimGUI
  * "Minimap Enabled": De-select to hide
+
+Suggestions for View, Extensions:
+ * Install "Git Graph"
 
 Git Branches
 ------------
