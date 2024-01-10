@@ -1,7 +1,11 @@
+// Copyright (c) FIRST Team 2393 and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
 package frc.led;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
+/** Show a bright spot that runs around the ring with a comet-style tail */
 public class Comet extends Command
 {
   private final LEDRing ring;

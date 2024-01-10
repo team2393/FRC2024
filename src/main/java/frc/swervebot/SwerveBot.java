@@ -8,8 +8,12 @@ import static java.lang.Math.PI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.led.ColorPair;
+import frc.led.Comet;
+import frc.led.LEDRing;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
 import frc.swervelib.SwerveOI;
@@ -33,12 +37,17 @@ public class SwerveBot extends CommandRobotBase
     gadget.setArm(45.0*cos(2*PI*sec/6.0));
   });
 
+  private final LEDRing ring = new LEDRing();
+
   private final SendableChooser<Command> autos = new SendableChooser<>();
 
   @Override
   public void robotInit()
   {
     super.robotInit();
+
+    ring.setDefaultCommand(new Comet(ring));
+    // ring.setDefaultCommand(new ColorPair(ring, Color.kDarkGreen, Color.kDarkGoldenrod));
 
     // autos.setDefaultOption("Nothing", Commands.print("Do Nothing"));
     autos.setDefaultOption("Nothing", new PrintCommand("Do nothing"));
