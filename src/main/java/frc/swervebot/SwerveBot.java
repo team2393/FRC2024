@@ -40,6 +40,8 @@ public class SwerveBot extends CommandRobotBase
     gadget.setLift(0.5 + 0.2*cos(2*PI*sec/4.0));
     // Vary angle +-45 deg every 6 seconds
     gadget.setArm(45.0*cos(2*PI*sec/6.0));
+
+    gadget.poke(  (int)sec % 2 == 0  );
   });
 
   private final LEDRing ring = new LEDRing();
