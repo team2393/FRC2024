@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  */
 public class DemoMechanism extends SubsystemBase
 {
-    private final MechanismLigament2d lift, arm;
+    private final MechanismLigament2d lift, arm, poker;
 
     public DemoMechanism()
     {
@@ -44,6 +44,8 @@ public class DemoMechanism extends SubsystemBase
         // Horizontal arm == 0 deg means -90 from direction of lift that's pointing up
         arm = lift.append(new MechanismLigament2d("arm", 0.2, -90, 5, new Color8Bit(Color.kRed)));
 
+        poker = arm.append(new MechanismLigament2d("poker", 0.05, 0, 2, new Color8Bit(0, 100, 0)));
+
         // Make available on dashboard
         SmartDashboard.putData("DemoMechanism", mechanism);
 
@@ -64,4 +66,11 @@ public class DemoMechanism extends SubsystemBase
         arm.setAngle(-90 + degrees);
     }
 
+    public void poke(boolean do_poke)
+    {
+        if (do_poke)
+            poker.setLength(0.05);
+        else
+            poker.setLength(0);
+    }
 }
