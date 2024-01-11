@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveModule;
 
-/** Rotator using SparkMini for rotation, Falcon to drive, older pigeon as gyro */
+/** SwerveDrivetrain with Rotator using SparkMini for rotation, Falcon to drive, older pigeon as gyro */
 public class SwervebotDrivetrain extends SwerveDrivetrain
 {
   private final PigeonIMU gyro = new PigeonIMU(0);
@@ -37,14 +37,13 @@ public class SwervebotDrivetrain extends SwerveDrivetrain
   {
     if (RobotBase.isSimulation())
     {
+      // Leftover example from 2023:
+      // Coming from the right, headed left, simulate driving 'up' and then 'down' the charge station
+
       Pose2d pose = getPose();
       double x  = pose.getTranslation().getX();
       double heading = pose.getRotation().getDegrees();
 
-      // Simulate a problem (motors don't move, stuck uphill)
-      // return 30;
-
-      // Coming from the right, headed left, simulate driving 'up' and then 'down' the charge station
       if (Math.abs(Math.IEEEremainder(heading - 180.0, 360)) < 10.0)
       { // From the right, go 'up'
         if (4.03 < x  &&  x < 4.9)
