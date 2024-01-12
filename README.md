@@ -32,7 +32,7 @@ Timeline
     + https://limelightvision.io
   - How to run Simulation
   - Mechanism display
-* January 13: Start programming on drive chassis
+* January 13: Start programming on "Swervebot"
   - Robot base class
   - Driver station
   - Field Management System
