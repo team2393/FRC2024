@@ -30,14 +30,20 @@ Timeline
     + https://wcproducts.com
     + https://docs.photonvision.org
     + https://limelightvision.io
-* January 13: Start programming on drive chassis
-  - Swervebot skeleton
   - How to run Simulation
   - Mechanism display
+* January 13: Start programming on drive chassis
+  - Robot base class
+  - Driver station
+  - Field Management System
+  - Control motors: Set voltage, speed or position
+* Next
+  - Swervebot skeleton
   - Auto drive
     - https://www.youtube.com/shorts/WaQLQT_cJeY
-  - Control motors: Set voltage, speed or position
   - Prepare for components of actual robot
+  - Get/prepare laptop
+  - Prepare button board
 * February 3: Start programming actual robot
 * February 17: Test, tune, practice
 * March 3-6: Competition? https://frc-events.firstinspires.org/2024/Events/EventList, https://www.tnfirst.org/frc-events
