@@ -34,6 +34,7 @@ public class SwerveBot extends CommandRobotBase
   private final SwervebotDrivetrain drivetrain = new SwervebotDrivetrain();
   private final Command relswerve = new RelativeSwerveCommand(drivetrain);
   private final Command absswerve = new AbsoluteSwerveCommand(drivetrain);
+  private final Command center_on_tag = new CenterOnAprilTag(drivetrain);
   
   private final DemoMechanism gadget = new DemoMechanism();
   private final Command gadgetcommand = gadget.run(() ->
@@ -98,6 +99,7 @@ public class SwerveBot extends CommandRobotBase
     // Bind buttons to commands
     SwerveOI.selectRelative().onTrue(relswerve);
     SwerveOI.selectAbsolute().onTrue(absswerve);
+    SwerveOI.joystick.a().onTrue(center_on_tag);
     // Instead of 'binding' commands in ..Init(),
     // could add this to ..Periodic():
     //   if (SwerveOI.selectRelative().getAsBoolean())
