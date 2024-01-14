@@ -95,3 +95,28 @@ Finally, the pull request can be "merged".
 In VS Code, click on the branch name in the bottom left status bar,
 select the "main" branch again, then "Pull" from the Source Control view.
 
+
+PhotonVision Camera
+-------------------
+
+Image Raspberry Pi with PhotonVision. Bootup with HDMI monitor connected to observe initial self-configuration.
+Reboot on robot network and navigate web browser on Laptop to http://photonvision.local:5800
+
+**Settings, Networking**
+
+- Set Team Number to 2393.
+- Change IP Assignment Mode from DHCP to Static, set address to 10.23.93.12.
+  (Static 10.TE.AM.6-19 are general purpose. 10.TE.AM.11 is often used for camera, leave that for Limelight)
+- Press SAVE
+
+From now on, access camera via http://10.23.93.12:5800
+
+**Settings for Pipeline of Type AprilTag**
+
+AprilTag:
+ - Family 36h11 (6.5in)
+
+Input:
+- Resolution 320x180 MJPEG
+- Exposure: Somewhere below 20 results in 30fps. Much lower doesn't see target, higher reduces the FPS.
+
