@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.led.ColorPair;
 import frc.led.Comet;
+import frc.led.Rainbow;
 import frc.led.LEDRing;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
@@ -76,6 +77,9 @@ public class SwerveBot extends CommandRobotBase
       new Comet(ring).withTimeout(10)
                      .andThen(
                        new ColorPair(ring, Color.kDarkGreen, Color.kDarkGoldenrod).withTimeout(10)
+                                                                                  .andThen(
+                                                                                    new Rainbow(ring).withTimeout(10)
+                                                                                          )
                              ).repeatedly()
                           );
 
