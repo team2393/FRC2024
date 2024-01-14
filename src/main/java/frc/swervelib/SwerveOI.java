@@ -4,6 +4,7 @@
 package frc.swervelib;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -22,23 +23,35 @@ public class SwerveOI
     return value * Math.abs(value);
   }
 
+  // Dampen moves, only accelerate/break by 10 m/s
+  public static SlewRateLimiter forward_slew = new SlewRateLimiter(10);
+  public static SlewRateLimiter side_slew = new SlewRateLimiter(10);
+  // .. and 360deg/sec
+  public static SlewRateLimiter rotation_slew = new SlewRateLimiter(360);
+
   public static double getForwardSpeed()
   {
-    return SwerveDrivetrain.MAX_METERS_PER_SEC * filter(ALTERNATE ? -joystick.getRightY() : -joystick.getLeftY());
+    return forward_slew.calculate(
+      SwerveDrivetrain.MAX_METERS_PER_SEC * filter(ALTERNATE ? -joystick.getRightY() : -joystick.getLeftY()));
   }
 
   public static double getLeftSpeed()
   {
-    return SwerveDrivetrain.MAX_METERS_PER_SEC * filter(ALTERNATE ? -joystick.getRightX() : -joystick.getLeftX());
+    return side_slew.calculate(
+      SwerveDrivetrain.MAX_METERS_PER_SEC * filter(ALTERNATE ? -joystick.getRightX() : -joystick.getLeftX()));
   }
 
   public static double getRotationSpeed()
   {
-    return SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC * filter(ALTERNATE ? -joystick.getLeftX() : -joystick.getRightX());
+    return rotation_slew.calculate(
+      SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC * filter(ALTERNATE ? -joystick.getLeftX() : -joystick.getRightX()));
   }
 
   public static Trigger reset()
   {
+    forward_slew.reset(0);
+    side_slew.reset(0);
+    rotation_slew.reset(0);
     return joystick.back();
   }
 

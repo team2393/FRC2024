@@ -4,10 +4,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.XboxController;
+import frc.swervelib.SwerveOI;
 
 /** Operator Interface: Which stick or button does what? */
-public class OperatorInterface
+public class OperatorInterface extends SwerveOI
 {
-  public static final XboxController joystick = new XboxController(0);
 }

@@ -5,6 +5,8 @@ package frc.swervebot;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.PI;
+
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,6 +23,7 @@ import frc.led.Comet;
 import frc.led.LEDRing;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
+import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveOI;
 import frc.tools.AutoTools;
 import frc.tools.CommandRobotBase;
@@ -52,6 +55,14 @@ public class SwerveBot extends CommandRobotBase
   public void robotInit()
   {
     super.robotInit();
+
+    SwerveDrivetrain.MAX_METERS_PER_SEC = 1.5;
+    SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC = 45;
+    SwerveOI.forward_slew = new SlewRateLimiter(1.5);
+    SwerveOI.side_slew = new SlewRateLimiter(1.5);
+    SwerveOI.rotation_slew = new SlewRateLimiter(90);
+
+    SwerveOI.reset();
 
     // ring.setDefaultCommand(
     //   new RepeatCommand(
