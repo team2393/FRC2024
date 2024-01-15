@@ -4,9 +4,11 @@
 
 package frc.swervebot;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
+import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.swervelib.SwerveDrivetrain;
 
@@ -14,29 +16,41 @@ import frc.swervelib.SwerveDrivetrain;
 public class CenterOnAprilTag extends Command
 {
   final private SwerveDrivetrain drivetrain;
-  final private NetworkTableEntry nt_valid, nt_yaw;
-
+  private final PhotonCamera camera;
+  
   public CenterOnAprilTag(SwerveDrivetrain drivetrain)
   {
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
 
-    NetworkTable nt = NetworkTableInstance.getDefault().getTable("photonvision");
-    nt = nt.getSubTable("HD_Pro_Webcam_C920");
-    nt_valid = nt.getEntry("hasTarget");
-    nt_yaw = nt.getEntry("targetYaw");
+    camera = new PhotonCamera("HD_Pro_Webcam_C920");
   }
 
   @Override
   public void execute()
   {
-    boolean valid = nt_valid.getBoolean(false);
-    if (!valid)
+    // Query camera for target info, pick the largest (=closest) one as the best
+    PhotonPipelineResult capture = camera.getLatestResult();
+    PhotonTrackedTarget best = null;
+    for (PhotonTrackedTarget target : capture.getTargets())
+      if (best == null  ||  target.getArea() > best.getArea())
+        best = target;
+
+    if (best == null)
       return;
-    
-    double yaw = nt_yaw.getDouble(0.0);
+
     // TODO Drive such that we center on the target
-    System.out.println("Yaw to target: " + yaw);
+    double yaw = best.getYaw();
+    // System.out.println("Yaw to target " + best.getFiducialId() + ": " + yaw);
+
+    // Ignore small angles
+    if (Math.abs(yaw) < 1)
+      yaw = 0;
+    // Negative yaw angle means target is to the left.
+    // We need to serve in +Y direction to get closer.
+    // Use prop. gain of 1, limit speed
+    double vy = MathUtil.clamp(-yaw, -0.1, 0.1);
+    drivetrain.swerve(0, vy, 0);
   }
 
   @Override
@@ -50,5 +64,6 @@ public class CenterOnAprilTag extends Command
   public void end(boolean interrupted)
   {
     // TODO Anything to do when done?
+    drivetrain.swerve(0, 0, 0);
   }
 }
