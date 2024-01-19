@@ -4,6 +4,11 @@
 package frc.led;
 
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.tools.CommandRobotBase;
 
 public class LEDRingDemoRobot extends CommandRobotBase
@@ -15,6 +20,33 @@ public class LEDRingDemoRobot extends CommandRobotBase
   {
     super.robotInit();
     // ring.setDefaultCommand(new Comet(ring));
-    ring.setDefaultCommand(new ColorPair(ring, Color.kDarkGreen, Color.kDarkGoldenrod));
+    // ring.setDefaultCommand(new ColorPair(ring, Color.kDarkGreen, Color.kDarkGoldenrod));
+  }
+
+  @Override
+  public void teleopInit()
+  {
+    // Roll red and green around the ring for 5 seconds
+    Command roll = new ParallelRaceGroup(
+                      new ColorPair(ring, Color.kRed, Color.kGreen),
+                      new WaitCommand(5)
+                    );
+    // Blink red/green a few times
+    Command blink = new SequentialCommandGroup(
+                          new SetToRed(ring),
+                          new WaitCommand(0.5),
+                          new SetToGreen(ring),
+                          new WaitCommand(0.5),
+                          new SetToRed(ring),
+                          new WaitCommand(0.5),
+                          new SetToGreen(ring),
+                          new WaitCommand(0.5),
+                          new SetToRed(ring),
+                          new WaitCommand(0.5),
+                          new SetToGreen(ring),
+                          new WaitCommand(0.5)
+                        );
+    // Keep doing those two patterns, one after the other    
+    new RepeatCommand(new SequentialCommandGroup(roll, blink)).schedule();
   }
 }
