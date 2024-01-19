@@ -37,12 +37,17 @@ Timeline
   - Driver station
   - Field Management System
   - Control motors: Set voltage, speed or position
-* Next
   - Swervebot skeleton
+* Next
+  - Command intro using LEDs
+  - Commands to drive
   - Auto drive
     - https://www.youtube.com/shorts/WaQLQT_cJeY
+  - Camera intro
+  - Use 2D camera data for alignment
   - Prepare for components of actual robot
   - Get/prepare laptop
+  - Prepare spare RoboRIO, power distribution hub, speed controllers, ...
   - Prepare button board
 * February 3: Start programming actual robot
 * February 17: Test, tune, practice
