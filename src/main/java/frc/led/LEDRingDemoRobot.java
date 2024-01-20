@@ -5,6 +5,7 @@ package frc.led;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -31,6 +32,10 @@ public class LEDRingDemoRobot extends CommandRobotBase
                       new ColorPair(ring, Color.kRed, Color.kGreen),
                       new WaitCommand(5)
                     );
+
+    // Alternate so called "fluent" way of getting the same end result:
+    // roll = new ColorPair(ring, Color.kRed, Color.kGreen).withTimeout(5);
+
     // Blink red/green a few times
     Command blink = new SequentialCommandGroup(
                           new SetToRed(ring),
@@ -46,7 +51,20 @@ public class LEDRingDemoRobot extends CommandRobotBase
                           new SetToGreen(ring),
                           new WaitCommand(0.5)
                         );
+
+      // Again alternate way:
+      // blink = new SetToRed(ring)
+      //     .andThen(Commands.waitSeconds(0.5))
+      //     .andThen(new SetToGreen(ring))
+      //     .andThen(Commands.waitSeconds(0.5))
+      //     .andThen(new SetToRed(ring))
+      //     .andThen(Commands.waitSeconds(0.5))
+      //     .andThen(new SetToGreen(ring))
+      //     .andThen(Commands.waitSeconds(0.5));
+
     // Keep doing those two patterns, one after the other    
     new RepeatCommand(new SequentialCommandGroup(roll, blink)).schedule();
+    // .. or ...
+    // roll.andThen(blink).repeatedly().schedule();
   }
 }
