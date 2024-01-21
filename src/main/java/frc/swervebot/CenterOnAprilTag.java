@@ -9,6 +9,8 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.swervelib.SwerveDrivetrain;
 
@@ -24,6 +26,9 @@ public class CenterOnAprilTag extends Command
     addRequirements(drivetrain);
 
     camera = new PhotonCamera("HD_Pro_Webcam_C920");
+
+    SmartDashboard.setDefaultNumber("CameraP", 0.1);
+    SmartDashboard.setDefaultNumber("CameraMax", 0.3);
   }
 
   @Override
@@ -31,17 +36,25 @@ public class CenterOnAprilTag extends Command
   {
     // Query camera for target info, pick the largest (=closest) one as the best
     PhotonPipelineResult capture = camera.getLatestResult();
+    double timestamp = capture.getTimestampSeconds();
+    double now = Timer.getFPGATimestamp();
+
     PhotonTrackedTarget best = null;
     for (PhotonTrackedTarget target : capture.getTargets())
       if (best == null  ||  target.getArea() > best.getArea())
         best = target;
 
     if (best == null)
+    {
+      System.out.println("No target");
       return;
+    }
 
     // TODO Drive such that we center on the target
     double yaw = best.getYaw();
-    // System.out.println("Yaw to target " + best.getFiducialId() + ": " + yaw);
+
+    System.out.format("Now %.2f  Timestamp %.2f  Target %2d  Yaw %.1f\n",
+                      now, timestamp, best.getFiducialId(), yaw);
 
     // Ignore small angles
     if (Math.abs(yaw) < 1)
@@ -49,7 +62,9 @@ public class CenterOnAprilTag extends Command
     // Negative yaw angle means target is to the left.
     // We need to serve in +Y direction to get closer.
     // Use prop. gain of 1, limit speed
-    double vy = MathUtil.clamp(-yaw, -0.1, 0.1);
+    double P = SmartDashboard.getNumber("CameraP", 0.1);
+    double max = SmartDashboard.getNumber("CameraMax", 0.3);
+    double vy = MathUtil.clamp(-P*yaw, -max, max);
     drivetrain.swerve(0, vy, 0);
   }
 
