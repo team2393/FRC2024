@@ -17,4 +17,27 @@ public class RobotMap
 
   // CAN IDs
   public static final int FRONT_LEFT_DRIVE = 1;
+  public static final int FRONT_RIGHT_DRIVE = 2;
+  public static final int BACK_RIGHT_DRIVE = 3;
+  public static final int BACK_LEFT_DRIVE = 4;
+
+  public static final int FRONT_LEFT_ROTATE = 5;
+  public static final int FRONT_RIGHT_ROTATE = 6;
+  public static final int BACK_RIGHT_ROTATE = 7;
+
+  public static final int INTAKE_SPINNER = 8;
+
+  public static final int FEEDER = 9;
+
+  public static final int SHOOTER = 10;
+
+  // Pneumatic control module channels
+  public static final int INTAKE_IN_OUT = 0;
+
+  // Digital I/O
+  public static final int FEED_SENSOR = 0;
+  public static final int SHOOTER_SENSOR = 1;
+
+  // PWM outputs
+  public static final int LED_STRIP = 0;
 }
