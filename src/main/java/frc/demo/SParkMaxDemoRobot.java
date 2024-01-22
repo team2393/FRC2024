@@ -9,12 +9,13 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OperatorInterface;
+import frc.robot.RobotMap;
 import frc.tools.CommandRobotBase;
 
 /** Motor Demo */
-public class SParkMaxDemoRobot extends CommandRobotBase
+public class SparkMaxDemoRobot extends CommandRobotBase
 {
-    private final CANSparkMax motor = new CANSparkMax(0, MotorType.kBrushless);
+    private final CANSparkMax motor = new CANSparkMax(RobotMap.FRONT_LEFT_ROTATE, MotorType.kBrushless);
 
     @Override
     public void robotInit()

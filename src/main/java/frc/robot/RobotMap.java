@@ -10,6 +10,10 @@ public class RobotMap
   // TODO Power Distribution Info
   // Add someting similar to the comment in
   // https://github.com/team2393/FRC2022/blob/main/src/main/java/frc/robot/RobotMap.java
+  //
+  //
+  // 21  -  RoboRIO, 10 Amp
+  //
   // which shows the outputs of the power distribution panel
   // and how they are used: What motor/device/.., what type of fuse.
   // See https://docs.wpilib.org/en/latest/docs/controls-overviews/control-system-hardware.html
@@ -24,12 +28,13 @@ public class RobotMap
   public static final int FRONT_LEFT_ROTATE = 5;
   public static final int FRONT_RIGHT_ROTATE = 6;
   public static final int BACK_RIGHT_ROTATE = 7;
+  public static final int BACK_LEFT_ROTATE = 8;
 
-  public static final int INTAKE_SPINNER = 8;
+  public static final int INTAKE_SPINNER = 9;
 
-  public static final int FEEDER = 9;
+  public static final int FEEDER = 10;
 
-  public static final int SHOOTER = 10;
+  public static final int SHOOTER = 11;
 
   // Pneumatic control module channels
   public static final int INTAKE_IN_OUT = 0;
