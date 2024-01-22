@@ -26,10 +26,11 @@ public class AutoTools
 
   /** Create trajectory from points
    *
-   *  Given list of points must contain entries x, y, h,
+   *  <p>Given list of points must contain entries x, y, h,
    *  i.e., total length of x_y_h array must be a multiple of 3.
    *
-   *  @param forward Are we driving forward?
+   *  @param forward Are we driving forward along the trajectory?
+   *                 (swerve bot might actually face any direction, this is about the trajectory!)
    *  @param x_y_z   Sequence of points { X, Y, Heading }
    */
   public static Trajectory createTrajectory(final boolean forward, final double... x_y_h)

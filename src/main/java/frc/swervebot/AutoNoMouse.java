@@ -11,7 +11,9 @@ import java.util.List;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.swervelib.ResetPositionCommand;
 import frc.swervelib.SelectAbsoluteTrajectoryCommand;
 import frc.swervelib.SelectRelativeTrajectoryCommand;
@@ -27,7 +29,40 @@ public class AutoNoMouse
   /** Create all our auto-no-mouse commands */
   public static List<Command> createAutoCommands(SwerveDrivetrain drivetrain)
   {
+    // List of all autonomouse commands
     final List<Command> autos = new ArrayList<>();
+
+    // Each auto is created within a { .. block .. } so we get local variables for 'path' and the like 
+    {
+      // Blue Bottom: Move out, Shoot, Pickup, Shoot
+      SequentialCommandGroup auto = new SequenceWithStart("BBMSPS", 1.51, 2.38, 180);
+      auto.addCommands(new VariableWaitCommand());
+      auto.addCommands(new SelectAbsoluteTrajectoryCommand(drivetrain, 1.51, 2.38, 180));
+      // Move out (back), then over to front of target
+      Trajectory path = createTrajectory(true, 1.51, 2.38,   0,
+                                               3.50, 2.38,  90,
+                                               2.70, 3.50,  90,
+                                               2.44, 5.64, 120);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path, 180));
+      auto.addCommands(new PrintCommand("Shoot!"));
+      auto.addCommands(new WaitCommand(2));
+      // Pickup another ring form right behind
+      auto.addCommands(new PrintCommand("Open intake"));
+      auto.addCommands(new RotateToHeadingCommand(drivetrain, 0));
+      Trajectory path2 = createTrajectory(true, 2.44, 5.64, 0,
+                                                3.60, 5.64, 0);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path2, 0));
+      auto.addCommands(new PrintCommand("Close intake"));
+      auto.addCommands(new RotateToHeadingCommand(drivetrain, 180));
+      // Move forward to target and shoot
+      Trajectory path3 = createTrajectory(true, 3.60, 5.64, 180,
+                                                2.44, 5.64, 180);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path3, 180));
+      auto.addCommands(new PrintCommand("Shoot!"));
+      auto.addCommands(new WaitCommand(2));
+      auto.addCommands(new PrintCommand("Done."));
+      autos.add(auto);
+    }
 
     { // Drive forward 1.5 m using a (simple) trajectory
       // Can be used from Blue or Red, Top or Bottom
