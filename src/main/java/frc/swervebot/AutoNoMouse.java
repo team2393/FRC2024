@@ -12,8 +12,10 @@ import java.util.List;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.swervelib.ResetPositionCommand;
 import frc.swervelib.SelectAbsoluteTrajectoryCommand;
 import frc.swervelib.SelectRelativeTrajectoryCommand;
+import frc.swervelib.RotateToHeadingCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveToPositionCommand;
 import frc.swervelib.VariableWaitCommand;
@@ -27,7 +29,8 @@ public class AutoNoMouse
   {
     final List<Command> autos = new ArrayList<>();
 
-    { // Simply drive forward 1.5 m, can be used from Blue or Red, Top or Bottom
+    { // Drive forward 1.5 m using a (simple) trajectory
+      // Can be used from Blue or Red, Top or Bottom
       SequentialCommandGroup auto = new SequentialCommandGroup();
       auto.setName("Forward 1.5m");
       auto.addCommands(new VariableWaitCommand());
@@ -38,12 +41,25 @@ public class AutoNoMouse
       autos.add(auto);
     }
 
-    {
-      autos.add(new VariableWaitCommand()
-                .andThen(new SelectAbsoluteTrajectoryCommand(drivetrain, 0, 0, 0))
-                .andThen(new SwerveToPositionCommand(drivetrain, 4, 4))
-                .andThen(new SwerveToPositionCommand(drivetrain, 9, 3))
-                .withName("4,4 <-> 9,3"));
+    { // Drive a 1.5 square using SwerveToPositionCommand & RotateToHeadingCommand
+      SequentialCommandGroup auto = new SequentialCommandGroup();
+      auto.setName("1.5m Square");
+      auto.addCommands(new VariableWaitCommand());
+      auto.addCommands(new ResetPositionCommand(drivetrain));
+
+      auto.addCommands(new SwerveToPositionCommand(drivetrain, 1.5, 0.0));
+      auto.addCommands(new RotateToHeadingCommand(drivetrain, 90));
+
+      auto.addCommands(new SwerveToPositionCommand(drivetrain, 1.5, 1.5));
+      auto.addCommands(new RotateToHeadingCommand(drivetrain, 180));
+
+      auto.addCommands(new SwerveToPositionCommand(drivetrain, 0.0, 1.5));
+      auto.addCommands(new RotateToHeadingCommand(drivetrain, -90));
+
+      auto.addCommands(new SwerveToPositionCommand(drivetrain, 0.0, 0.0));
+      auto.addCommands(new RotateToHeadingCommand(drivetrain, 0));
+
+      autos.add(auto);
     }
 
     {
