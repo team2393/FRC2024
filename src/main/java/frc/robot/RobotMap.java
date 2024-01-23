@@ -20,21 +20,30 @@ public class RobotMap
   // for the potential types of power distribution panels.
 
   // CAN IDs
+  // (IDs are specific to the device type, so a SparkMax and CANCoder could use the same ID...)
+
+  // SparkMax drive motors
   public static final int FRONT_LEFT_DRIVE = 1;
   public static final int FRONT_RIGHT_DRIVE = 2;
   public static final int BACK_RIGHT_DRIVE = 3;
   public static final int BACK_LEFT_DRIVE = 4;
 
+  // SparkMax rotator motors
   public static final int FRONT_LEFT_ROTATE = 5;
   public static final int FRONT_RIGHT_ROTATE = 6;
   public static final int BACK_RIGHT_ROTATE = 7;
   public static final int BACK_LEFT_ROTATE = 8;
 
-  public static final int INTAKE_SPINNER = 9;
+  // CANCoder angle sensors
+  public static final int FRONT_LEFT_ANGLE = 9;
+  public static final int FRONT_RIGHT_ANGLE = 10;
+  public static final int BACK_RIGHT_ANGLE = 11;
+  public static final int BACK_LEFT_ANGLE = 12;
 
-  public static final int FEEDER = 10;
-
-  public static final int SHOOTER = 11;
+  // SparkMax motors
+  public static final int INTAKE_SPINNER = 13;
+  public static final int FEEDER = 14;
+  public static final int SHOOTER = 15;
 
   // Pneumatic control module channels
   public static final int INTAKE_IN_OUT = 0;

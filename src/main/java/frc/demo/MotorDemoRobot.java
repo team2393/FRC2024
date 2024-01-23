@@ -22,6 +22,7 @@ import frc.tools.CommandRobotBase;
  *  with the v5 API, so best stay with that as long
  *  as we have some older hardware?
  */
+@SuppressWarnings("removal")
 public class MotorDemoRobot extends CommandRobotBase
 {
     private final WPI_TalonFX motor = new WPI_TalonFX(RobotMap.FRONT_LEFT_DRIVE);
