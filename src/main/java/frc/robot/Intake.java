@@ -84,8 +84,19 @@ public class Intake extends SubsystemBase
     // Show if we have detected a game piece
     have_gamepiece_entry.setBoolean(have_gamepiece);
 
+    // Automatically close intake when we have a game piece
+    if (have_gamepiece)
+      open = false;
+
     // Update solenoid to open or close the intake
     in_out.set(open);
+
+    // Run spinner when open
+    // TODO Find good voltage for pulling in
+    if (open)
+      spinner.setVoltage(3);
+    else
+      spinner.setVoltage(0);
 
     // Update simulated intake mechanism
     if (open)
