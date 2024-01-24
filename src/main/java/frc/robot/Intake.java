@@ -57,16 +57,17 @@ public class Intake extends SubsystemBase
     //             \
     //              \
     //  === bumper ===
+    // front  ... back
 
     // Size of mechanism: 0.8m wide, 1m high
     Mechanism2d mechanism = new Mechanism2d(0.8, 1.0, new Color8Bit(Color.kLightGray));
     // Static base of the robot with bumper
-    mechanism.getRoot("back", 0, 0.1)
+    mechanism.getRoot("front", 0, 0.1)
         .append(new MechanismLigament2d("bumper", 0.8, 0, 20, new Color8Bit(Color.kBlue)));
-    // Intake over the front, two parts to simulate moving out/in
-    intake_upper = mechanism.getRoot("front", 0.75, 0.2)
+    // Intake over the back, two parts to simulate moving out/in
+    intake_upper = mechanism.getRoot("back", 0.75, 0.2)
         .append(new MechanismLigament2d("intake_upper", 0.4, 135, 10, new Color8Bit(Color.kRed)));
-    intake_lower = mechanism.getRoot("front", 0.75, 0.2)
+    intake_lower = mechanism.getRoot("back", 0.75, 0.2)
         .append(new MechanismLigament2d("intake_lower", 0.0, -45, 10, new Color8Bit(Color.kRed)));
     // Make available on dashboard
     SmartDashboard.putData("Intake", mechanism);
