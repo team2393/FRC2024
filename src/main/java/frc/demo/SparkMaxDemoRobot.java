@@ -22,6 +22,8 @@ public class SparkMaxDemoRobot extends CommandRobotBase
     {
         super.robotInit();
         motor.restoreFactoryDefaults();
+        motor.clearFaults();
+        motor.setOpenLoopRampRate(1);
     }
 
     @Override
@@ -35,6 +37,16 @@ public class SparkMaxDemoRobot extends CommandRobotBase
     @Override
     public void teleopPeriodic()
     {
-        motor.setVoltage(OperatorInterface.joystick.getRightY()*12.0);
+        double voltage = OperatorInterface.joystick.getRightX() * 12;
+        SmartDashboard.putNumber("Voltage", voltage);
+        motor.setVoltage(voltage);
+    }
+
+    @Override
+    public void autonomousPeriodic()
+    {
+        double voltage = ((System.currentTimeMillis() / 3000) % 2) * 6.0;
+        SmartDashboard.putNumber("Voltage", voltage);
+        motor.setVoltage(voltage);
     }
 }
