@@ -40,7 +40,6 @@ public class AutoNoMouse
       auto.addCommands(new SelectAbsoluteTrajectoryCommand(drivetrain, 0.51, 2.38, 180));
       // Move out (back), then over to front of target
       Trajectory path = createTrajectory(true, 0.51, 2.38,   0,
-                                               2.50, 2.38,  90,
                                                1.70, 3.50,  90,
                                                1.44, 5.54, 120);
       auto.addCommands(drivetrain.createTrajectoryCommand(path, 180));
@@ -48,16 +47,42 @@ public class AutoNoMouse
       auto.addCommands(new WaitCommand(2));
       // Pickup another ring form right behind
       auto.addCommands(new PrintCommand("Open intake"));
-      auto.addCommands(new RotateToHeadingCommand(drivetrain, 0));
       Trajectory path2 = createTrajectory(true, 1.44, 5.54, 0,
                                                 2.60, 5.54, 0);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path2, 0));
+      auto.addCommands(drivetrain.createTrajectoryCommand(path2, 180));
       auto.addCommands(new PrintCommand("Close intake"));
-      auto.addCommands(new RotateToHeadingCommand(drivetrain, 180));
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 2.60, 5.54, 180,
                                                 1.44, 5.54, 180);
       auto.addCommands(drivetrain.createTrajectoryCommand(path3, 180));
+      auto.addCommands(new PrintCommand("Shoot!"));
+      auto.addCommands(new WaitCommand(2));
+      auto.addCommands(new PrintCommand("Done."));
+      autos.add(auto);
+    }
+
+    {
+      // Red Bottom: Move out, Shoot, Pickup, Shoot
+      SequentialCommandGroup auto = new SequenceWithStart("RBMSPS", 16.01, 2.38, 0);
+      auto.addCommands(new VariableWaitCommand());
+      auto.addCommands(new SelectAbsoluteTrajectoryCommand(drivetrain, 16.01, 2.38, 0));
+      // Move out (back), then over to front of target
+      Trajectory path = createTrajectory(true, 16.01, 2.38, 180,
+                                               14.82, 3.50,  90,
+                                               15.08, 5.54,  60);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path, 0));
+      auto.addCommands(new PrintCommand("Shoot!"));
+      auto.addCommands(new WaitCommand(2));
+      // Pickup another ring form right behind
+      auto.addCommands(new PrintCommand("Open intake"));
+      Trajectory path2 = createTrajectory(true, 15.08, 5.54, 180,
+                                                13.92, 5.54, 180);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path2, 0));
+      auto.addCommands(new PrintCommand("Close intake"));
+      // Move forward to target and shoot
+      Trajectory path3 = createTrajectory(true, 13.92, 5.54, 0,
+                                                15.08, 5.54, 0);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path3, 0));
       auto.addCommands(new PrintCommand("Shoot!"));
       auto.addCommands(new WaitCommand(2));
       auto.addCommands(new PrintCommand("Done."));
