@@ -35,7 +35,7 @@ public class Rainbow extends Command
     }
 
     // goes through colors in small chunks and preserves its current position in execute()
-    for (i = i; i < target; i++)
+    for (/**/; i < target; i++)
     {
       // move on to next stage if finished with one RGB value
       if (i >= 255)
@@ -53,7 +53,7 @@ public class Rainbow extends Command
         }
       }
 
-      for (int j = 0; j < ring.N; j++)
+      for (int j = 0; j < LEDRing.N; j++)
       {
         switch (stage)
         {

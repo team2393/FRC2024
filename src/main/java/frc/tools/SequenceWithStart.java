@@ -15,7 +15,7 @@ public class SequenceWithStart extends SequentialCommandGroup
 
   /** Create SequentialCommandGroup with initial position
    *
-   *  Allows displaying the start position on the field
+   *  <p>Allows displaying the start position on the field
    *  when selecting auto option
    *
    *  @param name Name of command

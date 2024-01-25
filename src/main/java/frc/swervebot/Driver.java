@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import frc.swervelib.DriverBase;
 
 /** Driver using Falcon */
+@SuppressWarnings("removal")
 public class Driver extends DriverBase
 {
   private final static int TICKS_PER_METER = 42962;

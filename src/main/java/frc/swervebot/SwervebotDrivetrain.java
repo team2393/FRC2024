@@ -19,13 +19,11 @@ public class SwervebotDrivetrain extends SwerveDrivetrain
   {
     super(0.393,
           0.416,
-          new SwerveModule[]
-          {
-            new SwerveModule(new Rotator(0,  -16), new Driver(0)),
-            new SwerveModule(new Rotator(1,   89), new Driver(1)),
-            new SwerveModule(new Rotator(2, -161), new Driver(2)),
-            new SwerveModule(new Rotator(3, -108), new Driver(3))
-          });
+          new SwerveModule(new Rotator(0,  -16), new Driver(0)),
+          new SwerveModule(new Rotator(1,   89), new Driver(1)),
+          new SwerveModule(new Rotator(2, -161), new Driver(2)),
+          new SwerveModule(new Rotator(3, -108), new Driver(3))
+          );
   }
 
   public double getRawHeading()

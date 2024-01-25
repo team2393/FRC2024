@@ -12,12 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-import edu.wpi.first.wpilibj2.command.RepeatCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.led.ColorPair;
 import frc.led.Comet;
 import frc.led.Rainbow;
@@ -101,9 +96,9 @@ public class SwerveBot extends CommandRobotBase
   public void teleopInit()
   {
     // Bind buttons to commands
-    SwerveOI.selectRelative().onTrue(relswerve);
-    SwerveOI.selectAbsolute().onTrue(absswerve);
-    SwerveOI.joystick.a().onTrue(center_on_tag);
+    drivetrain.setDefaultCommand(relswerve);
+    SwerveOI.selectAbsolute().toggleOnTrue(absswerve);
+    SwerveOI.joystick.a().whileTrue(center_on_tag);
     // Instead of 'binding' commands in ..Init(),
     // could add this to ..Periodic():
     //   if (SwerveOI.selectRelative().getAsBoolean())

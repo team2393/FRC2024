@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.tools.CommandRobotBase;
 
 /** Demo of speed control of a spinner */
+@SuppressWarnings("removal")
 public class SpinnerSpeedDemo extends CommandRobotBase  
 {
     private WPI_TalonFX motor = new WPI_TalonFX(1);

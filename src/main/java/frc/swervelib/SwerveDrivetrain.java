@@ -90,7 +90,7 @@ abstract public class SwerveDrivetrain extends SubsystemBase
    *  @param length Length of that rectangle in meters
    *  @param modules Front left, front right, back right, back left module
    */
-  public SwerveDrivetrain(double width, double length, SwerveModule[] modules)
+  public SwerveDrivetrain(double width, double length, SwerveModule... modules)
   {
     this.width = width;
     this.length = length;

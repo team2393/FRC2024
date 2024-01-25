@@ -9,18 +9,21 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.OperatorInterface;
+import frc.robot.RobotMap;
 import frc.tools.CommandRobotBase;
 
 /** Motor Demo */
-public class SParkMaxDemoRobot extends CommandRobotBase
+public class SparkMaxDemoRobot extends CommandRobotBase
 {
-    private final CANSparkMax motor = new CANSparkMax(0, MotorType.kBrushless);
+    private final CANSparkMax motor = new CANSparkMax(RobotMap.FRONT_LEFT_ROTATE, MotorType.kBrushless);
 
     @Override
     public void robotInit()
     {
         super.robotInit();
         motor.restoreFactoryDefaults();
+        motor.clearFaults();
+        motor.setOpenLoopRampRate(1);
     }
 
     @Override
@@ -34,6 +37,16 @@ public class SParkMaxDemoRobot extends CommandRobotBase
     @Override
     public void teleopPeriodic()
     {
-        motor.setVoltage(OperatorInterface.joystick.getRightY()*12.0);
+        double voltage = OperatorInterface.joystick.getRightX() * 12;
+        SmartDashboard.putNumber("Voltage", voltage);
+        motor.setVoltage(voltage);
+    }
+
+    @Override
+    public void autonomousPeriodic()
+    {
+        double voltage = ((System.currentTimeMillis() / 3000) % 2) * 6.0;
+        SmartDashboard.putNumber("Voltage", voltage);
+        motor.setVoltage(voltage);
     }
 }
