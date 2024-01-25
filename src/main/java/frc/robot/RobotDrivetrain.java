@@ -3,8 +3,6 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
-
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveModule;
 
@@ -17,14 +15,14 @@ public class RobotDrivetrain extends SwerveDrivetrain
   {
     super(0.393,
           0.416,
-          new SwerveModule(new Rotator(0, RobotMap.FRONT_LEFT_ROTATE, RobotMap.FRONT_LEFT_ANGLE, 0.0),
-                            new Driver (0, RobotMap.FRONT_LEFT_DRIVE)),
-          new SwerveModule(new Rotator(1, RobotMap.FRONT_RIGHT_ROTATE, RobotMap.FRONT_RIGHT_ANGLE, 0.0),
-                            new Driver (1, RobotMap.FRONT_RIGHT_DRIVE)),
-          new SwerveModule(new Rotator(2, RobotMap.BACK_RIGHT_ROTATE, RobotMap.BACK_RIGHT_ANGLE, 0.0),
-                            new Driver (2, RobotMap.BACK_RIGHT_DRIVE)),
-          new SwerveModule(new Rotator(3, RobotMap.BACK_LEFT_ROTATE, RobotMap.BACK_LEFT_ANGLE, 0.0),
-                            new Driver (3, RobotMap.BACK_LEFT_DRIVE))
+          new SwerveModule(new Rotator(0, RobotMap.FRONT_LEFT_ROTATE,  RobotMap.FRONT_LEFT_ANGLE,   0.0),
+                           new Driver (0, RobotMap.FRONT_LEFT_DRIVE)),
+          new SwerveModule(new Rotator(1, RobotMap.FRONT_RIGHT_ROTATE, RobotMap.FRONT_RIGHT_ANGLE,  0.0),
+                           new Driver (1, RobotMap.FRONT_RIGHT_DRIVE)),
+          new SwerveModule(new Rotator(2, RobotMap.BACK_RIGHT_ROTATE,  RobotMap.BACK_RIGHT_ANGLE,   0.0),
+                           new Driver (2, RobotMap.BACK_RIGHT_DRIVE)),
+          new SwerveModule(new Rotator(3, RobotMap.BACK_LEFT_ROTATE,   RobotMap.BACK_LEFT_ANGLE,    0.0),
+                           new Driver (3, RobotMap.BACK_LEFT_DRIVE))
           );
   }
 

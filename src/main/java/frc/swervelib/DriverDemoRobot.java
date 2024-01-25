@@ -25,6 +25,8 @@ public class DriverDemoRobot extends CommandRobotBase
   @Override
   public void teleopPeriodic()
   {
+    if (joystick.getXButton())
+      driver.resetPosition();
     if (joystick.getAButton())
     { // Use joystick to control setpoint
       double setpoint = -3.0 * joystick.getLeftY();
@@ -48,8 +50,8 @@ public class DriverDemoRobot extends CommandRobotBase
   {
     // Toggle speed between two setpoints
     double setpoint = ((System.currentTimeMillis() / (int)(SmartDashboard.getNumber("Period", 5.0)*1000)) % 2 == 1)
-                    ? SmartDashboard.getNumber("Setpoint1", 0.0)
-                    : SmartDashboard.getNumber("Setpoint2", 90.0);
+                    ? SmartDashboard.getNumber("Setpoint1", 0.5)
+                    : SmartDashboard.getNumber("Setpoint2", 1.5);
     driver.setSpeed(setpoint);
     SmartDashboard.putNumber("Setpoint", setpoint);
   }
