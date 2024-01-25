@@ -39,7 +39,7 @@ public class AutoNoMouse
       auto.addCommands(new VariableWaitCommand());
       auto.addCommands(new SelectAbsoluteTrajectoryCommand(drivetrain, 0.51, 2.38, 180));
       // Move out (back), then over to front of target
-      Trajectory path = createTrajectory(true, 0.51, 2.38,   0,
+      Trajectory path = createTrajectory(true, 0,
                                                1.70, 3.50,  90,
                                                1.44, 5.54, 120);
       auto.addCommands(drivetrain.createTrajectoryCommand(path, 180));
@@ -61,6 +61,14 @@ public class AutoNoMouse
       autos.add(auto);
     }
 
+    // To 'mirror' a setup from the left/blue to the right/red side,
+    // X turns into WIDTH_OF_FIELD - X, where WIDTH_OF_FIELD is about 16.52 meters
+    // Y stays unchanged
+    // Heading changes into 180 - heading
+    //
+    // Example: A pose      1.44, 5.54, 120 changes into
+    //                16.52-1.44, 5.54, 180-120 = 
+    //                     15.08, 5.54,  60
     {
       // Red Bottom: Move out, Shoot, Pickup, Shoot
       SequentialCommandGroup auto = new SequenceWithStart("RBMSPS", 16.01, 2.38, 0);
