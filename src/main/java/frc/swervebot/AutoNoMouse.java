@@ -39,9 +39,9 @@ public class AutoNoMouse
       auto.addCommands(new VariableWaitCommand());
       auto.addCommands(new SelectAbsoluteTrajectoryCommand(drivetrain, 0.51, 2.38, 180));
       // Move out (back), then over to front of target
-      Trajectory path = createTrajectory(true, 0,
-                                               1.70, 3.50,  90,
-                                               1.44, 5.54, 120);
+      Trajectory path = createTrajectory(true, 0.51, 2.38,   0,
+                                                                1.70, 3.50,  90,
+                                                                1.44, 5.54, 120);
       auto.addCommands(drivetrain.createTrajectoryCommand(path, 180));
       auto.addCommands(new PrintCommand("Shoot!"));
       auto.addCommands(new WaitCommand(2));
