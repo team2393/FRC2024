@@ -7,7 +7,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.tools.CommandRobotBase;
 
-/** Robot for testing rotation motors */
+/** Robot for testing rotation motors
+ *
+ *  Verify that positive voltage runs motor counterclockwise as viewed from above.
+ *  Calibrate angle sensor, positive is CCW.
+ *  Zero angle when module points forward.
+ *  Tune PID in auto to meet desired angle.
+ */
 public class RotatatorDemoRobot extends CommandRobotBase
 {
   private final RotatorBase rotator;

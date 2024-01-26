@@ -7,7 +7,12 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.tools.CommandRobotBase;
 
-/** Robot for testing driver motors */
+/** Robot for testing driver motors
+ *
+ *  Verify that positive voltage runs motor 'forward'.
+ *  Calibrate distance and speed.
+ *  Tune feed forward and PID in auto to meet desired speeds.
+ */
 public class DriverDemoRobot extends CommandRobotBase
 {
   private final DriverBase driver;

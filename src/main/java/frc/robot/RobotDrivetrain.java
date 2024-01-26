@@ -13,6 +13,7 @@ public class RobotDrivetrain extends SwerveDrivetrain
 
   public RobotDrivetrain()
   {
+    // TODO Measure module corner distances
     super(0.393,
           0.416,
           new SwerveModule(new Rotator(0, RobotMap.FRONT_LEFT_ROTATE,  RobotMap.FRONT_LEFT_ANGLE,   0.0),
