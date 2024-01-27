@@ -4,6 +4,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,11 +28,16 @@ public class Robot extends CommandRobotBase
   {
     super.robotInit();
 
+    // Speed settings:
+    // SwerveDrivetrain controls maximum enforced by swerve(vx, vy, vr) and SwerveOI
     SwerveDrivetrain.MAX_METERS_PER_SEC = 1.5;
     SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC = 45;
+    // Slew limiters for interactive moves
     SwerveOI.forward_slew = new SlewRateLimiter(1.5);
     SwerveOI.side_slew = new SlewRateLimiter(1.5);
     SwerveOI.rotation_slew = new SlewRateLimiter(90);
+    // Maximum speed requested in autonomous moves (can't exceed MAX_METERS_PER_SEC)
+    AutoTools.config = new TrajectoryConfig(1.5, 1.5);
 
     SwerveOI.reset();
 
