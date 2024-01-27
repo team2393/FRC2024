@@ -97,7 +97,7 @@ public class AutoNoMouse
       autos.add(auto);
     }
 
-    { // Drive forward 2.5 m using a (simple) trajectory
+    { // Drive forward 2.5 m using a trajectory
       // Can be used from Blue or Red, Top or Bottom
       SequentialCommandGroup auto = new SequentialCommandGroup();
       auto.setName("Forward 2.5m");
