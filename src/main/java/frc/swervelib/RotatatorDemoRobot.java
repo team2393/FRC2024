@@ -34,7 +34,11 @@ public class RotatatorDemoRobot extends CommandRobotBase
       rotator.setAngle(Math.toDegrees(Math.atan2(-joystick.getLeftX(),
                                                  -joystick.getLeftY())));
     else
-      rotator.setVoltage(6.0 * joystick.getLeftX());
+    {
+      double voltage = 6.0 * joystick.getLeftX();
+      SmartDashboard.putNumber("voltage", voltage);
+      rotator.setVoltage(voltage);
+    }
   }
 
   @Override

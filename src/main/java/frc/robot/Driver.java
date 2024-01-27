@@ -12,7 +12,7 @@ import frc.swervelib.DriverBase;
 /** Driver using SparkMax */
 public class Driver extends DriverBase
 {
-  private final static int REV_PER_METER = 1;
+  private final static double REV_PER_METER = 22.3; //22.5 43.7
 
   private final CANSparkMax motor;
 
@@ -21,12 +21,13 @@ public class Driver extends DriverBase
    */
   public Driver(int index, int motor_id)
   {
-    super(index, 0.5, 2.24, 0, 0.4, 0.1);
+    super(index, 0.13, 2.63, 0, 0.09, 0.07);
   
     motor = new CANSparkMax(motor_id, MotorType.kBrushless);
     motor.restoreFactoryDefaults();
     motor.clearFaults();
     motor.setIdleMode(IdleMode.kBrake);
+    motor.setInverted(true);
     // Dampen the acceleration
     motor.setOpenLoopRampRate(0.1);
   }
@@ -40,7 +41,7 @@ public class Driver extends DriverBase
   protected double getRealSpeed()
   {
     // Convert revolution per minute into m/s
-    return motor.getEncoder().getVelocity() * 60.0 / REV_PER_METER;
+    return motor.getEncoder().getVelocity() / 60.0 / REV_PER_METER;
   }
 
   public void setVoltage(double voltage)

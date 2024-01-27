@@ -10,6 +10,6 @@ public class RotatorTestRobot extends RotatatorDemoRobot
 {
     public RotatorTestRobot()
     {
-        super(new Rotator(0, RobotMap.FRONT_LEFT_ROTATE, RobotMap.FRONT_LEFT_ANGLE, 0.0));
+        super(new Rotator(0, RobotMap.BACK_RIGHT_ROTATE, RobotMap.BACK_RIGHT_ANGLE, 42.1));
     }
 }

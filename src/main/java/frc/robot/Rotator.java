@@ -26,13 +26,14 @@ public class Rotator extends RotatorBase
    */
   public Rotator(int index, int motor_id, int encoder_id, double offset)
   {
-    super(index, offset, 0.1, 0.5, 0, 0.01, 9.0);
+    super(index, offset, 0.13, 0.06, 0, 0.001, 6.0);
 
     motor = new CANSparkMax(motor_id, MotorType.kBrushless);
     motor.restoreFactoryDefaults();
     motor.clearFaults();
     motor.setIdleMode(IdleMode.kCoast);
-
+    motor.setInverted(true);
+    motor.setOpenLoopRampRate(0.25);
     encoder = new WPI_CANCoder(encoder_id, "rio");
     encoder.configFactoryDefault();
     encoder.clearStickyFaults();

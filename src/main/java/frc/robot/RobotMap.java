@@ -23,16 +23,16 @@ public class RobotMap
   // (IDs are specific to the device type, so a SparkMax and CANCoder could use the same ID...)
 
   // SparkMax drive motors
-  public static final int FRONT_LEFT_DRIVE = 1;
-  public static final int FRONT_RIGHT_DRIVE = 2;
-  public static final int BACK_RIGHT_DRIVE = 3;
-  public static final int BACK_LEFT_DRIVE = 4;
+  public static final int FRONT_LEFT_DRIVE = 2;
+  public static final int FRONT_RIGHT_DRIVE = 4;
+  public static final int BACK_RIGHT_DRIVE = 6;
+  public static final int BACK_LEFT_DRIVE = 8;
 
   // SparkMax rotator motors
-  public static final int FRONT_LEFT_ROTATE = 5;
-  public static final int FRONT_RIGHT_ROTATE = 6;
-  public static final int BACK_RIGHT_ROTATE = 7;
-  public static final int BACK_LEFT_ROTATE = 8;
+  public static final int FRONT_LEFT_ROTATE = 1;
+  public static final int FRONT_RIGHT_ROTATE = 3;
+  public static final int BACK_RIGHT_ROTATE = 5;
+  public static final int BACK_LEFT_ROTATE = 7;
 
   // CANCoder angle sensors
   public static final int FRONT_LEFT_ANGLE = 9;

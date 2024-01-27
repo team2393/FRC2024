@@ -15,9 +15,12 @@ public final class Main
     // RobotBase.startRobot(frc.led.LEDRingDemoRobot::new);
     // RobotBase.startRobot(frc.demo.MotorDemoRobot::new);
     // RobotBase.startRobot(frc.swervebot.SwerveModuleDemoRobot::new);
-    RobotBase.startRobot(frc.demo.SparkMaxDemoRobot::new);
-    //  RobotBase.startRobot(frc.demo.IntakeAngleDemoRobot::new);
+    // RobotBase.startRobot(frc.demo.SparkMaxDemoRobot::new);
+    // RobotBase.startRobot(frc.demo.IntakeAngleDemoRobot::new);
     // RobotBase.startRobot(frc.demo.SpinnerSpeedDemo::new);
     // RobotBase.startRobot(frc.robot.IntakeTestRobot::new);
+    //RobotBase.startRobot(frc.robot.RotatorTestRobot::new);
+   // RobotBase.startRobot(frc.robot.DriveTestRobot::new);
+   RobotBase.startRobot(frc.robot.Robot::new);
   }
 }

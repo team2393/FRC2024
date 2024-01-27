@@ -10,6 +10,6 @@ public class DriveTestRobot extends DriverDemoRobot
 {
     public DriveTestRobot()
     {
-        super(new Driver(0, RobotMap.FRONT_LEFT_DRIVE));
+        super(new Driver(0, RobotMap.BACK_RIGHT_DRIVE));
     }
 }
