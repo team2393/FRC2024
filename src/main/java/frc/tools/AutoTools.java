@@ -22,7 +22,7 @@ import frc.swervelib.SwerveDrivetrain;
 public class AutoTools
 {
   // Run at up to 1.5m/s, accelerate by 1.0ms per second
-  public static TrajectoryConfig config = new TrajectoryConfig(1.5, 1.5);
+  public static TrajectoryConfig config = new TrajectoryConfig(1.5, 1.0);
 
   /** Create trajectory from points
    *

@@ -12,6 +12,6 @@ public class IntakeTestRobot extends CommandRobotBase
 
     public IntakeTestRobot()
     {
-        OperatorInterface.joystick.a().onTrue(intake.getToggleCommand());
+        OperatorInterface.toggleIntake().onTrue(intake.getToggleCommand());
     }
 }
