@@ -1,6 +1,8 @@
 // Copyright (c) FIRST Team 2393 and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
+
+// This is a file to make sure that if I accidentally commit to main somehow, I dont wipe autonomouse. If I do push to the right branch I'll remove this and add it to AutoNoMouse.
 package frc.robot;
 
 import static frc.tools.AutoTools.createTrajectory;
@@ -147,6 +149,40 @@ public class AutoNoMouse
                                       new VariableWaitCommand(),
                                       new SelectAbsoluteTrajectoryCommand(drivetrain, 1.91, 2.245, 0),
                                       followPathWeaver(drivetrain, "Circle", 0.0)));
+    }
+
+    {
+      // Blue Amplifier: Move Pickup Shoot
+      SequentialCommandGroup auto = new SequenceWithStart("BAMPS", 1.5, 5.5, 180);
+      auto.addCommands(new VariableWaitCommand());
+      auto.addCommands(new SelectAbsoluteTrajectoryCommand(drivetrain, 1.5, 5.5, 180));
+      auto.addCommands(new PrintCommand("Open intake!"));
+      // Move to top ring and get it.
+      Trajectory path = createTrajectory(true, 1.5, 5.5, 0,
+                                                        1.8, 6, 90,
+                                                      2.36, 7, 90);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path, 180));
+      auto.addCommands(new PrintCommand("Close intake!"));
+      // Move back to amp, shoot.
+      
+      Trajectory path2 = createTrajectory(true, 2.36, 7, 180,
+                                                                    1.93, 6, 180,
+                                                                  1.5, 5.5, 180);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path2, 180));
+       auto.addCommands(new PrintCommand("Shoot"));
+       // Move from amp, pickup, shoot
+      auto.addCommands(new PrintCommand("Open Intake"));
+      Trajectory path3 = createTrajectory(true, 1.5, 5.5, 180,
+                                                              1.92, 5.5, 180,
+                                                                2.5, 5.5, 180);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path3, 180));
+      auto.addCommands(new PrintCommand("Close Intake"));
+      Trajectory path4 = createTrajectory(true, 2.5, 5.5, 180,
+                                                                1.92, 5.5, 180,
+                                                                  1.5, 5.5, 180);
+      auto.addCommands(drivetrain.createTrajectoryCommand(path4, 180));
+      auto.addCommands(new PrintCommand("Shoot"));
+      autos.add(auto);
     }
 
     return autos;
