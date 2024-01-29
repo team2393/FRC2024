@@ -1,6 +1,8 @@
 // Copyright (c) FIRST Team 2393 and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
+
+// This is a file to make sure that if I accidentally commit to main somehow, I dont wipe autonomouse. If I do push to the right branch I'll remove this and add it to AutoNoMouse.
 package frc.robot;
 
 import static frc.tools.AutoTools.createTrajectory;
