@@ -12,7 +12,7 @@ import frc.swervelib.DriverBase;
 /** Driver using SparkMax */
 public class Driver extends DriverBase
 {
-  // Calivrated by drivibg 192 inches (4.87 m)
+  // Calibrated by driving 192 inches (4.87 m)
   private final static double REV_PER_METER = 22.3 /  (4.87 / 3.88);
 
   private final CANSparkMax motor;

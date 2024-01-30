@@ -34,6 +34,7 @@ public class Rotator extends RotatorBase
     motor.setIdleMode(IdleMode.kCoast);
     motor.setInverted(true);
     motor.setOpenLoopRampRate(0.25);
+
     encoder = new WPI_CANCoder(encoder_id, "rio");
     encoder.configFactoryDefault();
     encoder.clearStickyFaults();

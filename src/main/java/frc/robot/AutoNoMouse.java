@@ -13,6 +13,7 @@ import java.util.List;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -52,11 +53,20 @@ public class AutoNoMouse
       Trajectory path2 = createTrajectory(true, 1.44, 5.54, 0,
                                                 2.60, 5.54, 0);
       auto.addCommands(drivetrain.createTrajectoryCommand(path2, 180));
-      auto.addCommands(new PrintCommand("Close intake"));
+      
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 2.60, 5.54, 180,
                                                 1.44, 5.54, 180);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path3, 180));
+      // Ideally, intake closes on its own when it fetches the game piece.
+      // Just in case, force it closed, but not right away since we might be
+      // in the middle of pulling the game piece in.
+      // So in parallel, a) drive forward,
+      //                 b) wait a little and then close the intake
+      auto.addCommands(new ParallelCommandGroup(
+                  drivetrain.createTrajectoryCommand(path3, 180),
+                  new SequentialCommandGroup(new WaitCommand(1),
+                                             new PrintCommand("Close intake"))));
+
       auto.addCommands(new PrintCommand("Shoot!"));
       auto.addCommands(new WaitCommand(2));
       auto.addCommands(new PrintCommand("Done."));
@@ -99,7 +109,7 @@ public class AutoNoMouse
       autos.add(auto);
     }
 
-    { // Drive forward 2.5 m using a (simple) trajectory
+    { // Drive forward 2.5 m using a trajectory
       // Can be used from Blue or Red, Top or Bottom
       SequentialCommandGroup auto = new SequentialCommandGroup();
       auto.setName("Forward 2.5m");
