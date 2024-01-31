@@ -29,18 +29,21 @@ public class SwerveOI
   // .. and 360deg/sec
   public static SlewRateLimiter rotation_slew = new SlewRateLimiter(360);
 
+  /** @return Forward/back speed [m/s] */
   public static double getForwardSpeed()
   {
     return forward_slew.calculate(
       SwerveDrivetrain.MAX_METERS_PER_SEC * filter(ALTERNATE ? -joystick.getRightY() : -joystick.getLeftY()));
   }
 
+  /** @return Left/right speed [m/s] */
   public static double getLeftSpeed()
   {
     return side_slew.calculate(
       SwerveDrivetrain.MAX_METERS_PER_SEC * filter(ALTERNATE ? -joystick.getRightX() : -joystick.getLeftX()));
   }
 
+  /** @return Rotational speed [deg/s] */
   public static double getRotationSpeed()
   {
     return rotation_slew.calculate(

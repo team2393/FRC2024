@@ -60,7 +60,7 @@ public class AbsoluteSwerveCommand extends Command
     // https://www.chiefdelphi.com/t/field-relative-swervedrive-drift-even-with-simulated-perfect-modules
 
     // Swerve robot in 'absoluteDirection', while rotating as requested
-    double vr = SwerveOI.getRotationSpeed();
+    double vr = Math.toRadians(SwerveOI.getRotationSpeed());
     drivetrain.swerve(absoluteDirection.getX(), absoluteDirection.getY(), vr, SwerveDrivetrain.CENTER);
   }
 }
