@@ -1,4 +1,4 @@
-package tutorial.wednesdaytutoring;
+package tutorial.wednesdaytutoring.lesson1;
 
 public class Main
 {
