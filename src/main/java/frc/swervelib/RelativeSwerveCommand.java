@@ -53,7 +53,7 @@ public class RelativeSwerveCommand extends Command
     else
       drivetrain.swerve(SwerveOI.getForwardSpeed(),
                         SwerveOI.getLeftSpeed(),
-                        SwerveOI.getRotationSpeed(),
+                        Math.toRadians(SwerveOI.getRotationSpeed()),
                         axis);
   }
 }
