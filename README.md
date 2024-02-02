@@ -3,9 +3,14 @@ Team 2393 FRC Season 2024
 
 Game manual: https://www.firstinspires.org/resource-library/frc/competition-manual-qa-system
 
-Software manual: https://docs.wpilib.org/en/latest
+Software manual: https://docs.wpilib.org/en/stable/
+- See "Step 2: Installing Software",
+  - "WPILib Installation Guide" for development tools
+  - "Installing the FRC Game Tools" for driver station
+- Expect both to have updates, you usually need the latest
 
 Forums: https://www.chiefdelphi.com/, https://www.projectb.net.au/resources/robot-mechanisms
+
 
 Timeline
 --------
