@@ -44,7 +44,8 @@ public class RobotMap
   public static final int INTAKE_SPINNER = 13;
   public static final int FEEDER = 14;
   public static final int SHOOTER = 15;
-  public static final int CLIMBER = 16;
+  public static final int SHOOTER2 = 16;
+  public static final int CLIMBER = 17;
 
   // Pneumatic control module channels
   public static final int INTAKE_IN_OUT = 0;

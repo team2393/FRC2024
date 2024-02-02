@@ -12,10 +12,10 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.tools.CommandRobotBase;
 
-/** Spinner Demo */
+/** (Dual) Spinner Demo */
 public class SpinnerDemoRobot extends CommandRobotBase
 {
-  private CANSparkMax spinner;
+  private CANSparkMax spinner, secondary;
   private PIDController pid;
 
   @Override
@@ -27,8 +27,14 @@ public class SpinnerDemoRobot extends CommandRobotBase
     spinner.restoreFactoryDefaults();
     spinner.clearFaults();
     spinner.setIdleMode(IdleMode.kCoast);
-    // Dampen the acceleration
     spinner.setOpenLoopRampRate(0.5);
+
+    secondary = new CANSparkMax(RobotMap.SHOOTER, MotorType.kBrushless);
+    secondary.restoreFactoryDefaults();
+    secondary.clearFaults();
+    secondary.setIdleMode(IdleMode.kCoast);
+    secondary.setOpenLoopRampRate(0.5);
+    secondary.follow(spinner);
 
     SmartDashboard.setDefaultNumber("Voltage", 0);
     SmartDashboard.setDefaultNumber("Setpoint1", 0);
