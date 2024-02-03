@@ -15,6 +15,7 @@ public final class Main
     // RobotBase.startRobot(frc.led.LEDRingDemoRobot::new);
     // RobotBase.startRobot(frc.demo.MotorDemoRobot::new);
     // RobotBase.startRobot(frc.swervebot.SwerveModuleDemoRobot::new);
+    // RobotBase.startRobot(frc.swervebot.SwerveBot::new);
     // RobotBase.startRobot(frc.demo.SparkMaxDemoRobot::new);
     // RobotBase.startRobot(frc.demo.IntakeAngleDemoRobot::new);
     // RobotBase.startRobot(frc.demo.SpinnerSpeedDemo::new);

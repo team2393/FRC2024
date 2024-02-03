@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
+import frc.swervelib.ResetHeadingCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveOI;
 import frc.tools.AutoTools;
@@ -20,6 +22,7 @@ public class Robot extends CommandRobotBase
 {
   private final RobotDrivetrain drivetrain = new RobotDrivetrain();
   private final Command relswerve = new RelativeSwerveCommand(drivetrain);
+  private final Command absswerve = new AbsoluteSwerveCommand(drivetrain);
   
   private final SendableChooser<Command> autos = new SendableChooser<>();
 
@@ -39,7 +42,7 @@ public class Robot extends CommandRobotBase
     // Maximum speed requested in autonomous moves (can't exceed MAX_METERS_PER_SEC)
     AutoTools.config = new TrajectoryConfig(1.5, 1.5);
 
-    SwerveOI.reset();
+    OperatorInterface.reset();
 
     autos.setDefaultOption("Nothing", new PrintCommand("Do nothing"));
 
@@ -58,7 +61,9 @@ public class Robot extends CommandRobotBase
   public void teleopInit()
   {
     // Bind buttons to commands
-    drivetrain.setDefaultCommand(relswerve);
+    OperatorInterface.selectRelative().onTrue(relswerve);
+    OperatorInterface.selectAbsolute().onTrue(absswerve);
+    OperatorInterface.resetHeading().onTrue(new ResetHeadingCommand(drivetrain));
 
     // Start relative mode
     relswerve.schedule();

@@ -50,12 +50,11 @@ public class SwerveOI
       SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC * filter(ALTERNATE ? -joystick.getLeftX() : -joystick.getRightX()));
   }
 
-  public static Trigger reset()
+  public static void reset()
   {
     forward_slew.reset(0);
     side_slew.reset(0);
     rotation_slew.reset(0);
-    return joystick.back();
   }
 
   public static Trigger selectRelative()
@@ -66,5 +65,10 @@ public class SwerveOI
   public static Trigger selectAbsolute()
   {
     return joystick.leftBumper();
+  }
+ 
+  public static Trigger resetHeading()
+  {
+    return joystick.start();
   }
 }

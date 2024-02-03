@@ -44,7 +44,9 @@ public class AbsoluteSwerveCommand extends Command
 
     // When at the red side of the field,
     // rotate by 180 deg so that "forward" is again
-    // away from the driver and "right" moves to the right
+    // away from the driver and "right" moves to the right.
+    // In simulation GUI select alliance from DS/FMS
+    // while Robot State is "Disconnected"
     if (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Red)
     {
       vx = -vx;

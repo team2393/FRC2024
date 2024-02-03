@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import frc.led.ColorPair;
 import frc.led.Comet;
 import frc.led.Rainbow;
+import frc.robot.OperatorInterface;
 import frc.led.LEDRing;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
+import frc.swervelib.ResetHeadingCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveOI;
 import frc.tools.AutoTools;
@@ -96,16 +98,16 @@ public class SwerveBot extends CommandRobotBase
   public void teleopInit()
   {
     // Bind buttons to commands
-    drivetrain.setDefaultCommand(relswerve);
-    SwerveOI.selectAbsolute().toggleOnTrue(absswerve);
+    OperatorInterface.selectRelative().onTrue(relswerve);
+    OperatorInterface.selectAbsolute().onTrue(absswerve);
+    OperatorInterface.resetHeading().onTrue(new ResetHeadingCommand(drivetrain));
     SwerveOI.joystick.a().whileTrue(center_on_tag);
+    relswerve.schedule();
+
     // Instead of 'binding' commands in ..Init(),
     // could add this to ..Periodic():
     //   if (SwerveOI.selectRelative().getAsBoolean())
     //     relswerve.schedule();
-
-    // Start relative mode
-    relswerve.schedule();
 
     gadgetcommand.schedule();
   }

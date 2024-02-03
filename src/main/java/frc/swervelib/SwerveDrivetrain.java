@@ -139,11 +139,17 @@ abstract public class SwerveDrivetrain extends SubsystemBase
     return length;
   }
 
+  /** Reset gyro heading */
+  public void resetHeading(double degrees)
+  {
+    zero_heading = getRawHeading() + degrees;
+    simulated_heading = degrees;
+  }
+
   /** Reset position tracker */
   public void reset()
   {
-    zero_heading = getRawHeading();
-    simulated_heading = 0.0;
+    resetHeading(0);
     for (int i=0; i<modules.length; ++i)
       modules[i].resetPosition();
     odometry.resetPosition(getHeading(), getPositions(), new Pose2d());
