@@ -10,8 +10,8 @@ import frc.swervelib.SwerveOI;
 /** Operator Interface: Which stick or button does what? */
 public class OperatorInterface extends SwerveOI
 {
-    public static Trigger toggleIntake()
-    {
-        return joystick.a();
-    }
+  public static Trigger toggleIntake()
+  {
+    return joystick.a();
+  }
 }

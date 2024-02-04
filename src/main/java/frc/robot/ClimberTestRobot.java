@@ -19,17 +19,17 @@ import frc.tools.CommandRobotBase;
  */
 public class ClimberTestRobot extends CommandRobotBase
 {
-    private final Climber climber = new Climber();
+  private final Climber climber = new Climber();
 
-    public ClimberTestRobot()
-    {
-        OperatorInterface.joystick.b().whileTrue(climber.getUpCommand());
-        OperatorInterface.joystick.a().whileTrue(climber.getDownCommand());
-    }
+  public ClimberTestRobot()
+  {
+    OperatorInterface.joystick.b().whileTrue(climber.getUpCommand());
+    OperatorInterface.joystick.a().whileTrue(climber.getDownCommand());
+  }
 
-    @Override
-    public void autonomousInit()
-    {
-        climber.getHomeCommand().schedule();
-    }
+  @Override
+  public void autonomousInit()
+  {
+    climber.getHomeCommand().schedule();
+  }
 }

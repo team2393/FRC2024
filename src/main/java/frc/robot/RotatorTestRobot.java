@@ -8,8 +8,8 @@ import frc.swervelib.RotatatorDemoRobot;
 /** Robot for testing a single Rotator */
 public class RotatorTestRobot extends RotatatorDemoRobot
 {
-    public RotatorTestRobot()
-    {
-        super(new Rotator(0, RobotMap.BACK_RIGHT_ROTATE, RobotMap.BACK_RIGHT_ANGLE, 42.1));
-    }
+  public RotatorTestRobot()
+  {
+    super(new Rotator(0, RobotMap.BACK_RIGHT_ROTATE, RobotMap.BACK_RIGHT_ANGLE, 42.1));
+  }
 }

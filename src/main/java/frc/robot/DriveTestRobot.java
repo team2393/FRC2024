@@ -8,8 +8,8 @@ import frc.swervelib.DriverDemoRobot;
 /** Robot for testing a single Driver */
 public class DriveTestRobot extends DriverDemoRobot
 {
-    public DriveTestRobot()
-    {
-        super(new Driver(0, RobotMap.BACK_RIGHT_DRIVE));
-    }
+  public DriveTestRobot()
+  {
+    super(new Driver(0, RobotMap.BACK_RIGHT_DRIVE));
+  }
 }

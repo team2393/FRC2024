@@ -8,10 +8,10 @@ import frc.tools.CommandRobotBase;
 /** Robot for testing the intake */
 public class IntakeTestRobot extends CommandRobotBase
 {
-    private final Intake intake = new Intake();
+  private final Intake intake = new Intake();
 
-    public IntakeTestRobot()
-    {
-        OperatorInterface.toggleIntake().onTrue(intake.getToggleCommand());
-    }
+  public IntakeTestRobot()
+  {
+    OperatorInterface.toggleIntake().onTrue(intake.getToggleCommand());
+  }
 }
