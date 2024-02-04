@@ -34,17 +34,16 @@ public class ShootCommand extends Command
   {
     state = State.SPINUP;
     timer.restart();
+    // Ask shooter to get to desired speed, but don't feed a game piece, yet
+    shooter.run(true);
+    feeder.run(false);
   }
 
   @Override
   public void execute()
   {
     if (state == State.SPINUP)
-    {
-      // Ask shooter to get to desired speed, but don't feed a game piece, yet
-      shooter.run(true);
-      feeder.run(false);
-      // Move on when at desired speed or after time timeout
+    { // Move on when at desired speed or after timeout.
       if (shooter.atDesiredSpeed()  ||  timer.hasElapsed(5))
       {
         state = State.SHOOT;
@@ -53,9 +52,7 @@ public class ShootCommand extends Command
     }
 
     if (state == State.SHOOT)
-    {
-      // Keep shooter running and feed a game piece
-      shooter.run(true);
+    { // Keep shooter running and feed a game piece
       feeder.run(true);
     }
   }

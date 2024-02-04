@@ -40,7 +40,7 @@ public class Shooter extends SubsystemBase
     secondary.clearFaults();
     secondary.setIdleMode(IdleMode.kCoast);
     secondary.setOpenLoopRampRate(0.5);
-    secondary.follow(spinner);
+    secondary.follow(spinner, false);
 
     desired_speed = SmartDashboard.getEntry("Shooter Setpoint");
     desired_speed.setDefaultDouble(500);
@@ -57,6 +57,8 @@ public class Shooter extends SubsystemBase
   /** @return Speed in rotations per second */
   public double getSpeed()
   {
+    // TODO Calibrate to get speed of spinner wheel in case there's
+    // gering between motor and spinner?
     return spinner.getEncoder().getVelocity() / 60.0;
   }
 

@@ -34,7 +34,7 @@ public class SpinnerDemoRobot extends CommandRobotBase
     secondary.clearFaults();
     secondary.setIdleMode(IdleMode.kCoast);
     secondary.setOpenLoopRampRate(0.5);
-    secondary.follow(spinner);
+    secondary.follow(spinner, false);
 
     SmartDashboard.setDefaultNumber("Voltage", 0);
     SmartDashboard.setDefaultNumber("Setpoint1", 0);
