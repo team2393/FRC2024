@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -20,7 +21,11 @@ public class Shooter extends SubsystemBase
   private PIDController pid = new PIDController(0.0, 0.0, 0.0);
   private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0.0, 0.0);
 
+  // Speed at which spinner should run right now
   private double setpoint = 0;
+
+  // Desired speed when shooting (otherwise zero)
+  private NetworkTableEntry desired_speed;
 
   public Shooter()
   {
@@ -36,11 +41,17 @@ public class Shooter extends SubsystemBase
     secondary.setIdleMode(IdleMode.kCoast);
     secondary.setOpenLoopRampRate(0.5);
     secondary.follow(spinner);
+
+    desired_speed = SmartDashboard.getEntry("Shooter Setpoint");
+    desired_speed.setDefaultDouble(500);
   }
 
-  public void setSpeed(double desired_rps)
+  public void run(boolean do_run)
   {
-    setpoint = desired_rps;
+    if (do_run)
+      setpoint = desired_speed.getDouble(500);
+    else
+      setpoint = 0;
   }
 
   /** @return Speed in rotations per second */
