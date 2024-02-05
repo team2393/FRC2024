@@ -32,7 +32,7 @@ public class Intake extends SubsystemBase
   // NT entry: Do we have a game piece?
   private final NetworkTableEntry have_gamepiece_entry;
   // Simulation display elements
-  private final MechanismLigament2d intake_upper, intake_lower;
+  private final MechanismLigament2d pivot;
 
   // Should intake right now be open (down, out) or closed (up, in)?
   private boolean open = false;
@@ -53,9 +53,10 @@ public class Intake extends SubsystemBase
 
     have_gamepiece_entry = SmartDashboard.getEntry("Gamepiece");
 
-    // Somewhat like this:
-    //             \
-    //              \
+    // Somewhat like this, rotating around '*'
+    //           _____
+    //             |
+    //             *
     //  === bumper ===
     // front  ... back
 
@@ -64,11 +65,11 @@ public class Intake extends SubsystemBase
     // Static base of the robot with bumper
     mechanism.getRoot("front", 0, 0.1)
         .append(new MechanismLigament2d("bumper", 0.8, 0, 20, new Color8Bit(Color.kBlue)));
-    // Intake over the back, two parts to simulate moving out/in
-    intake_upper = mechanism.getRoot("back", 0.75, 0.2)
-        .append(new MechanismLigament2d("intake_upper", 0.4, 135, 10, new Color8Bit(Color.kRed)));
-    intake_lower = mechanism.getRoot("back", 0.75, 0.2)
-        .append(new MechanismLigament2d("intake_lower", 0.0, -45, 10, new Color8Bit(Color.kRed)));
+    // Intake over the back, pivoting out/in
+    pivot = mechanism.getRoot("back", 0.63, 0.12)
+         .append(new MechanismLigament2d("pivot", 0.2, 90, 8, new Color8Bit(Color.kDarkMagenta)));
+    pivot.append(new MechanismLigament2d("upper", 0.2, 90, 15, new Color8Bit(Color.kRed)));
+    pivot.append(new MechanismLigament2d("lower", 0.15, -90, 15, new Color8Bit(Color.kRed)));
     // Make available on dashboard
     SmartDashboard.putData("Intake", mechanism);
   }
@@ -100,16 +101,14 @@ public class Intake extends SubsystemBase
       spinner.setVoltage(0);
 
     // Update simulated intake mechanism
-    if (open)
-    {
-      intake_upper.setLength(0.2);
-      intake_lower.setLength(0.2);
-    }
+    double desired_angle = open ? 10 : 85;
+    double angle = pivot.getAngle();
+    // Slowly move to desired angle
+    if (Math.abs(desired_angle - angle) < 2)
+      angle = desired_angle;
     else
-    {
-      intake_upper.setLength(0.4);
-      intake_lower.setLength(0.0);
-    }
+      angle += (desired_angle - angle) * 0.05;
+    pivot.setAngle(angle);
   }
 
   /** @return Command to open the intake */
