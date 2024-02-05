@@ -101,10 +101,14 @@ public class Intake extends SubsystemBase
       spinner.setVoltage(0);
 
     // Update simulated intake mechanism
-    if (open)
-      pivot.setAngle(10);
+    double desired_angle = open ? 10 : 85;
+    double angle = pivot.getAngle();
+    // Slowly move to desired angle
+    if (Math.abs(desired_angle - angle) < 2)
+      angle = desired_angle;
     else
-      pivot.setAngle(85);
+      angle += (desired_angle - angle) * 0.05;
+    pivot.setAngle(angle);
   }
 
   /** @return Command to open the intake */
