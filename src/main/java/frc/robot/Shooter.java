@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /** Shooter: Dual spinners that eject game piece */
 public class Shooter extends SubsystemBase
 {
+  private static double TURNS_PER_REV = 1.0;
   private CANSparkMax spinner, secondary;
-  // Use SpinnerDemoRobot to determine PID and FF settings
   private PIDController pid = new PIDController(0.0, 0.0, 0.0);
   private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0.0, 0.0);
 
@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase
   private double setpoint = 0;
 
   // Desired speed when shooting (otherwise zero)
-  private NetworkTableEntry desired_speed;
+  private NetworkTableEntry nt_desired_speed, nt_speed, nt_at_desired_speed;
 
   public Shooter()
   {
@@ -42,24 +42,36 @@ public class Shooter extends SubsystemBase
     secondary.setOpenLoopRampRate(0.5);
     secondary.follow(spinner, false);
 
-    desired_speed = SmartDashboard.getEntry("Shooter Setpoint");
-    desired_speed.setDefaultDouble(500);
+    nt_desired_speed = SmartDashboard.getEntry("Shooter Setpoint");
+    nt_desired_speed.setDefaultDouble(500);
+    nt_speed = SmartDashboard.getEntry("Shooter Speed");
+    nt_at_desired_speed = SmartDashboard.getEntry("Shooter At Speed");
+  }
+
+  public void configure(double ks, double kv, double P, double I, double D)
+  {
+    ff = new SimpleMotorFeedforward(ks, kv);
+    pid.setPID(P, I, D);
   }
 
   public void run(boolean do_run)
   {
     if (do_run)
-      setpoint = desired_speed.getDouble(500);
+      setpoint = nt_desired_speed.getDouble(500);
     else
       setpoint = 0;
+  }
+
+  /** @return Position in rotations */
+  public double getTurns()
+  {
+    return spinner.getEncoder().getPosition() * TURNS_PER_REV;
   }
 
   /** @return Speed in rotations per second */
   public double getSpeed()
   {
-    // TODO Calibrate to get speed of spinner wheel in case there's
-    // gering between motor and spinner?
-    return spinner.getEncoder().getVelocity() / 60.0;
+    return spinner.getEncoder().getVelocity() * TURNS_PER_REV / 60.0;
   }
 
   public boolean atDesiredSpeed()
@@ -71,12 +83,16 @@ public class Shooter extends SubsystemBase
   @Override
   public void periodic()
   {
+    double speed = getSpeed();
+    nt_speed.setNumber(speed);
     if (setpoint <= 0)
+    {
+      nt_at_desired_speed.setBoolean(false);
       spinner.setVoltage(0);
+    }
     else
     {
-      double speed = getSpeed();
-      SmartDashboard.putNumber("Shooter", speed);
+      nt_at_desired_speed.setBoolean(atDesiredSpeed());
   
       // Use feed forward and PID to compute the required voltage
       double voltage = ff.calculate(setpoint) + pid.calculate(speed, setpoint);
