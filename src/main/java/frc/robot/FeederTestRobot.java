@@ -15,6 +15,9 @@ public class FeederTestRobot extends CommandRobotBase
   {
     // TODO Find a good voltage for the "Feeder Voltage"
     // and hardcode that into the Feeder
-    feeder.run(OperatorInterface.joystick.a().getAsBoolean());
+
+    // See https://www.chiefdelphi.com/t/commandscheduler-loop-overruns-one-potential-cause/453901
+    // feeder.run(OperatorInterface.joystick.a().getAsBoolean());
+    feeder.run(OperatorInterface.joystick.getHID().getAButton());
   }
 }
