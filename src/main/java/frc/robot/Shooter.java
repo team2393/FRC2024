@@ -34,6 +34,9 @@ public class Shooter extends SubsystemBase
     spinner.clearFaults();
     spinner.setIdleMode(IdleMode.kCoast);
     spinner.setOpenLoopRampRate(0.5);
+    // Lessen the built-in averaging to get faster respone?
+    // See https://www.chiefdelphi.com/t/psa-default-neo-sparkmax-velocity-readings-are-still-bad-for-flywheels
+    // TODO spinner.getEncoder().setAverageDepth(2);
 
     secondary = new CANSparkMax(RobotMap.SHOOTER, MotorType.kBrushless);
     secondary.restoreFactoryDefaults();
