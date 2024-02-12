@@ -16,7 +16,7 @@ public class RobotDrivetrain extends SwerveDrivetrain
 
   public RobotDrivetrain()
   {
-    super(0.535,
+    super(0.535, // for the new measure I got 0.5906 meters for both l and w
           0.542,
           new SwerveModule(new Rotator(0, RobotMap.FRONT_LEFT_ROTATE,  RobotMap.FRONT_LEFT_ANGLE,   -162.15 + 180),
                            new Driver (0, RobotMap.FRONT_LEFT_DRIVE)),
