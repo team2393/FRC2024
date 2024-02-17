@@ -14,4 +14,9 @@ public class OperatorInterface extends SwerveOI
   {
     return joystick.a();
   }
+
+  public static Trigger fire()
+  {
+    return joystick.b();
+  }
 }
