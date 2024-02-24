@@ -76,7 +76,7 @@ public class Intake extends SubsystemBase
     // Run spinner when open
     // TODO Find good voltage for pulling in
     if (open)
-      spinner.setVoltage(3);
+      spinner.setVoltage(5);
     else
       spinner.setVoltage(0);
 
