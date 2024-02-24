@@ -130,6 +130,47 @@
                 }
               }
             }
+          },
+          "10,6": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Pressure",
+              "_title": "Pressure",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "12,6": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Gamepiece",
+              "_title": "Gamepiece",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "11,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Intake RPM",
+              "_title": "Intake RPM",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -366,9 +407,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.199999809265137,
-    "y": 68.0,
+    "x": -6.400000095367432,
+    "y": 75.19999694824219,
     "width": 1440.0,
-    "height": 756.0
+    "height": 747.2000122070312
   }
 }
