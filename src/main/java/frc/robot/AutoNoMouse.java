@@ -77,8 +77,8 @@ public class AutoNoMouse
       auto.addCommands(new PrintCommand("Done."));
       autos.add(auto);
     }
+// To 'mirror' a setup from the left/blue to the right/red side,
 
-    // To 'mirror' a setup from the left/blue to the right/red side,
     // X turns into WIDTH_OF_FIELD - X, where WIDTH_OF_FIELD is about 16.52 meters
     // Y stays unchanged
     // Heading changes into 180 - heading
@@ -218,8 +218,7 @@ public class AutoNoMouse
 
       auto.addCommands(new PrintCommand("Close Intake"));
 
-      Trajectory path6 = createTrajectory(true, 1.5, 4.10, 0,
-                                                                1.5, 5.5, 180);
+      Trajectory path6 = createTrajectory(true, 1.83, 4.65, 0, 1.41, 5.5, 180);
       auto.addCommands(drivetrain.createTrajectoryCommand(path6, 180));
 
       auto.addCommands(new PrintCommand("Shoot!"));
