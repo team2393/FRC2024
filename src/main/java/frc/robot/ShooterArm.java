@@ -12,6 +12,8 @@ import com.revrobotics.SparkAbsoluteEncoder.Type;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -29,6 +31,7 @@ public class ShooterArm extends SubsystemBase
    *  but we have it plugged into the motor's SparkMax
    */
   private final SparkAbsoluteEncoder encoder = motor.getAbsoluteEncoder(Type.kDutyCycle);
+  // DutyCycleEncoder encoder2 = new DutyCycleEncoder(1);
 
   // Rotate at a max speed of 45 deg/sec
   private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(45, 45);
@@ -48,6 +51,10 @@ public class ShooterArm extends SubsystemBase
     encoder.setPositionConversionFactor(360);
     // TODO Calibrate zero offset
     encoder.setZeroOffset(0.0);
+
+    // encoder2.setDutyCycleRange(1.0/1025.0, 1024.0/1025.0);
+    // encoder2.setDistancePerRotation(360.0);
+    // encoder2.setPositionOffset(0.0/360.0);
 
     pid.reset(encoder.getPosition());
 
