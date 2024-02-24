@@ -5,6 +5,7 @@ package frc.robot;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,6 +25,11 @@ public class Robot extends CommandRobotBase
   private final Command relswerve = new RelativeSwerveCommand(drivetrain);
   private final Command absswerve = new AbsoluteSwerveCommand(drivetrain);
   
+  private final PneumaticHub hub = new PneumaticHub();
+  private final Intake intake = new Intake();
+  private final Feeder feeder = new Feeder();
+  private final Command open_intake = new OpenIntakeCommand(intake, feeder);
+
   private final SendableChooser<Command> autos = new SendableChooser<>();
 
   @Override
@@ -42,13 +48,23 @@ public class Robot extends CommandRobotBase
     // Maximum speed requested in autonomous moves (can't exceed MAX_METERS_PER_SEC)
     AutoTools.config = new TrajectoryConfig(1.5, 1.5);
 
+    hub.enableCompressorAnalog(85, 120);
+
     OperatorInterface.reset();
+    OperatorInterface.toggleIntake().toggleOnTrue(open_intake);
 
     autos.setDefaultOption("Nothing", new PrintCommand("Do nothing"));
 
     for (Command auto : AutoNoMouse.createAutoCommands(drivetrain))
       autos.addOption(auto.getName(), auto);
     SmartDashboard.putData(autos);
+  }
+
+  @Override
+  public void robotPeriodic()
+  {
+    super.robotPeriodic();
+    SmartDashboard.putNumber("Pressure", hub.getPressure(0));
   }
   
   @Override

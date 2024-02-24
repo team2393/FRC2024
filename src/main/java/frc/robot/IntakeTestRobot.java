@@ -4,6 +4,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.PneumaticHub;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.tools.CommandRobotBase;
 
@@ -19,5 +20,11 @@ public class IntakeTestRobot extends CommandRobotBase
   {
     hub.enableCompressorAnalog(85, 120);
     OperatorInterface.toggleIntake().toggleOnTrue(open_intake);
+  }
+
+  public void robotPeriodic()
+  {
+    super.robotPeriodic();
+    SmartDashboard.putNumber("Pressure", hub.getPressure(0));
   }
 }
