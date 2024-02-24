@@ -23,25 +23,25 @@ public class RobotMap
   // (IDs are specific to the device type, so a SparkMax and CANCoder could use the same ID...)
 
   // SparkMax drive motors
-  public static final int FRONT_LEFT_DRIVE = 2;
-  public static final int FRONT_RIGHT_DRIVE = 4;
-  public static final int BACK_RIGHT_DRIVE = 6;
-  public static final int BACK_LEFT_DRIVE = 8;
+  public static final int FRONT_LEFT_DRIVE = 9;
+  public static final int FRONT_RIGHT_DRIVE = 8;
+  public static final int BACK_RIGHT_DRIVE = 2;
+  public static final int BACK_LEFT_DRIVE = 3;
 
   // SparkMax rotator motors
-  public static final int FRONT_LEFT_ROTATE = 1;
-  public static final int FRONT_RIGHT_ROTATE = 3;
-  public static final int BACK_RIGHT_ROTATE = 5;
-  public static final int BACK_LEFT_ROTATE = 7;
+  public static final int FRONT_LEFT_ROTATE = 7;
+  public static final int FRONT_RIGHT_ROTATE = 10;
+  public static final int BACK_RIGHT_ROTATE = 4;
+  public static final int BACK_LEFT_ROTATE = 1;
 
   // CANCoder angle sensors
-  public static final int FRONT_LEFT_ANGLE = 9;
-  public static final int FRONT_RIGHT_ANGLE = 10;
-  public static final int BACK_RIGHT_ANGLE = 11;
-  public static final int BACK_LEFT_ANGLE = 12;
+  public static final int FRONT_LEFT_ANGLE = 11;
+  public static final int FRONT_RIGHT_ANGLE = 12;
+  public static final int BACK_RIGHT_ANGLE = 6;
+  public static final int BACK_LEFT_ANGLE = 5;
 
   // SparkMax motors
-  public static final int INTAKE_SPINNER = 13;
+  public static final int INTAKE_SPINNER = 6;
   public static final int FEEDER = 14;
   public static final int SHOOTER = 15;
   public static final int SHOOTER2 = 16;
