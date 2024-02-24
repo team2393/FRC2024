@@ -39,7 +39,8 @@ public class Intake extends SubsystemBase
     spinner.clearFaults();
     spinner.setIdleMode(IdleMode.kCoast);
     // Dampen the acceleration
-    spinner.setOpenLoopRampRate(0.5);
+    spinner.setOpenLoopRampRate(1);
+    // TODO?  spinner.setSmartCurrentLimit(40);
 
     // Somewhat like this, rotating around '*'
     //           _____
@@ -73,10 +74,13 @@ public class Intake extends SubsystemBase
     // Update solenoid to open or close the intake
     in_out.set(open);
 
+    SmartDashboard.putNumber("Intake RPM", spinner.getEncoder().getVelocity());
+
     // Run spinner when open
     // TODO Find good voltage for pulling in
     if (open)
-      spinner.setVoltage(5);
+    
+      spinner.setVoltage(9);
     else
       spinner.setVoltage(0);
 
