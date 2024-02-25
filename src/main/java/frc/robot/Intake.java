@@ -22,7 +22,7 @@ public class Intake extends SubsystemBase
   // Pneumatic cylinder to push intake down/out
   private final Solenoid in_out;
   // Spinner to pull game piece in
-  private final CANSparkMax spinner;
+  private final CANSparkMax spinner, spinner2;
   // Simulation display elements
   private final MechanismLigament2d pivot;
 
@@ -40,6 +40,14 @@ public class Intake extends SubsystemBase
     spinner.setIdleMode(IdleMode.kCoast);
     // Dampen the acceleration
     spinner.setOpenLoopRampRate(1);
+
+    spinner2 = new CANSparkMax(RobotMap.INTAKE_SPINNER, MotorType.kBrushless);
+    spinner2.restoreFactoryDefaults();
+    spinner2.clearFaults();
+    spinner2.setIdleMode(IdleMode.kCoast);
+    // Dampen the acceleration
+    spinner2.setOpenLoopRampRate(1);
+    spinner2.follow(spinner, true);
     // TODO?  spinner.setSmartCurrentLimit(40);
 
     // Somewhat like this, rotating around '*'
