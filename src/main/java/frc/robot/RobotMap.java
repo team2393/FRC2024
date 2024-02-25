@@ -42,6 +42,7 @@ public class RobotMap
 
   // SparkMax motors
   public static final int INTAKE_SPINNER = 6;
+  public static final int INTAKE_SPINNER_2 = 19; // TODO: change this with the right CAN ID
   public static final int FEEDER = 14;
   public static final int SHOOTER = 15;
   public static final int SHOOTER2 = 16;
@@ -55,6 +56,7 @@ public class RobotMap
   public static final int FEED_SENSOR = 0;
   public static final int SHOOTER_SENSOR = 1;
   public static final int CLIMBER_AT_BOTTOM = 2;
+  public static final int ARM_ENCODER = 6;
 
   // PWM outputs
   public static final int LED_STRIP = 0;

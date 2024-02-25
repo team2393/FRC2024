@@ -30,8 +30,10 @@ public class ShooterArm extends SubsystemBase
    *  Absolute readout can use (white, red, black) into DI,
    *  but we have it plugged into the motor's SparkMax
    */
-  private final SparkAbsoluteEncoder encoder = motor.getAbsoluteEncoder(Type.kDutyCycle);
-  // DutyCycleEncoder encoder2 = new DutyCycleEncoder(1);
+  // private final SparkAbsoluteEncoder encoder = motor.getAbsoluteEncoder(Type.kDutyCycle);
+  private final DutyCycleEncoder encoder = new DutyCycleEncoder(RobotMap.ARM_ENCODER);
+  /** Zero degrees = arm horizontally out */
+  private final static double ZERO_OFFSET = 0.0;
 
   // Rotate at a max speed of 45 deg/sec
   private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(45, 45);
@@ -48,15 +50,10 @@ public class ShooterArm extends SubsystemBase
     motor.setOpenLoopRampRate(0.5);
 
     // Calibrate encoder for 0..360 degrees
-    encoder.setPositionConversionFactor(360);
+    // encoder.setPositionConversionFactor(360);
     // TODO Calibrate zero offset
-    encoder.setZeroOffset(0.0);
-
-    // encoder2.setDutyCycleRange(1.0/1025.0, 1024.0/1025.0);
-    // encoder2.setDistancePerRotation(360.0);
-    // encoder2.setPositionOffset(0.0/360.0);
-
-    pid.reset(encoder.getPosition());
+   
+    pid.reset(getAngle());
 
     nt_angle = SmartDashboard.getEntry("Shooter Angle");
   }
@@ -72,6 +69,11 @@ public class ShooterArm extends SubsystemBase
     pid.setPID(P, I, D);
   }
 
+  public double getAngle()
+  {
+    return encoder.getAbsolutePosition()*360 - ZERO_OFFSET;
+  }
+
   public void setAngle(double degrees)
   {
     desired_angle = degrees;
@@ -80,7 +82,7 @@ public class ShooterArm extends SubsystemBase
   @Override
   public void periodic()
   {
-    final double angle = encoder.getPosition();
+    final double angle = getAngle();
     nt_angle.setDouble(angle);
 
     double voltage = kg * Math.cos(Math.toRadians(angle))
