@@ -4,15 +4,13 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import com.revrobotics.SparkAbsoluteEncoder.Type;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -33,21 +31,21 @@ public class ShooterArm extends SubsystemBase
   // private final SparkAbsoluteEncoder encoder = motor.getAbsoluteEncoder(Type.kDutyCycle);
   private final DutyCycleEncoder encoder = new DutyCycleEncoder(RobotMap.ARM_ENCODER);
   /** Zero degrees = arm horizontally out */
-  private final static double ZERO_OFFSET = 0.0;
-
+  private final static double ZERO_OFFSET = -111.0 - 17;
+ 
   // Rotate at a max speed of 45 deg/sec
   private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(45, 45);
-  private ProfiledPIDController pid = new ProfiledPIDController(0, 0, 0, constraints);
-  private double kg = 0.0;
-  private NetworkTableEntry nt_angle;
-  private double desired_angle = 0.0;
+  private ProfiledPIDController pid = new ProfiledPIDController(0.3, 0.03, 0.01, constraints);
+  private double kg = 0.25;
+  private NetworkTableEntry nt_angle, nt_desired_angle;
   
   public ShooterArm()
   {
     motor.restoreFactoryDefaults();
     motor.clearFaults();
-    motor.setIdleMode(IdleMode.kCoast);
+    motor.setIdleMode(IdleMode.kBrake);
     motor.setOpenLoopRampRate(0.5);
+    motor.setInverted(true);
 
     // Calibrate encoder for 0..360 degrees
     // encoder.setPositionConversionFactor(360);
@@ -56,6 +54,8 @@ public class ShooterArm extends SubsystemBase
     pid.reset(getAngle());
 
     nt_angle = SmartDashboard.getEntry("Shooter Angle");
+    nt_desired_angle = SmartDashboard.getEntry("Set Shooter Angle");
+    nt_desired_angle.setDefaultDouble(50);
   }
 
   /** @param kg Gravity compensation constant
@@ -71,12 +71,12 @@ public class ShooterArm extends SubsystemBase
 
   public double getAngle()
   {
-    return encoder.getAbsolutePosition()*360 - ZERO_OFFSET;
+    return -encoder.getAbsolutePosition()*360 - ZERO_OFFSET;
   }
 
   public void setAngle(double degrees)
   {
-    desired_angle = degrees;
+    nt_desired_angle.setNumber(degrees);
   }
 
   @Override
@@ -85,8 +85,10 @@ public class ShooterArm extends SubsystemBase
     final double angle = getAngle();
     nt_angle.setDouble(angle);
 
+    double setpoint = MathUtil.clamp(nt_desired_angle.getDouble(50), 20, 90);
+
     double voltage = kg * Math.cos(Math.toRadians(angle))
-                   + pid.calculate(angle, desired_angle);
+                   + pid.calculate(angle, setpoint);
     motor.setVoltage(voltage);
   }
 }

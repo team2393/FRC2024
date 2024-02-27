@@ -159,20 +159,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "11,3": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Intake RPM",
-              "_title": "Intake RPM",
-              "_glyph": 148,
-              "_showGlyph": false
-            }
-          },
-          "14,3": {
+          "13,4": {
             "size": [
               2,
               1
@@ -180,7 +167,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Feeder Voltage",
-              "_title": "/SmartDashboard/Feeder Voltage",
+              "_title": "Feeder Voltage",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -193,7 +180,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Shooter Setpoint",
-              "_title": "SmartDashboard/Shooter Setpoint",
+              "_title": "Shooter Setpoint",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -206,7 +193,7 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Shooter Speed",
-              "_title": "SmartDashboard/Shooter Speed",
+              "_title": "Shooter Speed",
               "_glyph": 148,
               "_showGlyph": false
             }
@@ -219,11 +206,24 @@
             "content": {
               "_type": "Boolean Box",
               "_source0": "network_table:///SmartDashboard/Shooter At Speed",
-              "_title": "SmartDashboard/Shooter At Speed",
+              "_title": "Shooter At Speed",
               "_glyph": 148,
               "_showGlyph": false,
               "Colors/Color when true": "#7CFC00FF",
               "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "13,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Set Shooter Angle",
+              "_title": "/SmartDashboard/Set Shooter Angle",
+              "_glyph": 148,
+              "_showGlyph": false
             }
           }
         }

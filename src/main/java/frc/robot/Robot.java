@@ -32,6 +32,7 @@ public class Robot extends CommandRobotBase
 
   private final Shooter shooter = new Shooter();
   private final Command shoot = new ShootCommand(feeder, shooter);
+  private final ShooterArm shooter_arm = new ShooterArm();
 
   private final SendableChooser<Command> autos = new SendableChooser<>();
 
