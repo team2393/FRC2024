@@ -180,9 +180,50 @@
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Feeder Voltage",
-              "_title": "SmartDashboard/Feeder Voltage",
+              "_title": "/SmartDashboard/Feeder Voltage",
               "_glyph": 148,
               "_showGlyph": false
+            }
+          },
+          "17,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Setpoint",
+              "_title": "SmartDashboard/Shooter Setpoint",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "17,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Speed",
+              "_title": "SmartDashboard/Shooter Speed",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "17,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Shooter At Speed",
+              "_title": "SmartDashboard/Shooter At Speed",
+              "_glyph": 148,
+              "_showGlyph": false,
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           }
         }

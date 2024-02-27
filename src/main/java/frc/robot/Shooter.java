@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 /** Shooter: Dual spinners that eject game piece */
 public class Shooter extends SubsystemBase
 {
-  private static double TURNS_PER_REV = 1.0;
+  private static double TURNS_PER_REV = 10/7.5;
   private CANSparkMax spinner, secondary;
   private PIDController pid = new PIDController(0.0, 0.0, 0.0);
-  private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0.0, 0.0);
+  private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0.6, 0.13);
 
   // Speed at which spinner should run right now
   private double setpoint = 0;
@@ -34,19 +34,20 @@ public class Shooter extends SubsystemBase
     spinner.clearFaults();
     spinner.setIdleMode(IdleMode.kCoast);
     spinner.setOpenLoopRampRate(0.5);
+    spinner.setInverted(true);
     // Lessen the built-in averaging to get faster respone?
     // See https://www.chiefdelphi.com/t/psa-default-neo-sparkmax-velocity-readings-are-still-bad-for-flywheels
     // TODO spinner.getEncoder().setAverageDepth(2);
 
-    secondary = new CANSparkMax(RobotMap.SHOOTER, MotorType.kBrushless);
+    secondary = new CANSparkMax(RobotMap.SHOOTER2, MotorType.kBrushless);
     secondary.restoreFactoryDefaults();
     secondary.clearFaults();
     secondary.setIdleMode(IdleMode.kCoast);
     secondary.setOpenLoopRampRate(0.5);
-    secondary.follow(spinner, false);
+    secondary.follow(spinner, true);
 
     nt_desired_speed = SmartDashboard.getEntry("Shooter Setpoint");
-    nt_desired_speed.setDefaultDouble(500);
+    nt_desired_speed.setDefaultDouble(40);
     nt_speed = SmartDashboard.getEntry("Shooter Speed");
     nt_at_desired_speed = SmartDashboard.getEntry("Shooter At Speed");
   }
@@ -80,7 +81,7 @@ public class Shooter extends SubsystemBase
   public boolean atDesiredSpeed()
   {
     // "At speed": within 100 RPS of desired speed?
-    return Math.abs(setpoint - getSpeed()) < 100;
+    return Math.abs(setpoint - getSpeed()) < 2;
   }
 
   @Override
