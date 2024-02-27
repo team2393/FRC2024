@@ -171,6 +171,19 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "14,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Feeder Voltage",
+              "_title": "SmartDashboard/Feeder Voltage",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }

@@ -41,7 +41,7 @@ public class RobotMap
   public static final int BACK_LEFT_ANGLE = 5;
 
   // SparkMax motors
-  public static final int INTAKE_SPINNER = 6;
+  public static final int INTAKE_SPINNER = 26; // AKA 6A
   public static final int INTAKE_SPINNER_2 = 11;
   public static final int FEEDER = 14;
   public static final int SHOOTER = 13;
