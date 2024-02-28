@@ -34,7 +34,7 @@ public class Feeder extends SubsystemBase
     feeder.setOpenLoopRampRate(0.5);
 
     voltage = SmartDashboard.getEntry("Feeder Voltage");
-    voltage.setDefaultDouble(4.0);
+    voltage.setDefaultDouble(2.0);
 
     sensor = new DigitalInput(RobotMap.FEED_SENSOR);
 
@@ -53,7 +53,7 @@ public class Feeder extends SubsystemBase
     // so with nothing connected they will read 'true'.
     // The game piece sensor should connect the input to ground,
     // so then it would read 'false'
-    return ! sensor.get();
+    return sensor.get();
   }
 
   @Override

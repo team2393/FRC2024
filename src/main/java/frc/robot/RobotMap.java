@@ -42,7 +42,6 @@ public class RobotMap
 
   // Digital I/O
   public static final int FEED_SENSOR = 0;
-  public static final int SHOOTER_SENSOR = 1;
   public static final int CLIMBER_AT_BOTTOM = 2;
   public static final int ARM_ENCODER = 2; // shooter angle encoder
 
