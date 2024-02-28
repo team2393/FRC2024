@@ -4,9 +4,11 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
@@ -23,6 +25,8 @@ public class Intake extends SubsystemBase
   private final Solenoid in_out;
   // Spinner to pull game piece in
   private final CANSparkMax spinner, spinner2;
+  private final RelativeEncoder encoder;
+  private final NetworkTableEntry nt_rpm;
   // Simulation display elements
   private final MechanismLigament2d pivot;
 
@@ -41,6 +45,8 @@ public class Intake extends SubsystemBase
     // Dampen the acceleration
     spinner.setOpenLoopRampRate(1);
 
+    encoder = spinner.getEncoder();
+
     spinner2 = new CANSparkMax(RobotMap.INTAKE_SPINNER_2, MotorType.kBrushless);
     spinner2.restoreFactoryDefaults();
     spinner2.clearFaults();
@@ -49,6 +55,8 @@ public class Intake extends SubsystemBase
     spinner2.setOpenLoopRampRate(1);
     spinner2.follow(spinner, true);
     // TODO?  spinner.setSmartCurrentLimit(40);
+
+    nt_rpm = SmartDashboard.getEntry("Intake RPM");
 
     // Somewhat like this, rotating around '*'
     //           _____
@@ -82,7 +90,7 @@ public class Intake extends SubsystemBase
     // Update solenoid to open or close the intake
     in_out.set(open);
 
-    SmartDashboard.putNumber("Intake RPM", spinner.getEncoder().getVelocity());
+    nt_rpm.setNumber(encoder.getVelocity());
 
     // Run spinner when open
     // TODO Find good voltage for pulling in

@@ -4,6 +4,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -16,6 +17,8 @@ public class Driver extends DriverBase
   private final static double REV_PER_METER = 22.3 /  (4.87 / 3.88);
 
   private final CANSparkMax motor;
+
+  private RelativeEncoder encoder;
 
   /** @param index Driver index 0..3
    *  @param motor_id CAN ID of motor
@@ -31,18 +34,20 @@ public class Driver extends DriverBase
     motor.setInverted(true);
     // Dampen the acceleration
     motor.setOpenLoopRampRate(0.1);
+
+    encoder = motor.getEncoder();
   }
   
   protected double getRawPosition()
   {
     // Convert revolutions into meter
-    return motor.getEncoder().getPosition() / REV_PER_METER;
+    return encoder.getPosition() / REV_PER_METER;
   }
 
   protected double getRealSpeed()
   {
     // Convert revolution per minute into m/s
-    return motor.getEncoder().getVelocity() / 60.0 / REV_PER_METER;
+    return encoder.getVelocity() / 60.0 / REV_PER_METER;
   }
 
   public void setVoltage(double voltage)

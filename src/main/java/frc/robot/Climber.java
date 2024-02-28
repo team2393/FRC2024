@@ -4,6 +4,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -34,6 +35,8 @@ public class Climber extends SubsystemBase
 
   // Motor to move climber up (forward) or down (reverse)
   private final CANSparkMax climber;
+  // Motor's encoder
+  private RelativeEncoder encoder;
 
   // Bottom limit switch
   // Digital inputs are pulled high, so nothing connected -> 'true'.
@@ -59,6 +62,8 @@ public class Climber extends SubsystemBase
     climber.clearFaults();
     climber.setIdleMode(IdleMode.kBrake);
     climber.setOpenLoopRampRate(0.5);
+
+    encoder = climber.getEncoder();
 
     at_bottom = new DigitalInput(RobotMap.CLIMBER_AT_BOTTOM);
 
@@ -98,7 +103,7 @@ public class Climber extends SubsystemBase
   public void periodic()
   {
     // Get and show height
-    double height = climber.getEncoder().getPosition() * METERS_PER_TURN;
+    double height = encoder.getPosition() * METERS_PER_TURN;
     climber_height.setNumber(height);
     extension.setLength(height);
 
@@ -116,7 +121,7 @@ public class Climber extends SubsystemBase
       {
         voltage = 0;
         // Reset position. Bottom is defined as "0 meters"
-        climber.getEncoder().setPosition(0.0);
+        encoder.setPosition(0.0);
         height = 0;
       }
       else
@@ -130,7 +135,7 @@ public class Climber extends SubsystemBase
     if (RobotBase.isSimulation())
     { // Simulate change in motor position. 0.001 simply "looked good"
       height += voltage * 0.001;
-      climber.getEncoder().setPosition(height / METERS_PER_TURN);
+      encoder.setPosition(height / METERS_PER_TURN);
     }
   }
 

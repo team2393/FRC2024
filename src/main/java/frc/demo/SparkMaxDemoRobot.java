@@ -5,6 +5,7 @@
 package frc.demo;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,6 +17,7 @@ import frc.tools.CommandRobotBase;
 public class SparkMaxDemoRobot extends CommandRobotBase
 {
     private final CANSparkMax motor = new CANSparkMax(RobotMap.FRONT_LEFT_ROTATE, MotorType.kBrushless);
+    private RelativeEncoder encoder;
 
     @Override
     public void robotInit()
@@ -24,14 +26,15 @@ public class SparkMaxDemoRobot extends CommandRobotBase
         motor.restoreFactoryDefaults();
         motor.clearFaults();
         motor.setOpenLoopRampRate(1);
+        encoder = motor.getEncoder();
     }
 
     @Override
     public void robotPeriodic()
     {
         super.robotPeriodic();
-        SmartDashboard.putNumber("Position", motor.getEncoder().getPosition());
-        SmartDashboard.putNumber("Speed", motor.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Position", encoder.getPosition());
+        SmartDashboard.putNumber("Speed", encoder.getVelocity());
     }    
 
     @Override
