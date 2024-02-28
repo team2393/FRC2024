@@ -41,7 +41,7 @@ public class Intake extends SubsystemBase
     // Dampen the acceleration
     spinner.setOpenLoopRampRate(1);
 
-    spinner2 = new CANSparkMax(RobotMap.INTAKE_SPINNER, MotorType.kBrushless);
+    spinner2 = new CANSparkMax(RobotMap.INTAKE_SPINNER_2, MotorType.kBrushless);
     spinner2.restoreFactoryDefaults();
     spinner2.clearFaults();
     spinner2.setIdleMode(IdleMode.kCoast);

@@ -30,6 +30,10 @@ public class Robot extends CommandRobotBase
   private final Feeder feeder = new Feeder();
   private final Command open_intake = new OpenIntakeCommand(intake, feeder);
 
+  private final Shooter shooter = new Shooter();
+  private final Command shoot = new ShootCommand(feeder, shooter);
+  private final ShooterArm shooter_arm = new ShooterArm();
+
   private final SendableChooser<Command> autos = new SendableChooser<>();
 
   @Override
@@ -52,6 +56,7 @@ public class Robot extends CommandRobotBase
 
     OperatorInterface.reset();
     OperatorInterface.toggleIntake().toggleOnTrue(open_intake);
+    OperatorInterface.fire().onTrue(shoot);
 
     autos.setDefaultOption("Nothing", new PrintCommand("Do nothing"));
 
