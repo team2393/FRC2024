@@ -78,7 +78,6 @@ public class CenterOnAprilTag extends Command
   @Override
   public void end(boolean interrupted)
   {
-    // TODO Anything to do when done?
     drivetrain.swerve(0, 0, 0);
   }
 }

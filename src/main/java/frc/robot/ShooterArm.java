@@ -47,10 +47,6 @@ public class ShooterArm extends SubsystemBase
     motor.setOpenLoopRampRate(0.5);
     motor.setInverted(true);
 
-    // Calibrate encoder for 0..360 degrees
-    // encoder.setPositionConversionFactor(360);
-    // TODO Calibrate zero offset
-   
     pid.reset(getAngle());
 
     nt_angle = SmartDashboard.getEntry("Shooter Angle");

@@ -13,7 +13,7 @@ public class FeederTestRobot extends CommandRobotBase
   @Override
   public void teleopPeriodic()
   {
-    // TODO Find a good voltage for the "Feeder Voltage"
+    // Find a good voltage for the "Feeder Voltage"
     // and hardcode that into the Feeder
 
     // See https://www.chiefdelphi.com/t/commandscheduler-loop-overruns-one-potential-cause/453901

@@ -7,18 +7,6 @@ package frc.robot;
 /** Robot (Hardware) Map: What's connected where? */
 public class RobotMap
 {
-  // TODO Power Distribution Info
-  // Add someting similar to the comment in
-  // https://github.com/team2393/FRC2022/blob/main/src/main/java/frc/robot/RobotMap.java
-  //
-  //
-  // 21  -  RoboRIO, 10 Amp
-  //
-  // which shows the outputs of the power distribution panel
-  // and how they are used: What motor/device/.., what type of fuse.
-  // See https://docs.wpilib.org/en/latest/docs/controls-overviews/control-system-hardware.html
-  // for the potential types of power distribution panels.
-
   // CAN IDs
   // (IDs are specific to the device type, so a SparkMax and CANCoder could use the same ID...)
 
