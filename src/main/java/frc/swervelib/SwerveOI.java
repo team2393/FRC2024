@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class SwerveOI
 {
   /** Alternate stick assignment? */
-  private static final boolean ALTERNATE = true;
+  private static final boolean ALTERNATE = false;
 
   public static final CommandXboxController joystick = new CommandXboxController(0);
 
