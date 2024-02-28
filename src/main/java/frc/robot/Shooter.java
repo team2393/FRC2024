@@ -4,6 +4,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -17,8 +18,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Shooter extends SubsystemBase
 {
   private static double TURNS_PER_REV = 10/7.5;
-  private CANSparkMax spinner, secondary;
-  private PIDController pid = new PIDController(0.0, 0.0, 0.0);
+  private final CANSparkMax spinner, secondary;
+  private final RelativeEncoder encoder;
+  private final PIDController pid = new PIDController(0.0, 0.0, 0.0);
   private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0.6, 0.13);
 
   // Speed at which spinner should run right now
@@ -35,9 +37,11 @@ public class Shooter extends SubsystemBase
     spinner.setIdleMode(IdleMode.kCoast);
     spinner.setOpenLoopRampRate(0.5);
     spinner.setInverted(true);
-    // Lessen the built-in averaging to get faster respone?
+    encoder = spinner.getEncoder();
+    // TODO Lessen the built-in averaging to get faster respone?
     // See https://www.chiefdelphi.com/t/psa-default-neo-sparkmax-velocity-readings-are-still-bad-for-flywheels
-    // TODO spinner.getEncoder().setAverageDepth(2);
+    // encoder.setMeasurementPeriod(16);
+    // encoder.setAverageDepth(2);
 
     secondary = new CANSparkMax(RobotMap.SHOOTER2, MotorType.kBrushless);
     secondary.restoreFactoryDefaults();
@@ -45,6 +49,11 @@ public class Shooter extends SubsystemBase
     secondary.setIdleMode(IdleMode.kCoast);
     secondary.setOpenLoopRampRate(0.5);
     secondary.follow(spinner, true);
+
+    // Speed control mostly uses 'I' term.
+    // Its default range is -1..1, but we seal with larger RPS ranges
+    // TODO Find good value
+    pid.setIntegratorRange(-100, 100);
 
     nt_desired_speed = SmartDashboard.getEntry("Shooter Setpoint");
     nt_desired_speed.setDefaultDouble(40);
@@ -69,13 +78,13 @@ public class Shooter extends SubsystemBase
   /** @return Position in rotations */
   public double getTurns()
   {
-    return spinner.getEncoder().getPosition() * TURNS_PER_REV;
+    return encoder.getPosition() * TURNS_PER_REV;
   }
 
   /** @return Speed in rotations per second */
   public double getSpeed()
   {
-    return spinner.getEncoder().getVelocity() * TURNS_PER_REV / 60.0;
+    return encoder.getVelocity() * TURNS_PER_REV / 60.0;
   }
 
   public boolean atDesiredSpeed()
