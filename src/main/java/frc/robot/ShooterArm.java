@@ -81,7 +81,7 @@ public class ShooterArm extends SubsystemBase
     final double angle = getAngle();
     nt_angle.setDouble(angle);
 
-    double setpoint = MathUtil.clamp(nt_desired_angle.getDouble(50), 20, 90);
+    double setpoint = MathUtil.clamp(nt_desired_angle.getDouble(50), 20, 60);
 
     double voltage = kg * Math.cos(Math.toRadians(angle))
                    + pid.calculate(angle, setpoint);
