@@ -13,13 +13,17 @@ import java.util.List;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.swervelib.ResetPositionCommand;
 import frc.swervelib.SelectAbsoluteTrajectoryCommand;
 import frc.swervelib.SelectRelativeTrajectoryCommand;
+import frc.swervelib.StayPutCommand;
 import frc.swervelib.RotateToHeadingCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveToPositionCommand;
@@ -281,6 +285,39 @@ public class AutoNoMouse
       auto.addCommands(drivetrain.createTrajectoryCommand(path6, 0));
 
       auto.addCommands(new ShootCommand(feeder, shooter));
+      autos.add(auto);
+    }
+
+    {
+      // Blue Middle: Shoot Move Pickup Shoot
+      SequentialCommandGroup auto = new SequenceWithStart("BMSMPS", 1.5, 5.5, 180);
+      auto.addCommands(new VariableWaitCommand());
+      auto.addCommands(new ShootCommand(feeder, shooter));
+      // Pickup another ring from right behind
+      Trajectory path2 = createTrajectory(true, 1.5, 5.5, 0,
+                                                2.6, 5.5, 0);
+      auto.addCommands(new ParallelRaceGroup(
+        new OpenIntakeCommand(intake, feeder),
+        Commands.waitSeconds(3)
+                .andThen(drivetrain.createTrajectoryCommand(path2, 180))
+                .andThen(new StayPutCommand(drivetrain, 0))
+      ));
+      
+      // Move forward to target and shoot
+      Trajectory path3 = createTrajectory(true, 2.6, 5.5, 180,
+                                                1.8, 5.5, 180);
+      // Ideally, intake closes on its own when it fetches the game piece.
+      // Just in case, force it closed, but not right away since we might be
+      // in the middle of pulling the game piece in.
+      // So in parallel, a) drive forward,
+      //                 b) wait a little and then close the intake
+      auto.addCommands(new ParallelCommandGroup(
+                  drivetrain.createTrajectoryCommand(path3, 180),
+                  new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+                  
+      auto.addCommands(new ParallelCommandGroup(
+                    new ShootCommand(feeder, shooter),
+                    new StayPutCommand(drivetrain, 0)));        
       autos.add(auto);
     }
 

@@ -31,7 +31,7 @@ public class Rotator extends RotatorBase
     motor = new CANSparkMax(motor_id, MotorType.kBrushless);
     motor.restoreFactoryDefaults();
     motor.clearFaults();
-    motor.setIdleMode(IdleMode.kCoast);
+    motor.setIdleMode(IdleMode.kBrake);
     motor.setInverted(true);
     motor.setOpenLoopRampRate(0.25);
 
