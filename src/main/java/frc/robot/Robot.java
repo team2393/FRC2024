@@ -15,6 +15,7 @@ import frc.swervelib.RelativeSwerveCommand;
 import frc.swervelib.ResetHeadingCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveOI;
+import frc.tools.ApplySettingsCommand;
 import frc.tools.AutoTools;
 import frc.tools.CommandRobotBase;
 
@@ -63,6 +64,16 @@ public class Robot extends CommandRobotBase
     for (Command auto : AutoNoMouse.createAutoCommands(drivetrain))
       autos.addOption(auto.getName(), auto);
     SmartDashboard.putData(autos);
+
+    ApplySettingsCommand high = new ApplySettingsCommand("High");
+    high.add("Set Shooter Angle", 55);
+    high.add("Shooter Setpoint", 40);
+    SmartDashboard.putData(high);
+    
+    ApplySettingsCommand low = new ApplySettingsCommand("Low");
+    low.add("Set Shooter Angle", 45);
+    low.add("Shooter Setpoint", 30);
+    SmartDashboard.putData(low);
   }
 
   @Override

@@ -219,6 +219,32 @@
                 }
               }
             }
+          },
+          "10,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Low",
+              "_title": "SmartDashboard/Low",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
+          },
+          "10,2": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/High",
+              "_title": "SmartDashboard/High",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
