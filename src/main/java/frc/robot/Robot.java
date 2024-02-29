@@ -44,11 +44,11 @@ public class Robot extends CommandRobotBase
     // Speed settings:
     // SwerveDrivetrain controls maximum enforced by swerve(vx, vy, vr) and SwerveOI
     SwerveDrivetrain.MAX_METERS_PER_SEC = 1.5;
-    SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC = 90;
+    SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC = 120;
     // Slew limiters for interactive moves
-    SwerveOI.forward_slew = new SlewRateLimiter(1.5);
-    SwerveOI.side_slew = new SlewRateLimiter(1.5);
-    SwerveOI.rotation_slew = new SlewRateLimiter(90);
+    SwerveOI.forward_slew = new SlewRateLimiter(4);
+    SwerveOI.side_slew = new SlewRateLimiter(4);
+    SwerveOI.rotation_slew = new SlewRateLimiter(360);
     // Maximum speed requested in autonomous moves (can't exceed MAX_METERS_PER_SEC)
     AutoTools.config = new TrajectoryConfig(1.5, 1.5);
 

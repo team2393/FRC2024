@@ -51,7 +51,7 @@ public class ShooterArm extends SubsystemBase
 
     nt_angle = SmartDashboard.getEntry("Shooter Angle");
     nt_desired_angle = SmartDashboard.getEntry("Set Shooter Angle");
-    nt_desired_angle.setDefaultDouble(50);
+    nt_desired_angle.setDefaultDouble(55);
   }
 
   /** @param kg Gravity compensation constant
