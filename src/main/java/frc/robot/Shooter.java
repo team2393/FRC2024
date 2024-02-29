@@ -103,7 +103,7 @@ public class Shooter extends SubsystemBase
     {
       double setpoint = nt_desired_speed.getDouble(500);
       // "At speed": within 2 RPS of desired speed?
-      at_desired_speed = Math.abs(setpoint - speed) < 2;
+      at_desired_speed = speed >= setpoint;
       
       // Use feed forward and PID to compute the required voltage
       double voltage = ff.calculate(setpoint) + pid.calculate(speed, setpoint);
