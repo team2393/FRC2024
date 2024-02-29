@@ -62,7 +62,7 @@ public class Robot extends CommandRobotBase
 
     autos.setDefaultOption("Nothing", new PrintCommand("Do nothing"));
 
-    for (Command auto : AutoNoMouse.createAutoCommands(drivetrain))
+    for (Command auto : AutoNoMouse.createAutoCommands(drivetrain, intake, feeder, shooter))
       autos.addOption(auto.getName(), auto);
     SmartDashboard.putData(autos);
 

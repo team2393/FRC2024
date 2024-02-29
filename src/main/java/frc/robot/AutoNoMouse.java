@@ -11,8 +11,6 @@ import static frc.tools.AutoTools.followPathWeaver;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.print.attribute.standard.Fidelity;
-
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -35,7 +33,7 @@ public class AutoNoMouse
   private static final double FIELD_WIDTH = 16.52;
 
   /** Create all our auto-no-mouse commands */
-  public static List<Command> createAutoCommands(SwerveDrivetrain drivetrain)
+  public static List<Command> createAutoCommands(SwerveDrivetrain drivetrain, Intake intake, Feeder feeder, Shooter shooter)
   {
     // List of all autonomouse commands
     final List<Command> autos = new ArrayList<>();
@@ -51,10 +49,9 @@ public class AutoNoMouse
                                                                 1.70, 3.50,  90,
                                                                 1.44, 5.54, 120);
       auto.addCommands(drivetrain.createTrajectoryCommand(path, 180));
-      auto.addCommands(new PrintCommand("Shoot!"));
-      auto.addCommands(new WaitCommand(2));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       // Pickup another ring form right behind
-      auto.addCommands(new PrintCommand("Open intake"));
+      auto.addCommands(new OpenIntakeCommand(intake, feeder));
       Trajectory path2 = createTrajectory(true, 1.44, 5.54, 0,
                                                 2.60, 5.54, 0);
       auto.addCommands(drivetrain.createTrajectoryCommand(path2, 180));
@@ -70,10 +67,9 @@ public class AutoNoMouse
       auto.addCommands(new ParallelCommandGroup(
                   drivetrain.createTrajectoryCommand(path3, 180),
                   new SequentialCommandGroup(new WaitCommand(1),
-                                             new PrintCommand("Close intake"))));
+                                             new CloseIntakeCommand(intake, feeder))));
 
-      auto.addCommands(new PrintCommand("Shoot!"));
-      auto.addCommands(new WaitCommand(2));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new PrintCommand("Done."));
       autos.add(auto);
     }
@@ -96,20 +92,18 @@ public class AutoNoMouse
                                                14.82, 3.50,  90,
                                                15.08, 5.54,  60);
       auto.addCommands(drivetrain.createTrajectoryCommand(path, 0));
-      auto.addCommands(new PrintCommand("Shoot!"));
-      auto.addCommands(new WaitCommand(2));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       // Pickup another ring form right behind
-      auto.addCommands(new PrintCommand("Open intake"));
+      auto.addCommands(new OpenIntakeCommand(intake, feeder));
       Trajectory path2 = createTrajectory(true, 15.08, 5.54, 180,
                                                 13.92, 5.54, 180);
       auto.addCommands(drivetrain.createTrajectoryCommand(path2, 0));
-      auto.addCommands(new PrintCommand("Close intake"));
+      auto.addCommands(new CloseIntakeCommand(intake, feeder));
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 13.92, 5.54, 0,
                                                 15.08, 5.54, 0);
       auto.addCommands(drivetrain.createTrajectoryCommand(path3, 0));
-      auto.addCommands(new PrintCommand("Shoot!"));
-      auto.addCommands(new WaitCommand(2));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new PrintCommand("Done."));
       autos.add(auto);
     }
@@ -189,18 +183,18 @@ public class AutoNoMouse
 
       auto.addCommands(drivetrain.createTrajectoryCommand(path2, 180));
 
-      auto.addCommands(new PrintCommand("Shoot"));
+      auto.addCommands(new ShootCommand(feeder, shooter));
 
       
        // Move from amp, pickup, shoot
-      auto.addCommands(new PrintCommand("Open Intake"));
+      auto.addCommands(new OpenIntakeCommand(intake, feeder));
 
       Trajectory path3 = createTrajectory(true, 1.44, 5.54, 0,
                                                 2.60, 5.54, 0);
 
       auto.addCommands(drivetrain.createTrajectoryCommand(path3, 180));
 
-      auto.addCommands(new PrintCommand("Close Intake"));
+      auto.addCommands(new CloseIntakeCommand(intake, feeder));
 
       Trajectory path4 = createTrajectory(true, 2.5, 5.5, 180,
                                                                 1.92, 5.5, 180,
@@ -208,7 +202,7 @@ public class AutoNoMouse
 
       auto.addCommands(drivetrain.createTrajectoryCommand(path4, 180));
 
-      auto.addCommands(new PrintCommand("Shoot"));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       
        // go to middle field ring, pickup
       Trajectory path5 = createTrajectory(true, 1.8, 5.5, 0,
@@ -216,12 +210,12 @@ public class AutoNoMouse
                                                                 2.5, 4.10, 0);
     auto.addCommands(drivetrain.createTrajectoryCommand(path5, 180));
 
-      auto.addCommands(new PrintCommand("Close Intake"));
+      auto.addCommands(new CloseIntakeCommand(intake, feeder));
 
       Trajectory path6 = createTrajectory(true, 1.83, 4.65, 0, 1.41, 5.5, 180);
       auto.addCommands(drivetrain.createTrajectoryCommand(path6, 180));
 
-      auto.addCommands(new PrintCommand("Shoot!"));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       autos.add(auto);
     }
 
@@ -249,11 +243,11 @@ public class AutoNoMouse
 
       auto.addCommands(drivetrain.createTrajectoryCommand(path2, 0));
 
-      auto.addCommands(new PrintCommand("Shoot"));
+      auto.addCommands(new ShootCommand(feeder, shooter));
 
       
        // Move from amp, pickup, shoot
-      auto.addCommands(new PrintCommand("Open Intake"));
+      auto.addCommands(new OpenIntakeCommand(intake, feeder));
 
       Trajectory path3 = createTrajectory(true, FIELD_WIDTH - 1.44, 5.54, 180,
                                                         FIELD_WIDTH - 2.60, 5.54, 180
@@ -261,7 +255,7 @@ public class AutoNoMouse
 
       auto.addCommands(drivetrain.createTrajectoryCommand(path3, 0));
 
-      auto.addCommands(new PrintCommand("Close Intake"));
+      auto.addCommands(new CloseIntakeCommand(intake, feeder));
 
       Trajectory path4 = createTrajectory(true, FIELD_WIDTH - 2.50, 5.5, 0,
                                                         FIELD_WIDTH - 1.92, 5.5, 0,
@@ -270,7 +264,7 @@ public class AutoNoMouse
 
       auto.addCommands(drivetrain.createTrajectoryCommand(path4, 0));
 
-      auto.addCommands(new PrintCommand("Shoot"));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       
        // go to middle field ring, pickup
       Trajectory path5 = createTrajectory(true, FIELD_WIDTH - 1.80, 5.50, 180,
@@ -279,14 +273,14 @@ public class AutoNoMouse
                                          );
     auto.addCommands(drivetrain.createTrajectoryCommand(path5, 0));
 
-      auto.addCommands(new PrintCommand("Close Intake"));
+      auto.addCommands(new CloseIntakeCommand(intake, feeder));
 
       Trajectory path6 = createTrajectory(true, FIELD_WIDTH - 1.5, 4.10, 0,
                                                         FIELD_WIDTH - 1.5, 5.50, 0
                                          );
       auto.addCommands(drivetrain.createTrajectoryCommand(path6, 0));
 
-      auto.addCommands(new PrintCommand("Shoot!"));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       autos.add(auto);
     }
 
