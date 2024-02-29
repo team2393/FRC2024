@@ -15,6 +15,11 @@ public class OperatorInterface extends SwerveOI
     return joystick.a();
   }
 
+  public static Trigger reverseIntake()
+  {
+    return joystick.x();
+  }
+
   public static Trigger fire()
   {
     return joystick.y();

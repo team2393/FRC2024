@@ -33,6 +33,9 @@ public class Intake extends SubsystemBase
   // Should intake right now be open (down, out) or closed (up, in)?
   private boolean open = false;
 
+  // Reverse intake spinner to eject game piece?
+  private boolean reverse = false;
+
   public Intake()
   {
     // We want REVPH, but only CTREPCM supports simulation...
@@ -79,9 +82,16 @@ public class Intake extends SubsystemBase
     SmartDashboard.putData("Intake", mechanism);
   }
 
+  /** Open intake and run intake spinner? */
   public void open(boolean do_open)
   {
     open = do_open;
+  }
+
+  /** Reverse intake spinner (overrides spinner's normal on/off behavior) */
+  public void reverse(boolean do_reverse)
+  {
+    reverse = do_reverse;
   }
 
   @Override
@@ -92,9 +102,10 @@ public class Intake extends SubsystemBase
 
     nt_rpm.setNumber(encoder.getVelocity());
 
-    // Run spinner when open
-    // TODO Find good voltage for pulling in
-    if (open)
+    // Reverse spinner on request, otherwise run spinner when open
+    if (reverse)
+      spinner.setVoltage(-9);
+    else if (open)
       spinner.setVoltage(9);
     else
       spinner.setVoltage(0);

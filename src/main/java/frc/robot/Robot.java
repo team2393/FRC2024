@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
 import frc.swervelib.ResetHeadingCommand;
@@ -74,6 +75,10 @@ public class Robot extends CommandRobotBase
     low.add("Set Shooter Angle", 45);
     low.add("Shooter Setpoint", 30);
     SmartDashboard.putData(low);
+
+    Command reverse = new StartEndCommand(() -> intake.reverse(true),
+                                          () -> intake.reverse(false));
+    OperatorInterface.reverseIntake().whileTrue(reverse);
   }
 
   @Override
