@@ -23,11 +23,14 @@ public class Shooter extends SubsystemBase
   private final PIDController pid = new PIDController(0.0, 0.0, 0.0);
   private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0.6, 0.13);
 
-  // Speed at which spinner should run right now
-  private double setpoint = 0;
+  // Should spinner run right now?
+  private boolean run = false;
+
+  // Is spinner at desired speed?
+  private boolean at_desired_speed = false;
 
   // Desired speed when shooting (otherwise zero)
-  private NetworkTableEntry nt_desired_speed, nt_speed, nt_at_desired_speed;
+  private NetworkTableEntry nt_desired_speed, nt_speed, nt_at_desired_speed, nt_always_on;
 
   public Shooter()
   {
@@ -59,6 +62,8 @@ public class Shooter extends SubsystemBase
     nt_desired_speed.setDefaultDouble(40);
     nt_speed = SmartDashboard.getEntry("Shooter Speed");
     nt_at_desired_speed = SmartDashboard.getEntry("Shooter At Speed");
+    nt_always_on = SmartDashboard.getEntry("Shooter On");
+    nt_always_on.setDefaultBoolean(false);
   }
 
   public void configure(double ks, double kv, double P, double I, double D)
@@ -69,10 +74,7 @@ public class Shooter extends SubsystemBase
 
   public void run(boolean do_run)
   {
-    if (do_run)
-      setpoint = nt_desired_speed.getDouble(500);
-    else
-      setpoint = 0;
+    run = do_run;
   }
 
   /** @return Position in rotations */
@@ -89,8 +91,7 @@ public class Shooter extends SubsystemBase
 
   public boolean atDesiredSpeed()
   {
-    // "At speed": within 100 RPS of desired speed?
-    return Math.abs(setpoint - getSpeed()) < 2;
+    return at_desired_speed;
   }
 
   @Override
@@ -98,18 +99,21 @@ public class Shooter extends SubsystemBase
   {
     double speed = getSpeed();
     nt_speed.setNumber(speed);
-    if (setpoint <= 0)
+    if (run  ||  nt_always_on.getBoolean(false))
     {
-      nt_at_desired_speed.setBoolean(false);
-      spinner.setVoltage(0);
-    }
-    else
-    {
-      nt_at_desired_speed.setBoolean(atDesiredSpeed());
-  
+      double setpoint = nt_desired_speed.getDouble(500);
+      // "At speed": within 2 RPS of desired speed?
+      at_desired_speed = Math.abs(setpoint - speed) < 2;
+      
       // Use feed forward and PID to compute the required voltage
       double voltage = ff.calculate(setpoint) + pid.calculate(speed, setpoint);
       spinner.setVoltage(voltage);
     }
+    else
+    {
+      at_desired_speed = false;
+      spinner.setVoltage(0);
+    }
+    nt_at_desired_speed.setBoolean(atDesiredSpeed());
   }
 }
