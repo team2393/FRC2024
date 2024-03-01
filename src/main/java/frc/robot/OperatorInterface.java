@@ -24,4 +24,24 @@ public class OperatorInterface extends SwerveOI
   {
     return joystick.y();
   }
+
+  public static Trigger leftClimberUp()
+  {
+    return joystick.leftBumper();
+  }
+
+  public static Trigger leftClimberDown()
+  {
+    return joystick.leftTrigger();
+  }
+  
+  public static Trigger rightClimberUp()
+  {
+    return joystick.rightBumper();
+  }
+
+  public static Trigger rightClimberDown()
+  {
+    return joystick.rightTrigger();
+  }
 }

@@ -35,6 +35,7 @@ public class RobotMap
   public static final int SHOOTER = 13;
   public static final int SHOOTER2 = 16;
   public static final int CLIMBER = 16;
+  public static final int CLIMBER2 = 19;
   public static final int SHOOTER_ARM = 18;
 
   // Pneumatic control module channels
@@ -42,7 +43,8 @@ public class RobotMap
 
   // Digital I/O
   public static final int FEED_SENSOR = 0;
-  public static final int CLIMBER_AT_BOTTOM = 2;
+  public static final int CLIMBER_AT_BOTTOM = 3;
+  public static final int CLIMBER_AT_BOTTOM2 = 4;
   public static final int ARM_ENCODER = 2; // shooter angle encoder
 
   // PWM outputs

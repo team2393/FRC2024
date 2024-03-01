@@ -55,9 +55,9 @@ public class Climber extends SubsystemBase
   // Simulation display elements
   private final MechanismLigament2d extension;
 
-  public Climber()
+  public Climber(boolean left)
   {
-    climber = new CANSparkMax(RobotMap.CLIMBER, MotorType.kBrushless);
+    climber = new CANSparkMax(left ? RobotMap.CLIMBER : RobotMap.CLIMBER2, MotorType.kBrushless);
     climber.restoreFactoryDefaults();
     climber.clearFaults();
     climber.setIdleMode(IdleMode.kBrake);
@@ -65,9 +65,9 @@ public class Climber extends SubsystemBase
 
     encoder = climber.getEncoder();
 
-    at_bottom = new DigitalInput(RobotMap.CLIMBER_AT_BOTTOM);
+    at_bottom = new DigitalInput(left ? RobotMap.CLIMBER_AT_BOTTOM : RobotMap.CLIMBER_AT_BOTTOM2);
 
-    climber_height = SmartDashboard.getEntry("Climber");
+    climber_height = SmartDashboard.getEntry(left ? "Left Climber Height" : "Right Climber Height");
 
     // Somewhat like this:
     //  _
@@ -90,7 +90,7 @@ public class Climber extends SubsystemBase
     MechanismLigament2d hook = extension.append(new MechanismLigament2d("hook", 0.1, 90, 5, new Color8Bit(Color.kGreen)));
     hook.append(new MechanismLigament2d("hook2", 0.05, 90, 5, new Color8Bit(Color.kGreen)));
     // Make available on dashboard
-    SmartDashboard.putData("Climber", mechanism);
+    SmartDashboard.putData(left ? "LeftClimber" : "RightClimber", mechanism);
   }
 
   /** @return Is arm at bottom? */
