@@ -83,6 +83,6 @@ public class SwerveToPositionCommand extends Command
   @Override
   public void end(boolean interrupted)
   {
-    drivetrain.drive(angle, 0.0);
+    drivetrain.stop();
   }
 }

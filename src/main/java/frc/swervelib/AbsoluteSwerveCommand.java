@@ -65,4 +65,10 @@ public class AbsoluteSwerveCommand extends Command
     double vr = Math.toRadians(SwerveOI.getRotationSpeed());
     drivetrain.swerve(absoluteDirection.getX(), absoluteDirection.getY(), vr, SwerveDrivetrain.CENTER);
   }
+
+  @Override
+  public void end(boolean interrupted)
+  {
+    drivetrain.stop();
+  }
 }

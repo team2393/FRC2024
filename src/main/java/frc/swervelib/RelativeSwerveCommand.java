@@ -56,4 +56,10 @@ public class RelativeSwerveCommand extends Command
                         Math.toRadians(SwerveOI.getRotationSpeed()),
                         axis);
   }
+
+  @Override
+  public void end(boolean interrupted)
+  {
+    drivetrain.stop();
+  }
 }

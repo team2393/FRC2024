@@ -66,6 +66,6 @@ public class RotateToHeadingCommand extends Command
   @Override
   public void end(boolean interrupted)
   {
-    drivetrain.drive(0, 0.0);
+    drivetrain.stop();
   }
 }

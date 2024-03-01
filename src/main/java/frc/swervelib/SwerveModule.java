@@ -36,6 +36,13 @@ public class SwerveModule
     return new SwerveModulePosition(driver.getPosition(), rotator.getAngle());
   }
 
+  /** Stop all motors */
+  public void stop()
+  {
+    rotator.setVoltage(0);
+    driver.setVoltage(0);
+  }
+
   /** @param angle Module angle in degrees
    *  @param speed Module speed in meters per second
    */

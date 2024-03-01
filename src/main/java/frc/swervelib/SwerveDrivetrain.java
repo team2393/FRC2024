@@ -123,8 +123,8 @@ abstract public class SwerveDrivetrain extends SubsystemBase
     nt_set_y.setDefaultDouble(0.0);
     nt_set_heading.setDefaultDouble(0.0);
 
-    // When no other command uses the drivetrain, stay put with modules pointed to 0.0
-    setDefaultCommand(new StayPutCommand(this, 0.0));
+    // When no other command uses the drivetrain, stop all motors
+    setDefaultCommand(new StopCommand(this));
   }
 
   /** @return Width of the rectangle where modules are on corners in meters */
@@ -214,6 +214,13 @@ abstract public class SwerveDrivetrain extends SubsystemBase
     modules[1].drive(45, 0.0);
     modules[2].drive(-45, 0.0);
     modules[3].drive(45, 0.0);
+  }
+
+  /** Stop all motors */
+  public void stop()
+  {
+    for (SwerveModule module : modules)
+        module.stop();
   }
 
   /** Drive all modules with same angle and speed
