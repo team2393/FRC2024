@@ -298,9 +298,7 @@ public class AutoNoMouse
                                                 2.6, 5.5, 0);
       auto.addCommands(new ParallelRaceGroup(
         new OpenIntakeCommand(intake, feeder),
-        Commands.waitSeconds(3)
-                .andThen(drivetrain.createTrajectoryCommand(path2, 180))
-                .andThen(new StayPutCommand(drivetrain, 0))
+        Commands.waitSeconds(3).andThen(drivetrain.createTrajectoryCommand(path2, 180).asProxy())
       ));
       
       // Move forward to target and shoot
@@ -312,12 +310,12 @@ public class AutoNoMouse
       // So in parallel, a) drive forward,
       //                 b) wait a little and then close the intake
       auto.addCommands(new ParallelCommandGroup(
-                  drivetrain.createTrajectoryCommand(path3, 180),
-                  new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+          drivetrain.createTrajectoryCommand(path3, 180).asProxy(),
+          new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))
+        ));
                   
-      auto.addCommands(new ParallelCommandGroup(
-                    new ShootCommand(feeder, shooter),
-                    new StayPutCommand(drivetrain, 0)));        
+      auto.addCommands(new ShootCommand(feeder, shooter));
+      auto.addCommands(new PrintCommand("Done."));        
       autos.add(auto);
     }
 
