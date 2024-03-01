@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -43,8 +44,8 @@ public class ShootCommand extends Command
   public void execute()
   {
     if (state == State.SPINUP)
-    { // Move on when at desired speed or after timeout.
-      if (shooter.atDesiredSpeed()  ||  timer.hasElapsed(5))
+    { // Move on when at desired speed or after timeout. Right away in simulation
+      if (shooter.atDesiredSpeed()  ||  timer.hasElapsed(5)  ||  RobotBase.isSimulation())
       {
         state = State.SHOOT;
         timer.restart();

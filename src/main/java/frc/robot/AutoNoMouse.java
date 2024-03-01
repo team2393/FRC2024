@@ -14,7 +14,6 @@ import java.util.List;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -269,16 +268,17 @@ public class AutoNoMouse
       SequentialCommandGroup auto = new SequenceWithStart("BMSMPS", 1.5, 5.5, 180);
       auto.addCommands(new VariableWaitCommand());
       auto.addCommands(new ShootCommand(feeder, shooter));
+
       // Pickup another ring from right behind
       Trajectory path2 = createTrajectory(true, 1.5, 5.5, 0,
                                                 2.6, 5.5, 0);
-      auto.addCommands(new ParallelRaceGroup(
+      auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder),
         new WaitCommand(3).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
       
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 2.6, 5.5, 180,
-                                                1.8, 5.5, 180);
+                                                1.6, 5.5, 180);
       // Ideally, intake closes on its own when it fetches the game piece.
       // Just in case, force it closed, but not right away since we might be
       // in the middle of pulling the game piece in.

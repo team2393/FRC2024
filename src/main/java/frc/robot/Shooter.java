@@ -102,9 +102,9 @@ public class Shooter extends SubsystemBase
     if (run  ||  nt_always_on.getBoolean(false))
     {
       double setpoint = nt_desired_speed.getDouble(500);
-      // "At speed": within 2 RPS of desired speed?
+      // "At speed": Fast enough
       at_desired_speed = speed >= setpoint;
-      
+
       // Use feed forward and PID to compute the required voltage
       double voltage = ff.calculate(setpoint) + pid.calculate(speed, setpoint);
       spinner.setVoltage(voltage);
