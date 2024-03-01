@@ -20,8 +20,8 @@ public class Shooter extends SubsystemBase
   private static double TURNS_PER_REV = 10/7.5;
   private final CANSparkMax spinner, secondary;
   private final RelativeEncoder encoder;
-  private final PIDController pid = new PIDController(0.0, 0.0, 0.0);
-  private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0.6, 0.13);
+  private final PIDController pid = new PIDController(0.0, 0.1, 0.0);
+  private SimpleMotorFeedforward ff = new SimpleMotorFeedforward(0.6, 0.11);
 
   // Should spinner run right now?
   private boolean run = false;
@@ -43,8 +43,8 @@ public class Shooter extends SubsystemBase
     encoder = spinner.getEncoder();
     // TODO Lessen the built-in averaging to get faster respone?
     // See https://www.chiefdelphi.com/t/psa-default-neo-sparkmax-velocity-readings-are-still-bad-for-flywheels
-    // encoder.setMeasurementPeriod(16);
-    // encoder.setAverageDepth(2);
+    encoder.setMeasurementPeriod(16);
+    encoder.setAverageDepth(2);
 
     secondary = new CANSparkMax(RobotMap.SHOOTER2, MotorType.kBrushless);
     secondary.restoreFactoryDefaults();
