@@ -273,8 +273,8 @@ public class AutoNoMouse
       Trajectory path2 = createTrajectory(true, 1.5, 5.5, 0,
                                                 2.6, 5.5, 0);
       auto.addCommands(new ParallelCommandGroup(
-        new OpenIntakeCommand(intake, feeder),
-        new WaitCommand(3).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
+        new OpenIntakeCommand(intake, feeder).withTimeout(7),
+        new WaitCommand(2).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
       
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 2.6, 5.5, 180,
