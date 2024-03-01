@@ -47,7 +47,7 @@ public class SwerveToPositionCommand extends Command
   // We generally rely on the trajectory tools to follow arbitrary paths.
   // In this case, 'initialize' could create a simple 2-point trajectory
   // from drivetrain.getPose() to the desired (x, y) and then
-  // launch a drivetrain.createTrajectoryCommand(...).
+  // launch a drivetrain.followTrajectory(...).
   // However, such a trajectory computation fails when the distance
   // between the points is too small (~10 cm), and we want to support
   // even small moves with this command.

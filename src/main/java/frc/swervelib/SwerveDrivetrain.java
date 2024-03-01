@@ -83,7 +83,7 @@ abstract public class SwerveDrivetrain extends SubsystemBase
   // private final SwerveDriveOdometry odometry;
   private final SwerveDrivePoseEstimator odometry;
 
-  /** Origin used by {@link #createTrajectoryCommand} */
+  /** Origin used by {@link #followTrajectory} */
   private Pose2d trajectory_origin = new Pose2d();
 
   /** @param width Width of the rectangle where modules are on corners in meters
@@ -308,7 +308,7 @@ abstract public class SwerveDrivetrain extends SubsystemBase
   }
 
   /** @param new_origin New origin for trajectory commands
-   *  @see #createTrajectoryCommand
+   *  @see #followTrajectory
    */
   public void setTrajectoryOrigin(Pose2d new_origin)
   {
@@ -319,9 +319,9 @@ abstract public class SwerveDrivetrain extends SubsystemBase
    *  @param end_angle Final heading angle
    *  @return Command that follows the trajectory
    */
-  public Command createTrajectoryCommand(Trajectory trajectory, double end_angle)
+  public Command followTrajectory(Trajectory trajectory, double end_angle)
   {
-    return createTrajectoryCommand(trajectory, end_angle, true);
+    return followTrajectory(trajectory, end_angle, true);
   }
 
   /** @param trajectory Trajectory to follow
@@ -329,7 +329,7 @@ abstract public class SwerveDrivetrain extends SubsystemBase
    *  @param require_drivetrain Command should require drivetrain unless it's inside a proxy that already holds the drivetrain
    *  @return Command that follows the trajectory
    */
-  public Command createTrajectoryCommand(Trajectory trajectory, double end_angle, boolean require_drivetrain)
+  public Command followTrajectory(Trajectory trajectory, double end_angle, boolean require_drivetrain)
   {
     // SwerveControllerCommand will basically send the speed at each point of the
     // trajectory to the serve modules, using many little helpers

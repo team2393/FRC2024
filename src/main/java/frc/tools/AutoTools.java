@@ -58,7 +58,7 @@ public class AutoTools
     try
     {
       Trajectory trajectory = TrajectoryUtil.fromPathweaverJson(file);
-      return drivetrain.createTrajectoryCommand(trajectory, final_heading);
+      return drivetrain.followTrajectory(trajectory, final_heading);
     }
     catch (Exception ex)
     {

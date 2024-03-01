@@ -42,19 +42,19 @@ public class AutoNoMouse
       Trajectory path = createTrajectory(true, 0.51, 2.38,   0,
                                                                 1.70, 3.50,  90,
                                                                 1.44, 5.54, 120);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path, 180));
+      auto.addCommands(drivetrain.followTrajectory(path, 180));
       auto.addCommands(new PrintCommand("Shoot!"));
       auto.addCommands(new WaitCommand(2));
       // Pickup another ring form right behind
       auto.addCommands(new PrintCommand("Open intake"));
       Trajectory path2 = createTrajectory(true, 1.44, 5.54, 0,
                                                 2.60, 5.54, 0);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path2, 180));
+      auto.addCommands(drivetrain.followTrajectory(path2, 180));
       auto.addCommands(new PrintCommand("Close intake"));
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 2.60, 5.54, 180,
                                                 1.44, 5.54, 180);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path3, 180));
+      auto.addCommands(drivetrain.followTrajectory(path3, 180));
       auto.addCommands(new PrintCommand("Shoot!"));
       auto.addCommands(new WaitCommand(2));
       auto.addCommands(new PrintCommand("Done."));
@@ -78,19 +78,19 @@ public class AutoNoMouse
       Trajectory path = createTrajectory(true, 16.01, 2.38, 180,
                                                14.82, 3.50,  90,
                                                15.08, 5.54,  60);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path, 0));
+      auto.addCommands(drivetrain.followTrajectory(path, 0));
       auto.addCommands(new PrintCommand("Shoot!"));
       auto.addCommands(new WaitCommand(2));
       // Pickup another ring form right behind
       auto.addCommands(new PrintCommand("Open intake"));
       Trajectory path2 = createTrajectory(true, 15.08, 5.54, 180,
                                                 13.92, 5.54, 180);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path2, 0));
+      auto.addCommands(drivetrain.followTrajectory(path2, 0));
       auto.addCommands(new PrintCommand("Close intake"));
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 13.92, 5.54, 0,
                                                 15.08, 5.54, 0);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path3, 0));
+      auto.addCommands(drivetrain.followTrajectory(path3, 0));
       auto.addCommands(new PrintCommand("Shoot!"));
       auto.addCommands(new WaitCommand(2));
       auto.addCommands(new PrintCommand("Done."));
@@ -105,7 +105,7 @@ public class AutoNoMouse
       auto.addCommands(new SelectRelativeTrajectoryCommand(drivetrain));
       Trajectory path = createTrajectory(true, 0, 0, 0,
                                                1.50, 0, 0);
-      auto.addCommands(drivetrain.createTrajectoryCommand(path, 0));
+      auto.addCommands(drivetrain.followTrajectory(path, 0));
       autos.add(auto);
     }
 
