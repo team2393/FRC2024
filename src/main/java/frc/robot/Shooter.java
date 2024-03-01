@@ -41,7 +41,7 @@ public class Shooter extends SubsystemBase
     spinner.setOpenLoopRampRate(0.5);
     spinner.setInverted(true);
     encoder = spinner.getEncoder();
-    // TODO Lessen the built-in averaging to get faster respone?
+    // Lessen the built-in averaging to get faster respone?
     // See https://www.chiefdelphi.com/t/psa-default-neo-sparkmax-velocity-readings-are-still-bad-for-flywheels
     encoder.setMeasurementPeriod(16);
     encoder.setAverageDepth(2);

@@ -39,6 +39,19 @@ public class AutoNoMouse
     final List<Command> autos = new ArrayList<>();
 
     // Each auto is created within a { .. block .. } so we get local variables for 'path' and the like 
+
+    { // Drive back 1 m using a trajectory
+      // Can be used from anywhere
+      SequentialCommandGroup auto = new SequentialCommandGroup();
+      auto.setName("Backwards 1m");
+      auto.addCommands(new VariableWaitCommand());
+      auto.addCommands(new SelectRelativeTrajectoryCommand(drivetrain));
+      Trajectory path = createTrajectory(true, 0, 0, 180,
+                                              -1, 0, 180);
+      auto.addCommands(drivetrain.followTrajectory(path, 0).asProxy());
+      autos.add(auto);
+    }
+
     {
       // Blue Bottom: Move out, Shoot, Pickup, Shoot
       SequentialCommandGroup auto = new SequenceWithStart("BBMSPS", 0.51, 2.38, 180);
@@ -112,57 +125,33 @@ public class AutoNoMouse
       autos.add(auto);
     }
 
-    { // Drive forward 2.5 m using a trajectory
-      // Can be used from Blue or Red, Top or Bottom
-      SequentialCommandGroup auto = new SequentialCommandGroup();
-      auto.setName("Forward 2.5m");
-      auto.addCommands(new VariableWaitCommand());
-      auto.addCommands(new SelectRelativeTrajectoryCommand(drivetrain));
-      Trajectory path = createTrajectory(true, 0, 0, 0,
-                                               2.50, 0, 0);
-      auto.addCommands(drivetrain.followTrajectory(path, 0).asProxy());
-      autos.add(auto);
-    }
+    // { // Drive a 1.5 square using SwerveToPositionCommand & RotateToHeadingCommand
+    //   SequentialCommandGroup auto = new SequentialCommandGroup();
+    //   auto.setName("1.5m Square");
+    //   auto.addCommands(new VariableWaitCommand());
+    //   auto.addCommands(new ResetPositionCommand(drivetrain));
 
-    { // Drive forward 1.5 m using a (simple) trajectory
-      // Can be used from Blue or Red, Top or Bottom
-      SequentialCommandGroup auto = new SequentialCommandGroup();
-      auto.setName("Forward 1.5m");
-      auto.addCommands(new VariableWaitCommand());
-      auto.addCommands(new SelectRelativeTrajectoryCommand(drivetrain));
-      Trajectory path = createTrajectory(true, 0, 0, 0,
-                                               1.50, 0, 0);
-      auto.addCommands(drivetrain.followTrajectory(path, 0).asProxy());
-      autos.add(auto);
-    }
+    //   auto.addCommands(new SwerveToPositionCommand(drivetrain, 1.5, 0.0));
+    //   auto.addCommands(new RotateToHeadingCommand(drivetrain, 90));
 
-    { // Drive a 1.5 square using SwerveToPositionCommand & RotateToHeadingCommand
-      SequentialCommandGroup auto = new SequentialCommandGroup();
-      auto.setName("1.5m Square");
-      auto.addCommands(new VariableWaitCommand());
-      auto.addCommands(new ResetPositionCommand(drivetrain));
+    //   auto.addCommands(new SwerveToPositionCommand(drivetrain, 1.5, 1.5));
+    //   auto.addCommands(new RotateToHeadingCommand(drivetrain, 180));
 
-      auto.addCommands(new SwerveToPositionCommand(drivetrain, 1.5, 0.0));
-      auto.addCommands(new RotateToHeadingCommand(drivetrain, 90));
+    //   auto.addCommands(new SwerveToPositionCommand(drivetrain, 0.0, 1.5));
+    //   auto.addCommands(new RotateToHeadingCommand(drivetrain, -90));
 
-      auto.addCommands(new SwerveToPositionCommand(drivetrain, 1.5, 1.5));
-      auto.addCommands(new RotateToHeadingCommand(drivetrain, 180));
+    //   auto.addCommands(new SwerveToPositionCommand(drivetrain, 0.0, 0.0));
+    //   auto.addCommands(new RotateToHeadingCommand(drivetrain, 0));
 
-      auto.addCommands(new SwerveToPositionCommand(drivetrain, 0.0, 1.5));
-      auto.addCommands(new RotateToHeadingCommand(drivetrain, -90));
+    //   autos.add(auto);
+    // }
 
-      auto.addCommands(new SwerveToPositionCommand(drivetrain, 0.0, 0.0));
-      auto.addCommands(new RotateToHeadingCommand(drivetrain, 0));
-
-      autos.add(auto);
-    }
-
-    {
-      autos.add(new SequenceWithStart("Circle", 1.91, 2.245, 0,
-                                      new VariableWaitCommand(),
-                                      new SelectAbsoluteTrajectoryCommand(drivetrain, 1.91, 2.245, 0),
-                                      followPathWeaver(drivetrain, "Circle", 0.0).asProxy()));
-    }
+    // {
+    //   autos.add(new SequenceWithStart("Circle", 1.91, 2.245, 0,
+    //                                   new VariableWaitCommand(),
+    //                                   new SelectAbsoluteTrajectoryCommand(drivetrain, 1.91, 2.245, 0),
+    //                                   followPathWeaver(drivetrain, "Circle", 0.0).asProxy()));
+    // }
 
     {
       // Blue Middle: Move Pickup Shoot
