@@ -131,3 +131,9 @@ Input:
 - Resolution 320x180 MJPEG
 - Exposure: Somewhere below 20 results in 30fps. Much lower doesn't see target, higher reduces the FPS.
 
+
+Limelight
+---------
+Initially, access as http://limelight.local:5801/
+
+"Front" Camera: Set team 2393. Set IP address to static, 10.23.93.11, allowing access as http://10.23.93.11:5801/, and change name to "limelight-front".
