@@ -55,8 +55,7 @@ public class Shooter extends SubsystemBase
 
     // Speed control mostly uses 'I' term.
     // Its default range is -1..1, but we seal with larger RPS ranges
-    // TODO Find good value
-    pid.setIntegratorRange(-100, 100);
+    pid.setIntegratorRange(-5, 5);
 
     nt_desired_speed = SmartDashboard.getEntry("Shooter Setpoint");
     nt_desired_speed.setDefaultDouble(40);
@@ -101,9 +100,9 @@ public class Shooter extends SubsystemBase
     nt_speed.setNumber(speed);
     if (run  ||  nt_always_on.getBoolean(false))
     {
-      double setpoint = nt_desired_speed.getDouble(500);
+      double setpoint = nt_desired_speed.getDouble(0);
       // "At speed": Fast enough
-      at_desired_speed = speed >= setpoint;
+      at_desired_speed = speed >= setpoint - 5;
 
       // Use feed forward and PID to compute the required voltage
       double voltage = ff.calculate(setpoint) + pid.calculate(speed, setpoint);
@@ -113,6 +112,7 @@ public class Shooter extends SubsystemBase
     {
       at_desired_speed = false;
       spinner.setVoltage(0);
+      pid.reset();
     }
     nt_at_desired_speed.setBoolean(atDesiredSpeed());
   }
