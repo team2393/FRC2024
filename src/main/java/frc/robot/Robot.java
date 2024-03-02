@@ -98,9 +98,12 @@ public class Robot extends CommandRobotBase
   public void teleopInit()
   {
     // Bind buttons to commands
-    OperatorInterface.selectRelative().onTrue(relswerve);
-    OperatorInterface.selectAbsolute().onTrue(absswerve);
-    OperatorInterface.resetHeading().onTrue(new ResetHeadingCommand(drivetrain));
+    // OperatorInterface.selectRelative().onTrue(relswerve);
+    // OperatorInterface.selectAbsolute().onTrue(absswerve);
+    // OperatorInterface.resetHeading().onTrue(new ResetHeadingCommand(drivetrain));
+    // TODO Climber
+    // OperatorInterface.leftClimberUp().whileTrue(climber.getUpCommand());
+    // OperatorInterface.leftClimberDown().whileTrue(climber.getDownCommand());
 
     // Start relative mode
     relswerve.schedule();
