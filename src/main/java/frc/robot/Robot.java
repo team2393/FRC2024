@@ -13,7 +13,6 @@ import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
-import frc.swervelib.ResetHeadingCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveOI;
 import frc.tools.ApplySettingsCommand;
@@ -35,6 +34,10 @@ public class Robot extends CommandRobotBase
   private final Shooter shooter = new Shooter();
   private final Command shoot = new ShootCommand(feeder, shooter);
   private final ShooterArm shooter_arm = new ShooterArm();
+
+  private final Brake brake = new Brake();
+  private final Climber climber = new Climber(true, brake::setLeft);
+  private final Climber climber2 = new Climber(false, brake::setRight);
 
   private final SendableChooser<Command> autos = new SendableChooser<>();
 
@@ -101,9 +104,11 @@ public class Robot extends CommandRobotBase
     // OperatorInterface.selectRelative().onTrue(relswerve);
     // OperatorInterface.selectAbsolute().onTrue(absswerve);
     // OperatorInterface.resetHeading().onTrue(new ResetHeadingCommand(drivetrain));
-    // TODO Climber
-    // OperatorInterface.leftClimberUp().whileTrue(climber.getUpCommand());
-    // OperatorInterface.leftClimberDown().whileTrue(climber.getDownCommand());
+  
+    OperatorInterface.leftClimberUp().whileTrue(climber.getUpCommand());
+    OperatorInterface.leftClimberDown().whileTrue(climber.getDownCommand());
+    OperatorInterface.rightClimberUp().whileTrue(climber2.getUpCommand());
+    OperatorInterface.rightClimberDown().whileTrue(climber2.getDownCommand());
 
     // Start relative mode
     relswerve.schedule();
@@ -113,5 +118,7 @@ public class Robot extends CommandRobotBase
   public void autonomousInit()
   {
     autos.getSelected().schedule();
+    climber.getHomeCommand().schedule();
+    climber2.getHomeCommand().schedule();
   }
 }

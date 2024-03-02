@@ -22,7 +22,7 @@ public class ClimberTestRobot extends CommandRobotBase
 {
   private final Brake brake = new Brake();
   private final Climber climber = new Climber(true, brake::setLeft);
- private final Climber climber2 = new Climber(false, brake::setRight);
+  private final Climber climber2 = new Climber(false, brake::setRight);
 
   public ClimberTestRobot()
   {
