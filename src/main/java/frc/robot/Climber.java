@@ -10,7 +10,9 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -38,6 +40,9 @@ public class Climber extends SubsystemBase
   // Motor's encoder
   private RelativeEncoder encoder;
 
+  // Climber brake, control from "left" climber
+  private Solenoid brake;
+
   // Bottom limit switch
   // Digital inputs are pulled high, so nothing connected -> 'true'.
   // Switch is wired to ground, so 'false' means 'hit bottom switch'
@@ -64,6 +69,11 @@ public class Climber extends SubsystemBase
     climber.setOpenLoopRampRate(0.5);
 
     encoder = climber.getEncoder();
+
+    if (left)
+      brake  = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.CLIMBER_BRAKE);
+    else
+      brake = null;
 
     at_bottom = new DigitalInput(left ? RobotMap.CLIMBER_AT_BOTTOM : RobotMap.CLIMBER_AT_BOTTOM2);
 
@@ -130,6 +140,11 @@ public class Climber extends SubsystemBase
     else
       voltage = 0;
     
+    // For left climber which controls the brake,
+    // release brake while moving climber up/down
+    if (brake != null)
+      brake.set(voltage != 0);
+
     climber.setVoltage(voltage);
 
     if (RobotBase.isSimulation())

@@ -40,6 +40,7 @@ public class RobotMap
 
   // Pneumatic control module channels
   public static final int INTAKE_IN_OUT = 0;
+  public static final int CLIMBER_BRAKE = 1;
 
   // Digital I/O
   public static final int FEED_SENSOR = 0;
