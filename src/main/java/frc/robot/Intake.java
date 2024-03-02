@@ -57,7 +57,6 @@ public class Intake extends SubsystemBase
     // Dampen the acceleration
     spinner2.setOpenLoopRampRate(1);
     spinner2.follow(spinner, true);
-    // TODO?  spinner.setSmartCurrentLimit(40);
 
     nt_rpm = SmartDashboard.getEntry("Intake RPM");
 
