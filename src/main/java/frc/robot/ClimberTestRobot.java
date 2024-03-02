@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 package frc.robot;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.tools.CommandRobotBase;
 
 /** Robot for testing the climber
@@ -27,6 +28,13 @@ public class ClimberTestRobot extends CommandRobotBase
     OperatorInterface.leftClimberDown().whileTrue(climber.getDownCommand());
   }
 
+  @Override
+  public void robotPeriodic()
+  {
+    super.robotPeriodic();
+    SmartDashboard.putBoolean("at bottom", climber.isAtBottom());
+  }
+  
   @Override
   public void autonomousInit()
   {
