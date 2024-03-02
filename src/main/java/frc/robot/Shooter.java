@@ -65,10 +65,11 @@ public class Shooter extends SubsystemBase
     nt_always_on.setDefaultBoolean(false);
   }
 
-  public void configure(double ks, double kv, double P, double I, double D)
+  public void configure(double ks, double kv, double P, double I, double D, double max_I)
   {
     ff = new SimpleMotorFeedforward(ks, kv);
     pid.setPID(P, I, D);
+    pid.setIntegratorRange(-max_I, max_I);
   }
 
   public void run(boolean do_run)

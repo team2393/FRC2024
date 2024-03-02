@@ -31,6 +31,7 @@ public class ShooterTestRobot extends CommandRobotBase
     SmartDashboard.setDefaultNumber("P", 0.0);
     SmartDashboard.setDefaultNumber("I", 0.0);
     SmartDashboard.setDefaultNumber("D", 0.0);
+    SmartDashboard.setDefaultNumber("Max I", 5.0);
   }
 
   @Override
@@ -59,7 +60,8 @@ public class ShooterTestRobot extends CommandRobotBase
                       SmartDashboard.getNumber("kv", 0),
                       SmartDashboard.getNumber("P", 0),
                       SmartDashboard.getNumber("I", 0),
-                      SmartDashboard.getNumber("D", 0));
+                      SmartDashboard.getNumber("D", 0),
+                      SmartDashboard.getNumber("Max I",0));
     shooter.run(true);
   }
 }
