@@ -20,12 +20,16 @@ import frc.tools.CommandRobotBase;
  */
 public class ClimberTestRobot extends CommandRobotBase
 {
-  private final Climber climber = new Climber(true);
+  private final Brake brake = new Brake();
+  private final Climber climber = new Climber(true, brake::setLeft);
+ private final Climber climber2 = new Climber(false, brake::setRight);
 
   public ClimberTestRobot()
   {
     OperatorInterface.leftClimberUp().whileTrue(climber.getUpCommand());
     OperatorInterface.leftClimberDown().whileTrue(climber.getDownCommand());
+    OperatorInterface.rightClimberUp().whileTrue(climber2.getUpCommand());
+    OperatorInterface.rightClimberDown().whileTrue(climber2.getDownCommand());
   }
 
   @Override
@@ -33,11 +37,13 @@ public class ClimberTestRobot extends CommandRobotBase
   {
     super.robotPeriodic();
     SmartDashboard.putBoolean("at bottom", climber.isAtBottom());
+    SmartDashboard.putBoolean("at bottom2", climber2.isAtBottom());
   }
-  
+
   @Override
   public void autonomousInit()
   {
     climber.getHomeCommand().schedule();
+    climber2.getHomeCommand().schedule();
   }
 }

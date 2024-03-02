@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.util.function.BooleanConsumer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.RobotBase;
@@ -30,18 +31,17 @@ public class Climber extends SubsystemBase
   private final double MOTOR_VOLTAGE = 3.0;
 
   // Calibration of arm extension
-  private final double METERS_PER_TURN = 0.0001;
+  private final double METERS_PER_TURN = 0.4 / 80.360054;
 
   // Maximum 'up' extension
-  private final double MAX_EXTENSION = 2.0;
+  private final double MAX_EXTENSION = 0.4;
+
+  private final BooleanConsumer set_brake;
 
   // Motor to move climber up (forward) or down (reverse)
   private final CANSparkMax climber;
   // Motor's encoder
   private RelativeEncoder encoder;
-
-  // Climber brake, control from "left" climber
-  private Solenoid brake;
 
   // Bottom limit switch
   // Digital inputs are pulled high, so nothing connected -> 'true'.
@@ -57,50 +57,21 @@ public class Climber extends SubsystemBase
   // Current climber state
   private State state = State.STOP;
 
-  // Simulation display elements
-  private final MechanismLigament2d extension;
-
-  public Climber(boolean left)
+  public Climber(boolean left, BooleanConsumer set_brake)
   {
+    this.set_brake = set_brake;
     climber = new CANSparkMax(left ? RobotMap.CLIMBER : RobotMap.CLIMBER2, MotorType.kBrushless);
     climber.restoreFactoryDefaults();
     climber.clearFaults();
     climber.setIdleMode(IdleMode.kBrake);
     climber.setOpenLoopRampRate(0.5);
+    climber.setInverted(left);
 
     encoder = climber.getEncoder();
-
-    if (left)
-      brake  = new Solenoid(PneumaticsModuleType.REVPH, RobotMap.CLIMBER_BRAKE);
-    else
-      brake = null;
 
     at_bottom = new DigitalInput(left ? RobotMap.CLIMBER_AT_BOTTOM : RobotMap.CLIMBER_AT_BOTTOM2);
 
     climber_height = SmartDashboard.getEntry(left ? "Left Climber Height" : "Right Climber Height");
-
-    // Somewhat like this:
-    //  _
-    // | |
-    //   |
-    //   |
-    //  === bumper ===
-    // front  ... back
-
-    // Size of mechanism: 0.8m wide, 1m high
-    Mechanism2d mechanism = new Mechanism2d(0.8, 1.0, new Color8Bit(Color.kLightGray));
-    // Static base of the robot with bumper
-    mechanism.getRoot("front", 0, 0.1)
-        .append(new MechanismLigament2d("bumper", 0.8, 0, 20, new Color8Bit(Color.kBlue)));
-    // Arm over the front
-    MechanismLigament2d bottom = mechanism.getRoot("base", 0.1, 0.1)
-        .append(new MechanismLigament2d("bottom", 0.4, 90, 15, new Color8Bit(Color.kRed)));
-    extension = bottom
-        .append(new MechanismLigament2d("extension", 0.05, 0, 10, new Color8Bit(Color.kRed)));
-    MechanismLigament2d hook = extension.append(new MechanismLigament2d("hook", 0.1, 90, 5, new Color8Bit(Color.kGreen)));
-    hook.append(new MechanismLigament2d("hook2", 0.05, 90, 5, new Color8Bit(Color.kGreen)));
-    // Make available on dashboard
-    SmartDashboard.putData(left ? "LeftClimber" : "RightClimber", mechanism);
   }
 
   /** @return Is arm at bottom? */
@@ -115,7 +86,6 @@ public class Climber extends SubsystemBase
     // Get and show height
     double height = encoder.getPosition() * METERS_PER_TURN;
     climber_height.setNumber(height);
-    extension.setLength(height);
 
     double voltage;
     if (state == State.UP)
@@ -142,9 +112,7 @@ public class Climber extends SubsystemBase
     
     // For left climber which controls the brake,
     // release brake while moving climber up/down
-    if (brake != null)
-      brake.set(voltage != 0);
-
+    set_brake.accept(voltage != 0);
     climber.setVoltage(voltage);
 
     if (RobotBase.isSimulation())
