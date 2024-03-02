@@ -54,8 +54,7 @@ public class Shooter extends SubsystemBase
     secondary.follow(spinner, true);
 
     // Speed control mostly uses 'I' term.
-    // Its default range is -1..1, but we seal with larger RPS ranges
-    pid.setIntegratorRange(-5, 5);
+    pid.setIntegratorRange(-1, 1);
 
     nt_desired_speed = SmartDashboard.getEntry("Shooter Setpoint");
     nt_desired_speed.setDefaultDouble(40);

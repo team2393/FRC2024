@@ -27,9 +27,9 @@ public class ShooterTestRobot extends CommandRobotBase
     SmartDashboard.setDefaultNumber("Setpoint2", 30);
     SmartDashboard.setDefaultNumber("Period", 5.0);
     SmartDashboard.setDefaultNumber("ks", 0.6);
-    SmartDashboard.setDefaultNumber("kv", 0.13);
+    SmartDashboard.setDefaultNumber("kv", 0.11);
     SmartDashboard.setDefaultNumber("P", 0.0);
-    SmartDashboard.setDefaultNumber("I", 0.0);
+    SmartDashboard.setDefaultNumber("I", 0.1);
     SmartDashboard.setDefaultNumber("D", 0.0);
     SmartDashboard.setDefaultNumber("Max I", 5.0);
   }
