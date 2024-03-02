@@ -31,7 +31,7 @@ public class AutoNoMouse
 {
   // Use this as a reference when making the same autonomous but for the other team
   private static final double FIELD_WIDTH = 16.52;
-
+  private static final double HEADING_OFFSET = 180; // Offset of mirror heading.
   /** Create all our auto-no-mouse commands */
   public static List<Command> createAutoCommands(SwerveDrivetrain drivetrain, Intake intake, Feeder feeder, Shooter shooter)
   {
@@ -52,7 +52,7 @@ public class AutoNoMouse
       autos.add(auto);
     }
 
-    {
+  /*  {
       // Blue Bottom: Move out, Shoot, Pickup, Shoot
       SequentialCommandGroup auto = new SequenceWithStart("BBMSPS", 0.51, 2.38, 180);
       auto.addCommands(new VariableWaitCommand());
@@ -86,7 +86,7 @@ public class AutoNoMouse
       auto.addCommands(new PrintCommand("Done."));
       autos.add(auto);
     }
-
+*/
     // To 'mirror' a setup from the left/blue to the right/red side,
     // X turns into WIDTH_OF_FIELD - X, where WIDTH_OF_FIELD is about 16.52 meters
     // Y stays unchanged
@@ -95,7 +95,7 @@ public class AutoNoMouse
     // Example: A pose      1.44, 5.54, 120 changes into
     //                16.52-1.44, 5.54, 180-120 = 
     //                     15.08, 5.54,  60
-    {
+ /*    {
       // Red Bottom: Move out, Shoot, Pickup, Shoot
       SequentialCommandGroup auto = new SequenceWithStart("RBMSPS", 16.01, 2.38, 0);
       auto.addCommands(new VariableWaitCommand());
@@ -124,7 +124,7 @@ public class AutoNoMouse
       auto.addCommands(new PrintCommand("Done."));
       autos.add(auto);
     }
-
+*/
     // { // Drive a 1.5 square using SwerveToPositionCommand & RotateToHeadingCommand
     //   SequentialCommandGroup auto = new SequentialCommandGroup();
     //   auto.setName("1.5m Square");
@@ -152,8 +152,8 @@ public class AutoNoMouse
     //                                   new SelectAbsoluteTrajectoryCommand(drivetrain, 1.91, 2.245, 0),
     //                                   followPathWeaver(drivetrain, "Circle", 0.0).asProxy()));
     // }
-
-    {
+ 
+   /*  {
       // Blue Middle: Move Pickup Shoot
       SequentialCommandGroup auto = new SequenceWithStart("BMMPS", 1.5, 5.5, 180);
       auto.addCommands(new VariableWaitCommand());
@@ -200,9 +200,9 @@ public class AutoNoMouse
 
       auto.addCommands(new ShootCommand(feeder, shooter));
       autos.add(auto);
-    }
-
-    {
+    }  */
+   
+    /* {
       // Red Middle: Move Pickup Shoot
       SequentialCommandGroup auto = new SequenceWithStart("RMMPS", FIELD_WIDTH - 1.5, 5.5, 0);
       auto.addCommands(new VariableWaitCommand());
@@ -251,10 +251,11 @@ public class AutoNoMouse
       auto.addCommands(new ShootCommand(feeder, shooter));
       autos.add(auto);
     }
-
-    {
-      // Blue Middle: Shoot Move Pickup Shoot
-      SequentialCommandGroup auto = new SequenceWithStart("BMSMPS", 1.5, 5.5, 180);
+*/
+    
+{
+      // Blue or Red Speaker: Shoot Move Pickup Shoot
+      SequentialCommandGroup auto = new SequenceWithStart("SpeakerPlus1", 1.5, 5.5, 180);
       auto.addCommands(new VariableWaitCommand());
       auto.addCommands(new ShootCommand(feeder, shooter));
 
@@ -281,9 +282,9 @@ public class AutoNoMouse
       auto.addCommands(new PrintCommand("Done."));        
       autos.add(auto);
     }
-
+ 
     {
-      // Blue Middle: Shoot Move Pickup Shoot Pickup Shoot
+      // Blue Middle/Speaker: Shoot Move Pickup Shoot Pickup Shoot
       SequentialCommandGroup auto = new SequenceWithStart("BMSMPSPS", 1.5, 5.5, 180);
       auto.addCommands(new VariableWaitCommand());
       auto.addCommands(new ShootCommand(feeder, shooter));
@@ -297,7 +298,7 @@ public class AutoNoMouse
       
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 2.6, 5.5, 180,
-                                                1.6, 5.5, 180);
+                                                1.5, 5.5, 180);
       // Ideally, intake closes on its own when it fetches the game piece.
       // Just in case, force it closed, but not right away since we might be
       // in the middle of pulling the game piece in.
@@ -309,7 +310,7 @@ public class AutoNoMouse
       
       // Pickup another ring from behind and to the side
       auto.addCommands(new ShootCommand(feeder, shooter));
-      Trajectory path4 = createTrajectory(true, 1.6, 5.5, 0,
+      Trajectory path4 = createTrajectory(true, 1.5, 5.5, 0,
                                                 2.6, 6.72, 38.5);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
@@ -317,7 +318,7 @@ public class AutoNoMouse
 
       // Move back to target and shoot
       Trajectory path5 = createTrajectory(true, 2.6, 6.72, -141.5,
-                                          1.6, 5.5, 180);
+                                          1.5, 5.5, 180);
       // Ideally, intake closes on its own when it fetches the game piece.
       // Just in case, force it closed, but not right away since we might be
       // in the middle of pulling the game piece in.
@@ -325,6 +326,57 @@ public class AutoNoMouse
       //                 b) wait a little and then close the intake
       auto.addCommands(new ParallelCommandGroup(
         drivetrain.followTrajectory(path5, 180).asProxy(),
+        new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+      
+      // Shoot and done
+      auto.addCommands(new ShootCommand(feeder, shooter));
+      auto.addCommands(new PrintCommand("Done."));
+      autos.add(auto);
+    }
+  
+    {
+      // Red Middle/Speaker: Shoot Move Pickup Shoot Pickup Shoot
+      SequentialCommandGroup auto = new SequenceWithStart("RMSMPSPS", FIELD_WIDTH - 1.5, 5.5, HEADING_OFFSET - 180);
+      auto.addCommands(new VariableWaitCommand());
+      auto.addCommands(new ShootCommand(feeder, shooter));
+
+      // Pickup another ring from right behind
+      Trajectory path2 = createTrajectory(true, FIELD_WIDTH - 1.5, 5.5, HEADING_OFFSET - 0,
+                                                FIELD_WIDTH - 2.6, 5.5, HEADING_OFFSET - 0);
+      auto.addCommands(new ParallelCommandGroup(
+        new OpenIntakeCommand(intake, feeder).withTimeout(7),
+        new WaitCommand(2).andThen(drivetrain.followTrajectory(path2, HEADING_OFFSET - 180).asProxy())));
+      
+      // Move forward to target and shoot
+      Trajectory path3 = createTrajectory(true, FIELD_WIDTH - 2.6, 5.5, HEADING_OFFSET - 180,
+                                                FIELD_WIDTH - 1.5, 5.5, HEADING_OFFSET - 180);
+      // Ideally, intake closes on its own when it fetches the game piece.
+      // Just in case, force it closed, but not right away since we might be
+      // in the middle of pulling the game piece in.
+      // So in parallel, a) drive forward,
+      //                 b) wait a little and then close the intake
+      auto.addCommands(new ParallelCommandGroup(
+        drivetrain.followTrajectory(path3, HEADING_OFFSET - 180).asProxy(),
+        new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+      
+      // Pickup another ring from behind and to the side
+      auto.addCommands(new ShootCommand(feeder, shooter));
+      Trajectory path4 = createTrajectory(true, FIELD_WIDTH - 1.5, 5.5, HEADING_OFFSET - 0,
+                                                FIELD_WIDTH - 2.6, 6.72, HEADING_OFFSET - 38.5);
+      auto.addCommands(new ParallelCommandGroup(
+        new OpenIntakeCommand(intake, feeder).withTimeout(10),
+        new WaitCommand(2).andThen(drivetrain.followTrajectory(path4, HEADING_OFFSET - -141.5).asProxy())));
+
+      // Move back to target and shoot
+      Trajectory path5 = createTrajectory(true, FIELD_WIDTH - 2.6, 6.72, HEADING_OFFSET - -141.5,
+                                          FIELD_WIDTH - 1.5, 5.5, HEADING_OFFSET - 180);
+      // Ideally, intake closes on its own when it fetches the game piece.
+      // Just in case, force it closed, but not right away since we might be
+      // in the middle of pulling the game piece in.
+      // So in parallel, a) drive forward,
+      //                 b) wait a little and then close the intake
+      auto.addCommands(new ParallelCommandGroup(
+        drivetrain.followTrajectory(path5, HEADING_OFFSET - 180).asProxy(),
         new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
       
       // Shoot and done
