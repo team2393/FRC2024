@@ -27,6 +27,7 @@ public class Brake
 
   private void update()
   {
+    // Activate solenoid, i.e, dis-engage brake when any arm needs to move
     brake.set(move_left || move_right);
   }
 }

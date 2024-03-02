@@ -57,6 +57,9 @@ public class Climber extends SubsystemBase
   // Current climber state
   private State state = State.STOP;
 
+  /** @param left Left, or right climber?
+   *  @param set_brake Function to call with am-I-moving state of this climber
+   */
   public Climber(boolean left, BooleanConsumer set_brake)
   {
     this.set_brake = set_brake;
