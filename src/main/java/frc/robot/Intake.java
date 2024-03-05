@@ -105,7 +105,7 @@ public class Intake extends SubsystemBase
     if (reverse)
       spinner.setVoltage(-9);
     else if (open)
-      spinner.setVoltage(9);
+      spinner.setVoltage(9.5);
     else
       spinner.setVoltage(0);
 

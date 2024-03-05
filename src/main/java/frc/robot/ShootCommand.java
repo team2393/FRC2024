@@ -62,7 +62,7 @@ public class ShootCommand extends Command
   public boolean isFinished()
   {
     // After ... seconds, assume the game piece has been emitted
-    return state == State.SHOOT  &&  timer.hasElapsed(2);
+    return state == State.SHOOT  &&  timer.hasElapsed(1.5);
   }
 
   @Override

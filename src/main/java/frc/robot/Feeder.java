@@ -7,6 +7,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,12 +19,14 @@ public class Feeder extends SubsystemBase
   private CANSparkMax feeder;
   private boolean running = false;
   private NetworkTableEntry voltage;
+  private Debouncer debouncer = new Debouncer(0.1);
 
   // Sensor that detects a captured game piece
   private final DigitalInput sensor;
 
   // NT entry: Do we have a game piece?
   private final NetworkTableEntry have_gamepiece_entry;
+  private final NetworkTableEntry have_gamepiece_entry_debounced;
 
   public Feeder()
   {
@@ -39,6 +42,7 @@ public class Feeder extends SubsystemBase
     sensor = new DigitalInput(RobotMap.FEED_SENSOR);
 
     have_gamepiece_entry = SmartDashboard.getEntry("Gamepiece");
+    have_gamepiece_entry_debounced = SmartDashboard.getEntry("Gamepiece (Debounced)");
   }
 
   public void run(boolean do_run)
@@ -53,14 +57,16 @@ public class Feeder extends SubsystemBase
     // so with nothing connected they will read 'true'.
     // The game piece sensor should connect the input to ground,
     // so then it would read 'false'
-    return sensor.get();
+    return debouncer.calculate(sensor.get());
   }
 
   @Override
   public void periodic()
   {
     // Show if we have detected a game piece
-    have_gamepiece_entry.setBoolean(haveGamePiece());
+    have_gamepiece_entry.setBoolean(sensor.get());
+    have_gamepiece_entry_debounced.setBoolean(haveGamePiece());
+
 
     if (running)
       feeder.setVoltage(voltage.getDouble(4));
