@@ -43,6 +43,7 @@ public class Intake extends SubsystemBase
 
     spinner = new CANSparkMax(RobotMap.INTAKE_SPINNER, MotorType.kBrushless);
     spinner.restoreFactoryDefaults();
+    spinner.setSmartCurrentLimit(50, 50);
     spinner.clearFaults();
     spinner.setIdleMode(IdleMode.kCoast);
     // Dampen the acceleration
@@ -52,6 +53,7 @@ public class Intake extends SubsystemBase
 
     spinner2 = new CANSparkMax(RobotMap.INTAKE_SPINNER_2, MotorType.kBrushless);
     spinner2.restoreFactoryDefaults();
+    spinner2.setSmartCurrentLimit(50, 50);
     spinner2.clearFaults();
     spinner2.setIdleMode(IdleMode.kCoast);
     // Dampen the acceleration
@@ -105,7 +107,7 @@ public class Intake extends SubsystemBase
     if (reverse)
       spinner.setVoltage(-9);
     else if (open)
-      spinner.setVoltage(9.5);
+      spinner.setVoltage(10);
     else
       spinner.setVoltage(0);
 

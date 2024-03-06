@@ -324,7 +324,7 @@ public class AutoNoMouse
                                                 2.5, 7, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(2).andThen(drivetrain.followTrajectory(path, 180).asProxy())));
+        new WaitCommand(1.5).andThen(drivetrain.followTrajectory(path, 180).asProxy())));
       
       // Move forward to target and shoot
       Trajectory path2 = createTrajectory(true, 2.6, 6.72, 180,
@@ -394,7 +394,7 @@ public class AutoNoMouse
                                                 2.6, 5.5, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        drivetrain.followTrajectory(path2, 180).asProxy()));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
       
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 2.6, 5.5, 180,
@@ -406,7 +406,7 @@ public class AutoNoMouse
       //                 b) wait a little and then close the intake
       auto.addCommands(new ParallelCommandGroup(
         drivetrain.followTrajectory(path3, 180).asProxy(),
-        new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+        new WaitCommand(.5).andThen(new CloseIntakeCommand(intake, feeder))));
       
       // Pickup another ring from behind and to the side
       auto.addCommands(new ShootCommand(feeder, shooter));
@@ -414,7 +414,7 @@ public class AutoNoMouse
                                                 2.6, 6.72, 38.5);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        drivetrain.followTrajectory(path4, -141.5).asProxy()));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path4, -141.5).asProxy())));
 
       // Move back to target and shoot
       Trajectory path5 = createTrajectory(true, 2.6, 6.72, -141.5,
@@ -426,7 +426,7 @@ public class AutoNoMouse
       //                 b) wait a little and then close the intake
       auto.addCommands(new ParallelCommandGroup(
         drivetrain.followTrajectory(path5, 180).asProxy(),
-        new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+        new WaitCommand(.5).andThen(new CloseIntakeCommand(intake, feeder))));
       
       // Shoot and done
       auto.addCommands(new ShootCommand(feeder, shooter));
@@ -445,7 +445,7 @@ public class AutoNoMouse
                                                 2.6, 5.5, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(1).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
       
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, 2.6, 5.5, 180,
@@ -457,7 +457,7 @@ public class AutoNoMouse
       //                 b) wait a little and then close the intake
       auto.addCommands(new ParallelCommandGroup(
         drivetrain.followTrajectory(path3, 180).asProxy(),
-        new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+        new WaitCommand(.5).andThen(new CloseIntakeCommand(intake, feeder))));
       
       // Pickup another ring from behind and to the side
       auto.addCommands(new ShootCommand(feeder, shooter));
@@ -465,7 +465,7 @@ public class AutoNoMouse
                                                 2.6, 4, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(2).andThen(drivetrain.followTrajectory(path4, 180).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path4, 180).asProxy())));
 
       // Move back to target and shoot
       Trajectory path5 = createTrajectory(true, 2.6, 4, 180,
@@ -477,7 +477,7 @@ public class AutoNoMouse
       //                 b) wait a little and then close the intake
       auto.addCommands(new ParallelCommandGroup(
         drivetrain.followTrajectory(path5, 180).asProxy(),
-        new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+        new WaitCommand(.5).andThen(new CloseIntakeCommand(intake, feeder))));
       
       // Shoot and done
       auto.addCommands(new ShootCommand(feeder, shooter));
@@ -496,7 +496,7 @@ public class AutoNoMouse
                                                 FIELD_WIDTH - 2.6, 5.5, HEADING_OFFSET - 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        drivetrain.followTrajectory(path2, HEADING_OFFSET - 180).asProxy()));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, HEADING_OFFSET - 180).asProxy())));
       
       // Move forward to target and shoot
       Trajectory path3 = createTrajectory(true, FIELD_WIDTH - 2.6, 5.5, HEADING_OFFSET - 180,
@@ -508,7 +508,7 @@ public class AutoNoMouse
       //                 b) wait a little and then close the intake
       auto.addCommands(new ParallelCommandGroup(
         drivetrain.followTrajectory(path3, HEADING_OFFSET - 180).asProxy(),
-        new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+        new WaitCommand(.5).andThen(new CloseIntakeCommand(intake, feeder))));
       
       // Pickup another ring from behind and to the side
       auto.addCommands(new ShootCommand(feeder, shooter));
@@ -516,7 +516,7 @@ public class AutoNoMouse
                                                 FIELD_WIDTH - 2.6, 6.72, HEADING_OFFSET - 38.5);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(10),
-        drivetrain.followTrajectory(path4, HEADING_OFFSET - -141.5).asProxy()));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path4, HEADING_OFFSET - -141.5).asProxy())));
 
       // Move back to target and shoot
       Trajectory path5 = createTrajectory(true, FIELD_WIDTH - 2.6, 6.72, HEADING_OFFSET - -141.5,
@@ -528,7 +528,7 @@ public class AutoNoMouse
       //                 b) wait a little and then close the intake
       auto.addCommands(new ParallelCommandGroup(
         drivetrain.followTrajectory(path5, HEADING_OFFSET - 180).asProxy(),
-        new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
+        new WaitCommand(.5).andThen(new CloseIntakeCommand(intake, feeder))));
       
       // Shoot and done
       auto.addCommands(new ShootCommand(feeder, shooter));
@@ -536,6 +536,7 @@ public class AutoNoMouse
       autos.add(auto);
     }
 
+    
     return autos;
   }
 }

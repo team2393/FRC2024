@@ -18,7 +18,9 @@ public class Feeder extends SubsystemBase
 {
   private CANSparkMax feeder;
   private boolean running = false;
-  private NetworkTableEntry voltage;
+  private double voltage = 1.5;
+
+  // private NetworkTableEntry voltage;
   private Debouncer debouncer = new Debouncer(0.1);
 
   // Sensor that detects a captured game piece
@@ -32,17 +34,24 @@ public class Feeder extends SubsystemBase
   {
     feeder = new CANSparkMax(RobotMap.FEEDER, MotorType.kBrushless);
     feeder.restoreFactoryDefaults();
+    feeder.setSmartCurrentLimit(60, 60);
     feeder.clearFaults();
     feeder.setIdleMode(IdleMode.kBrake);
     feeder.setOpenLoopRampRate(0.5);
 
-    voltage = SmartDashboard.getEntry("Feeder Voltage");
-    voltage.setDefaultDouble(2.0);
+    // voltage = SmartDashboard.getEntry("Feeder Voltage");
+    // voltage.setDefaultDouble(1.5);
 
     sensor = new DigitalInput(RobotMap.FEED_SENSOR);
 
     have_gamepiece_entry = SmartDashboard.getEntry("Gamepiece");
     have_gamepiece_entry_debounced = SmartDashboard.getEntry("Gamepiece (Debounced)");
+  }
+
+  public void run(boolean do_run, double voltage)
+  {
+    running = do_run;
+    this.voltage = voltage;
   }
 
   public void run(boolean do_run)
@@ -57,7 +66,7 @@ public class Feeder extends SubsystemBase
     // so with nothing connected they will read 'true'.
     // The game piece sensor should connect the input to ground,
     // so then it would read 'false'
-    return debouncer.calculate(sensor.get());
+    return debouncer.calculate(!sensor.get());
   }
 
   @Override
@@ -69,7 +78,7 @@ public class Feeder extends SubsystemBase
 
 
     if (running)
-      feeder.setVoltage(voltage.getDouble(4));
+      feeder.setVoltage(voltage);
     else
       feeder.setVoltage(0);
   }

@@ -22,7 +22,7 @@ public class OpenIntakeCommand extends Command
   public void initialize()
   {
     intake.open(true);
-    feeder.run(true);
+    feeder.run(true, 1.9);
   }
 
   @Override

@@ -36,6 +36,7 @@ public class Shooter extends SubsystemBase
   {
     spinner = new CANSparkMax(RobotMap.SHOOTER, MotorType.kBrushless);
     spinner.restoreFactoryDefaults();
+    spinner.setSmartCurrentLimit(80, 80);
     spinner.clearFaults();
     spinner.setIdleMode(IdleMode.kCoast);
     spinner.setOpenLoopRampRate(0.5);
@@ -48,6 +49,7 @@ public class Shooter extends SubsystemBase
 
     secondary = new CANSparkMax(RobotMap.SHOOTER2, MotorType.kBrushless);
     secondary.restoreFactoryDefaults();
+    secondary.setSmartCurrentLimit(80, 80);
     secondary.clearFaults();
     secondary.setIdleMode(IdleMode.kCoast);
     secondary.setOpenLoopRampRate(0.5);

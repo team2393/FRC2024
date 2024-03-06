@@ -29,6 +29,7 @@ public class Driver extends DriverBase
   
     motor = new CANSparkMax(motor_id, MotorType.kBrushless);
     motor.restoreFactoryDefaults();
+    motor.setSmartCurrentLimit(55, 55);
     motor.clearFaults();
     motor.setIdleMode(IdleMode.kBrake);
     motor.setInverted(true);

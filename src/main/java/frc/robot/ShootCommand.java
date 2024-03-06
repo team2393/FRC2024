@@ -45,7 +45,7 @@ public class ShootCommand extends Command
   {
     if (state == State.SPINUP)
     { // Move on when at desired speed or after timeout. Right away in simulation
-      if (shooter.atDesiredSpeed()  ||  timer.hasElapsed(5)  ||  RobotBase.isSimulation())
+      if (shooter.atDesiredSpeed()  ||  timer.hasElapsed(2)  ||  RobotBase.isSimulation())
       {
         state = State.SHOOT;
         timer.restart();
@@ -54,7 +54,7 @@ public class ShootCommand extends Command
 
     if (state == State.SHOOT)
     { // Keep shooter running and feed a game piece
-      feeder.run(true);
+      feeder.run(true, 5);
     }
   }
 
