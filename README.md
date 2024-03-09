@@ -141,4 +141,4 @@ Initially, access as http://limelight.local:5801/
                      
 "Front" Camera: Set team 2393. Set IP address to static, 10.23.93.11, allowing access as http://10.23.93.11:5801/, and change name to "limelight-front".
 
-Example setup is in `Apriltags.vpr``
+Example setup is in `Apriltags.vpr`, `April3d.vpr`

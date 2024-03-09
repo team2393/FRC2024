@@ -4,82 +4,70 @@
 
 package frc.swervebot;
 
-// import org.photonvision.PhotonCamera;
-// import org.photonvision.targeting.PhotonPipelineResult;
-// import org.photonvision.targeting.PhotonTrackedTarget;
-
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-// import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.LimelightHelpers;
 import frc.swervelib.SwerveDrivetrain;
 
 /** Command that swerves left/right to center on an april tag */
 public class CenterOnAprilTag extends Command
 {
+  final private static String camera = "limelight-front";
   final private SwerveDrivetrain drivetrain;
-  // private final PhotonCamera camera;
-  private NetworkTableEntry nt_valid, nt_tx;
+  final private AprilTagFieldLayout tags;
   private boolean done = false;
   
   public CenterOnAprilTag(SwerveDrivetrain drivetrain)
   {
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
-
-    // camera = new PhotonCamera("HD_Pro_Webcam_C920");
-    NetworkTable camera = NetworkTableInstance.getDefault().getTable("limelight-front");
-    nt_valid = camera.getEntry("tv");
-    nt_tx = camera.getEntry("tx");
+    
+    tags = AprilTagFields.kDefaultField.loadAprilTagLayoutField();
 
     SmartDashboard.setDefaultNumber("CameraP", 0.1);
     SmartDashboard.setDefaultNumber("CameraMax", 0.3);
   }
 
+
   @Override
   public void execute()
   {
-    // // Query camera for target info, pick the largest (=closest) one as the best
-    // PhotonPipelineResult capture = camera.getLatestResult();
-    // double timestamp = capture.getTimestampSeconds();
-    // double now = Timer.getFPGATimestamp();
+    if (! LimelightHelpers.getTV(camera))
+      return;
 
-    // PhotonTrackedTarget best = null;
-    // for (PhotonTrackedTarget target : capture.getTargets())
-    //   if (best == null  ||  target.getArea() > best.getArea())
-    //     best = target;
-
-    // if (best == null)
-    // {
-    //   System.out.println("No target");
-    //   return;
-    // }
-
-    // double yaw = best.getYaw();
-    
-    // System.out.format("Now %.2f  Timestamp %.2f  Target %2d  Yaw %.1f\n",
-    //                   now, timestamp, best.getFiducialId(), yaw);
-    
-    if (nt_valid.getDouble(1) < 1)
-    return;
-    double yaw = nt_tx.getDouble(0);
+    double yaw = LimelightHelpers.getTX(camera);
     
     // Ignore small angles
     done = Math.abs(yaw) < 1;
     if (done)
-    return;
+      return;
     
     // Drive such that we center on the target
     // Negative yaw angle means target is to the left.
     // We need to serve in +Y direction to get closer.
-    // Use prop. gain of 1, limit speed
     double P = SmartDashboard.getNumber("CameraP", 0.1);
     double max = SmartDashboard.getNumber("CameraMax", 0.3);
     double vy = MathUtil.clamp(-P*yaw, -max, max);
     drivetrain.swerve(0, vy, 0);
+
+    // Instead of simply driving left/right,
+    // we could try something more sophisticated...
+
+    // Update estimated field position
+    LimelightHelpers.PoseEstimate estimate = LimelightHelpers.getBotPoseEstimate_wpiBlue(camera);
+    drivetrain.updateLocationFromCamera(estimate.pose, estimate.timestampSeconds);
+
+    // Get tag info
+    int tag = (int) LimelightHelpers.getFiducialID(camera);
+    Pose3d tagpose = tags.getTagPose(tag).get();
+    System.out.println("Tag " + tag + " is at " + tagpose);
+    // We could drive to a position specific to each tag.
+    // If the tag is a speaker, move to 1 m in front of that tag.
+    // If the tag is a pickup station, move to 0.5 m in front of that tag...
   }
 
   @Override
