@@ -8,15 +8,7 @@ public class SetShooterAngleCommand extends Command
     private ShooterArm arm;
     private double angle;
 
-    private enum State
-    {
-        // setting the angle
-        SETTING,
-        // done
-        DONE
-    };
-
-    private State state;
+    private boolean isDone;
 
     public SetShooterAngleCommand(ShooterArm arm, double angle)
     {
@@ -29,19 +21,25 @@ public class SetShooterAngleCommand extends Command
     @Override
     public void initialize()
     {
-        state = State.SETTING;
+        isDone = false;
         arm.setAngle(angle);
     }
 
     @Override
     public void execute()
     {
-        // TODO: check that angle is reached (with error)
+        if (arm.atDesiredAngle()) isDone = true;
     }
 
     @Override
     public boolean isFinished()
     {
-        return state == State.DONE;
+        return isDone;
+    }
+
+    @Override
+    public void end(boolean interrupted)
+    {
+        // do nothing
     }
 }

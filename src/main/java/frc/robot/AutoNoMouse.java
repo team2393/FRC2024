@@ -33,7 +33,7 @@ public class AutoNoMouse
   private static final double FIELD_WIDTH = 16.52;
   private static final double HEADING_OFFSET = 180; // Offset of mirror heading.
   /** Create all our auto-no-mouse commands */
-  public static List<Command> createAutoCommands(SwerveDrivetrain drivetrain, Intake intake, Feeder feeder, Shooter shooter)
+  public static List<Command> createAutoCommands(SwerveDrivetrain drivetrain, Intake intake, Feeder feeder, Shooter shooter, ShooterArm shooter_arm)
   {
     // List of all autonomouse commands
     final List<Command> autos = new ArrayList<>();
@@ -278,6 +278,25 @@ public class AutoNoMouse
         drivetrain.followTrajectory(path3, 180).asProxy(),
         new WaitCommand(1).andThen(new CloseIntakeCommand(intake, feeder))));
                   
+      auto.addCommands(new ShootCommand(feeder, shooter));
+      auto.addCommands(new PrintCommand("Done."));        
+      autos.add(auto);
+    }
+
+    {
+      // Blue Speaker: Shoot Move Pickup Shoot (Chad edition)
+      SequentialCommandGroup auto = new SequenceWithStart("BlueSpeakerPlus1 (Chad)", 1.5, 5.5, 180);
+      auto.addCommands(new VariableWaitCommand());
+      auto.addCommands(new ShootCommand(feeder, shooter));
+
+      // Pickup another ring from right behind
+      Trajectory path2 = createTrajectory(true, 1.5, 5.5, 0,
+                                                2.6, 5.5, 0);
+      auto.addCommands(new ParallelCommandGroup(
+        new OpenIntakeCommand(intake, feeder).withTimeout(7),
+        new WaitCommand(2).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
+
+      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 40));
       auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new PrintCommand("Done."));        
       autos.add(auto);

@@ -75,6 +75,13 @@ public class ShooterArm extends SubsystemBase
     nt_desired_angle.setNumber(degrees);
   }
 
+  public boolean atDesiredAngle()
+  {
+    return
+    getAngle() >= nt_desired_angle.getDouble(55) - 1 &&
+    getAngle() <= nt_desired_angle.getDouble(55) + 1;
+  }
+
   @Override
   public void periodic()
   {
