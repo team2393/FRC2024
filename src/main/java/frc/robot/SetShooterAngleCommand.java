@@ -8,8 +8,6 @@ public class SetShooterAngleCommand extends Command
     private ShooterArm arm;
     private double angle;
 
-    private boolean isDone;
-
     public SetShooterAngleCommand(ShooterArm arm, double angle)
     {
         this.arm = arm;
@@ -21,20 +19,18 @@ public class SetShooterAngleCommand extends Command
     @Override
     public void initialize()
     {
-        isDone = false;
         arm.setAngle(angle);
     }
 
     @Override
     public void execute()
     {
-        if (arm.atDesiredAngle()) isDone = true;
     }
 
     @Override
     public boolean isFinished()
     {
-        return isDone;
+        return arm.atDesiredAngle();
     }
 
     @Override

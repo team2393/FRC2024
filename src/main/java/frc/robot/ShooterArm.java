@@ -38,6 +38,7 @@ public class ShooterArm extends SubsystemBase
   private ProfiledPIDController pid = new ProfiledPIDController(0.3, 0.03, 0.01, constraints);
   private double kg = 0.25;
   private NetworkTableEntry nt_angle, nt_desired_angle;
+  private boolean isDone = false;
   
   public ShooterArm()
   {
@@ -73,13 +74,12 @@ public class ShooterArm extends SubsystemBase
   public void setAngle(double degrees)
   {
     nt_desired_angle.setNumber(degrees);
+    isDone = false;
   }
 
   public boolean atDesiredAngle()
   {
-    return
-    getAngle() >= nt_desired_angle.getDouble(55) - 1 &&
-    getAngle() <= nt_desired_angle.getDouble(55) + 1;
+    return isDone;
   }
 
   @Override
@@ -93,5 +93,7 @@ public class ShooterArm extends SubsystemBase
     double voltage = kg * Math.cos(Math.toRadians(angle))
                    + pid.calculate(angle, setpoint);
     motor.setVoltage(voltage);
+
+    isDone = Math.abs(angle - setpoint) < 1;
   }
 }
