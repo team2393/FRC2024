@@ -25,6 +25,7 @@ public class SetShooterAngleCommand extends Command
     @Override
     public void execute()
     {
+        // do nothing
     }
 
     @Override

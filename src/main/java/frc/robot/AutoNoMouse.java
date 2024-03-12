@@ -288,6 +288,7 @@ public class AutoNoMouse
       SequentialCommandGroup auto = new SequenceWithStart("BlueSpeakerPlus1 (Chad)", 1.5, 5.5, 180);
       auto.addCommands(new VariableWaitCommand());
       auto.addCommands(new ShootCommand(feeder, shooter));
+      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 40).withTimeout(.1));
 
       // Pickup another ring from right behind
       Trajectory path2 = createTrajectory(true, 1.5, 5.5, 0,
@@ -296,7 +297,6 @@ public class AutoNoMouse
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
         new WaitCommand(2).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
 
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 40));
       auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new PrintCommand("Done."));        
       autos.add(auto);
