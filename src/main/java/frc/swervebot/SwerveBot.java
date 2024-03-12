@@ -98,11 +98,12 @@ public class SwerveBot extends CommandRobotBase
   public void teleopInit()
   {
     // Bind buttons to commands
-    OperatorInterface.selectRelative().onTrue(relswerve);
-    OperatorInterface.selectAbsolute().onTrue(absswerve);
-    OperatorInterface.resetHeading().onTrue(new ResetHeadingCommand(drivetrain));
+    drivetrain.setDefaultCommand(relswerve);
+    // OperatorInterface.selectRelative().onTrue(relswerve);
+    // OperatorInterface.selectAbsolute().onTrue(absswerve);
+    // OperatorInterface.resetHeading().onTrue(new ResetHeadingCommand(drivetrain));
     SwerveOI.joystick.a().whileTrue(center_on_tag);
-    relswerve.schedule();
+    // relswerve.schedule();
 
     // Instead of 'binding' commands in ..Init(),
     // could add this to ..Periodic():
