@@ -542,39 +542,44 @@ public class AutoNoMouse
       auto.addCommands(new SetShooterAngleCommand(shooter_arm, 40).withTimeout(.1));
 
       // Pickup another ring from right behind
-      Trajectory path2 = createTrajectory(true, 1.5, 5.5, 0,
+      Trajectory path1 = createTrajectory(true, 1.5, 5.5, 0,
                                                 2.6, 5.5, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path1, 180).asProxy())));
 
       auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new SetShooterAngleCommand(shooter_arm, 35).withTimeout(.1));
 
       // Pickup another ring to the right
-      Trajectory path3 = createTrajectory(true, 2.6, 5.5, 180,
+      Trajectory path2 = createTrajectory(true, 2.6, 5.5, 180,
                                                 2.0, 6.15, 90,
                                                 2.6, 6.8, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path3, -150.0).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, -150.0).asProxy())));
         
       auto.addCommands(new ShootCommand(feeder, shooter));
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 37).withTimeout(.1));
+      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 35).withTimeout(.1));
       
       // Pickup another ring to the far left
-      Trajectory path4 = createTrajectory(true, 2.6, 6.8, 180,
+      Trajectory path3 = createTrajectory(true, 2.6, 6.8, 180,
                                                 2.0, 5.45, -90,
                                                 2.0, 4.1, -90,
                                                 2.6, 4.1, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path4, 180).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path3, 180).asProxy())));
       
       // Move forward a bit and shoot
-      Trajectory path5 = createTrajectory(true, 2.6, 4.2, 180,
+      Trajectory path4 = createTrajectory(true, 2.6, 4.2, 180,
                                                 2.4, 4.2, 180);
-      new WaitCommand(0).andThen(drivetrain.followTrajectory((path5), 140));
+      
+      auto.addCommands(new ParallelCommandGroup(
+        drivetrain.followTrajectory(path4, 179).asProxy(),
+        new WaitCommand(.5).andThen(new RotateToHeadingCommand(drivetrain, 145).asProxy())
+      ));
+      auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new PrintCommand("Done."));
       autos.add(auto);
     }
