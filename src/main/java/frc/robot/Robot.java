@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
+import frc.swervebot.CenterOnAprilTag;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
+import frc.swervelib.StopCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveOI;
 import frc.tools.ApplySettingsCommand;
@@ -95,7 +97,13 @@ public class Robot extends CommandRobotBase
   public void disabledPeriodic()
   {
     AutoTools.indicateStart(drivetrain, autos.getSelected());
-  }  
+  }
+
+  @Override
+  public void disabledInit()
+  {
+    drivetrain.setDefaultCommand(new StopCommand(drivetrain));
+  }
 
   @Override
   public void teleopInit()
@@ -111,7 +119,9 @@ public class Robot extends CommandRobotBase
     OperatorInterface.rightClimberDown().whileTrue(climber2.getDownCommand());
 
     // Start relative mode
-    relswerve.schedule();
+    drivetrain.setDefaultCommand(relswerve);
+
+    OperatorInterface.centerAprilTag().whileTrue(new CenterOnAprilTag(drivetrain));
   }
 
   @Override

@@ -63,7 +63,7 @@ public class CenterOnAprilTag extends Command
 
     // Get tag info
     int tag = (int) LimelightHelpers.getFiducialID(camera);
-    Pose3d tagpose = tags.getTagPose(tag).get();
+    Pose3d tagpose = tags.getTagPose(tag).orElse(null);
     System.out.println("Tag " + tag + " is at " + tagpose);
     // We could drive to a position specific to each tag.
     // If the tag is a speaker, move to 1 m in front of that tag.
