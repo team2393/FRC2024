@@ -118,6 +118,8 @@ public class Robot extends CommandRobotBase
     OperatorInterface.rightClimberUp().whileTrue(climber2.getUpCommand());
     OperatorInterface.rightClimberDown().whileTrue(climber2.getDownCommand());
 
+    shooter_arm.reset();
+
     // Start relative mode
     drivetrain.setDefaultCommand(relswerve);
 
@@ -130,5 +132,6 @@ public class Robot extends CommandRobotBase
     autos.getSelected().schedule();
     climber.getHomeCommand().schedule();
     climber2.getHomeCommand().schedule();
+    shooter_arm.reset();
   }
 }

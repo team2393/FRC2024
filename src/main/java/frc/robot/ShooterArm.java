@@ -48,7 +48,7 @@ public class ShooterArm extends SubsystemBase
     motor.setOpenLoopRampRate(0.5);
     motor.setInverted(true);
 
-    pid.reset(getAngle());
+    reset();
 
     nt_angle = SmartDashboard.getEntry("Shooter Angle");
     nt_desired_angle = SmartDashboard.getEntry("Set Shooter Angle");
@@ -64,6 +64,11 @@ public class ShooterArm extends SubsystemBase
   {
     this.kg = kg;
     pid.setPID(P, I, D);
+  }
+
+  public void reset()
+  {
+    pid.reset(getAngle());
   }
 
   public double getAngle()
