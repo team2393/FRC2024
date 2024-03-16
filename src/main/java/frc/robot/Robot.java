@@ -42,11 +42,14 @@ public class Robot extends CommandRobotBase
   private final Climber climber2 = new Climber(false, brake::setRight);
 
   private final SendableChooser<Command> autos = new SendableChooser<>();
+  private CenterOnAprilTag center_on_tag;
 
   @Override
   public void robotInit()
   {
     super.robotInit();
+    
+    center_on_tag = new CenterOnAprilTag(drivetrain);
 
     // Speed settings:
     // SwerveDrivetrain controls maximum enforced by swerve(vx, vy, vr) and SwerveOI
@@ -123,7 +126,7 @@ public class Robot extends CommandRobotBase
     // Start relative mode
     drivetrain.setDefaultCommand(relswerve);
 
-    OperatorInterface.centerAprilTag().whileTrue(new CenterOnAprilTag(drivetrain));
+    OperatorInterface.centerAprilTag().whileTrue(center_on_tag);
   }
 
   @Override

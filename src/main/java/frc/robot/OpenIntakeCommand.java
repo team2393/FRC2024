@@ -34,6 +34,7 @@ public class OpenIntakeCommand extends Command
   @Override
   public void end(boolean interrupted)
   {
+    System.out.println("Killed X_X");
     feeder.run(false);
     intake.open(false);
   }

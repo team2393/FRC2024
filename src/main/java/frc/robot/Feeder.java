@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,7 +22,7 @@ public class Feeder extends SubsystemBase
   private double voltage = 1.5;
 
   // private NetworkTableEntry voltage;
-  private Debouncer debouncer = new Debouncer(0.1);
+  private Debouncer debouncer = new Debouncer(0.1, DebounceType.kBoth);
 
   // Sensor that detects a captured game piece
   private final DigitalInput sensor;
@@ -66,14 +67,14 @@ public class Feeder extends SubsystemBase
     // so with nothing connected they will read 'true'.
     // The game piece sensor should connect the input to ground,
     // so then it would read 'false'
-    return debouncer.calculate(!sensor.get());
+    return !debouncer.calculate(sensor.get());
   }
 
   @Override
   public void periodic()
   {
     // Show if we have detected a game piece
-    have_gamepiece_entry.setBoolean(sensor.get());
+    have_gamepiece_entry.setBoolean(haveGamePiece());
     have_gamepiece_entry_debounced.setBoolean(haveGamePiece());
 
 
