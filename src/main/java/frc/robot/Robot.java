@@ -60,7 +60,7 @@ public class Robot extends CommandRobotBase
     SwerveOI.side_slew = new SlewRateLimiter(4);
     SwerveOI.rotation_slew = new SlewRateLimiter(360);
     // Maximum speed requested in autonomous moves (can't exceed MAX_METERS_PER_SEC)
-    AutoTools.config = new TrajectoryConfig(1.5, 1.5);
+    AutoTools.config = new TrajectoryConfig(3, 3);
 
     hub.enableCompressorAnalog(85, 120);
 
