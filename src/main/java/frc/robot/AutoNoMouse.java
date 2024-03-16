@@ -549,7 +549,7 @@ public class AutoNoMouse
                                                 2.6, 5.5, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(2).andThen(drivetrain.followTrajectory(path1, 180).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path1, 180).asProxy())));
 
       auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new SetShooterAngleCommand(shooter_arm, 35).withTimeout(.1));
@@ -557,10 +557,10 @@ public class AutoNoMouse
       // Pickup another ring to the right
       Trajectory path2 = createTrajectory(true, 2.6, 5.5, 180,
                                                 2.0, 6.15, 90,
-                                                2.6, 6.8, 0);
+                                                2.6, 6.6, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(2).andThen(drivetrain.followTrajectory(path2, -150.0).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, -150.0).asProxy())));
         
       auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new SetShooterAngleCommand(shooter_arm, 38).withTimeout(.1));
@@ -572,7 +572,7 @@ public class AutoNoMouse
                                                 2.5, 4.4, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(2).andThen(drivetrain.followTrajectory(path3, 180).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path3, 180).asProxy())));
       
       // // Move forward a bit and shoot
       auto.addCommands(new SwerveToPositionCommand(drivetrain, 2.4, 4.4).asProxy());
