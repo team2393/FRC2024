@@ -32,10 +32,16 @@ public class Robot extends CommandRobotBase
   private final Intake intake = new Intake();
   private final Feeder feeder = new Feeder();
   private final Command open_intake = new OpenIntakeCommand(intake, feeder);
+  private final Command reverse = new StartEndCommand(() -> intake.reverse(true),
+                                                      () -> intake.reverse(false));
 
   private final Shooter shooter = new Shooter();
   private final Command shoot = new ShootCommand(feeder, shooter);
   private final ShooterArm shooter_arm = new ShooterArm();
+  private final Command bumper_shoot = new StartEndCommand(() -> shooter_arm.setAngle(55),
+                                                           () -> shoot.schedule());
+  private final Command april_tag_shoot = new StartEndCommand(() -> shooter_arm.setAngle(55),
+                                                           () -> shoot.schedule());
 
   private final Brake brake = new Brake();
   private final Climber climber = new Climber(true, brake::setLeft);
@@ -83,10 +89,6 @@ public class Robot extends CommandRobotBase
     low.add("Set Shooter Angle", 35);
     low.add("Shooter Setpoint", 50);
     SmartDashboard.putData(low);
-
-    Command reverse = new StartEndCommand(() -> intake.reverse(true),
-                                          () -> intake.reverse(false));
-    OperatorInterface.reverseIntake().whileTrue(reverse);
   }
 
   @Override
@@ -115,18 +117,51 @@ public class Robot extends CommandRobotBase
     // OperatorInterface.selectRelative().onTrue(relswerve);
     // OperatorInterface.selectAbsolute().onTrue(absswerve);
     // OperatorInterface.resetHeading().onTrue(new ResetHeadingCommand(drivetrain));
-  
-    OperatorInterface.leftClimberUp().whileTrue(climber.getUpCommand());
-    OperatorInterface.leftClimberDown().whileTrue(climber.getDownCommand());
-    OperatorInterface.rightClimberUp().whileTrue(climber2.getUpCommand());
-    OperatorInterface.rightClimberDown().whileTrue(climber2.getDownCommand());
 
     shooter_arm.reset();
 
     // Start relative mode
     drivetrain.setDefaultCommand(relswerve);
+  }
 
-    OperatorInterface.centerAprilTag().whileTrue(center_on_tag);
+  @Override
+  public void teleopPeriodic()
+  {
+    // climbers
+    if (OperatorInterface.leftClimberUp())
+    {
+      climber.getUpCommand().schedule();
+    }
+    if (OperatorInterface.rightClimberUp())
+    {
+      climber2.getUpCommand().schedule();
+    }
+    if (OperatorInterface.leftClimberDown())
+    {
+      climber.getDownCommand().schedule();
+    }
+    if (OperatorInterface.rightClimberDown())
+    {
+      climber2.getDownCommand().schedule();
+    }
+
+    // eject
+    if (OperatorInterface.reverseIntake())
+    {
+      reverse.schedule();
+    }
+
+    // shoot when up against speaker
+    if (OperatorInterface.bumperShoot())
+    {
+      bumper_shoot.schedule();
+    }
+
+    // TODO: change shooter angle based on tag and shoot
+    if (OperatorInterface.aprilTagShoot())
+    {
+      center_on_tag.schedule();
+    }
   }
 
   @Override

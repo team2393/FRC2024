@@ -5,6 +5,7 @@ package frc.swervelib;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -15,6 +16,7 @@ public class SwerveOI
   private static final boolean ALTERNATE = false;
 
   public static final CommandXboxController joystick = new CommandXboxController(0);
+  public static final GenericHID buttons = new GenericHID(1);
 
   private static double filter(double value)
   {

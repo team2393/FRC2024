@@ -15,9 +15,9 @@ public class OperatorInterface extends SwerveOI
     return joystick.a();
   }
 
-  public static Trigger reverseIntake()
+  public static boolean reverseIntake()
   {
-    return joystick.x();
+    return buttons.getRawButton(9);
   }
 
   public static Trigger fire()
@@ -30,23 +30,33 @@ public class OperatorInterface extends SwerveOI
     return joystick.b();
   }
 
-  public static Trigger leftClimberUp()
+  public static boolean leftClimberUp()
   {
-    return joystick.leftBumper();
+    return buttons.getRawButton(8);
   }
 
-  public static Trigger leftClimberDown()
+  public static boolean leftClimberDown()
   {
-    return joystick.leftTrigger();
+    return buttons.getRawButton(5);
   }
   
-  public static Trigger rightClimberUp()
+  public static boolean rightClimberUp()
   {
-    return joystick.rightBumper();
+    return buttons.getRawButton(6);
   }
 
-  public static Trigger rightClimberDown()
+  public static boolean rightClimberDown()
   {
-    return joystick.rightTrigger();
+    return buttons.getRawButton(10);
+  }
+
+  public static boolean bumperShoot()
+  {
+    return buttons.getRawButton(7);
+  }
+
+  public static boolean aprilTagShoot()
+  {
+    return buttons.getRawButton(3);
   }
 }

@@ -26,10 +26,22 @@ public class ClimberTestRobot extends CommandRobotBase
 
   public ClimberTestRobot()
   {
-    OperatorInterface.leftClimberUp().whileTrue(climber.getUpCommand());
-    OperatorInterface.leftClimberDown().whileTrue(climber.getDownCommand());
-    OperatorInterface.rightClimberUp().whileTrue(climber2.getUpCommand());
-    OperatorInterface.rightClimberDown().whileTrue(climber2.getDownCommand());
+    if (OperatorInterface.leftClimberUp())
+    {
+      climber.getUpCommand().schedule();
+    }
+    if (OperatorInterface.rightClimberUp())
+    {
+      climber2.getUpCommand().schedule();
+    }
+    if (OperatorInterface.leftClimberDown())
+    {
+      climber.getDownCommand().schedule();
+    }
+    if (OperatorInterface.rightClimberDown())
+    {
+      climber2.getDownCommand().schedule();
+    }
   }
 
   @Override
