@@ -28,8 +28,8 @@ public class CenterOnAprilTag extends Command
     
     tags = AprilTagFields.kDefaultField.loadAprilTagLayoutField();
 
-    SmartDashboard.setDefaultNumber("CameraP", 0.1);
-    SmartDashboard.setDefaultNumber("CameraMax", 0.3);
+    SmartDashboard.setDefaultNumber("CameraP", 0.05);
+    SmartDashboard.setDefaultNumber("CameraMax", 1.0);
   }
 
 
@@ -51,8 +51,8 @@ public class CenterOnAprilTag extends Command
     // We need to serve in +Y direction to get closer.
     double P = SmartDashboard.getNumber("CameraP", 0.1);
     double max = SmartDashboard.getNumber("CameraMax", 0.3);
-    double vy = MathUtil.clamp(-P*yaw, -max, max);
-    drivetrain.swerve(0, vy, 0);
+    double vr = MathUtil.clamp(-P*yaw, -max, max);
+    drivetrain.swerve(0, 0, vr);
 
     // Instead of simply driving left/right,
     // we could try something more sophisticated...
