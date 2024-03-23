@@ -18,11 +18,11 @@ public class RobotDrivetrain extends SwerveDrivetrain
   {
     super(0.5906, // old numbers: width = 0.535, length = 0.542
           0.5906,
-          new SwerveModule(new Rotator(0, RobotMap.FRONT_LEFT_ROTATE,  RobotMap.FRONT_LEFT_ANGLE, 218.9),
+          new SwerveModule(new Rotator(0, RobotMap.FRONT_LEFT_ROTATE,  RobotMap.FRONT_LEFT_ANGLE, 220),
                            new Driver (0, RobotMap.FRONT_LEFT_DRIVE)),
           new SwerveModule(new Rotator(1, RobotMap.FRONT_RIGHT_ROTATE, RobotMap.FRONT_RIGHT_ANGLE, -173.1),
                            new Driver (1, RobotMap.FRONT_RIGHT_DRIVE)),
-          new SwerveModule(new Rotator(2, RobotMap.BACK_RIGHT_ROTATE,  RobotMap.BACK_RIGHT_ANGLE, -159.01),
+          new SwerveModule(new Rotator(2, RobotMap.BACK_RIGHT_ROTATE,  RobotMap.BACK_RIGHT_ANGLE, -161.01),
                            new Driver (2, RobotMap.BACK_RIGHT_DRIVE)),
           new SwerveModule(new Rotator(3, RobotMap.BACK_LEFT_ROTATE,   RobotMap.BACK_LEFT_ANGLE, 2),
                            new Driver (3, RobotMap.BACK_LEFT_DRIVE))

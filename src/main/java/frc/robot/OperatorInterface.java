@@ -59,4 +59,9 @@ public class OperatorInterface extends SwerveOI
   {
     return buttons.getRawButton(3);
   }
+
+  public static Trigger resetHeading()
+  {
+    return joystick.rightBumper();
+  }
 }

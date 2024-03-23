@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.swervebot.CenterOnAprilTag;
 import frc.swervelib.AbsoluteSwerveCommand;
 import frc.swervelib.RelativeSwerveCommand;
+import frc.swervelib.ResetHeadingCommand;
 import frc.swervelib.StopCommand;
 import frc.swervelib.SwerveDrivetrain;
 import frc.swervelib.SwerveOI;
@@ -46,6 +47,13 @@ public class Robot extends CommandRobotBase
   private final Brake brake = new Brake();
   private final Climber climber = new Climber(true, brake::setLeft);
   private final Climber climber2 = new Climber(false, brake::setRight);
+  private final Command leftUp =  climber.getUpCommand();
+  private final Command rightUp =  climber2.getUpCommand();
+  private final Command leftDown = climber.getDownCommand();
+  private final Command rightDown = climber2.getDownCommand();
+
+
+  private final Command resetHeading = new ResetHeadingCommand(drivetrain);
 
   private final SendableChooser<Command> autos = new SendableChooser<>();
   private CenterOnAprilTag center_on_tag;
@@ -73,6 +81,7 @@ public class Robot extends CommandRobotBase
     OperatorInterface.reset();
     OperatorInterface.toggleIntake().toggleOnTrue(open_intake);
     OperatorInterface.fire().onTrue(shoot);
+    OperatorInterface.resetHeading().onTrue(resetHeading);
 
     autos.setDefaultOption("Nothing", new PrintCommand("Do nothing"));
 
@@ -124,32 +133,19 @@ public class Robot extends CommandRobotBase
     drivetrain.setDefaultCommand(relswerve);
   }
 
+
+
   @Override
   public void teleopPeriodic()
   {
     // climbers
-    if (OperatorInterface.leftClimberUp())
-    {
-      climber.getUpCommand().schedule();
-    }
-    if (OperatorInterface.rightClimberUp())
-    {
-      climber2.getUpCommand().schedule();
-    }
-    if (OperatorInterface.leftClimberDown())
-    {
-      climber.getDownCommand().schedule();
-    }
-    if (OperatorInterface.rightClimberDown())
-    {
-      climber2.getDownCommand().schedule();
-    }
+    if (OperatorInterface.leftClimberUp()) leftUp.schedule(); else leftUp.cancel();
+    if (OperatorInterface.rightClimberUp()) rightUp.schedule(); else rightUp.cancel();
+    if (OperatorInterface.leftClimberDown()) leftDown.schedule(); else leftDown.cancel();
+    if (OperatorInterface.rightClimberDown()) rightDown.schedule(); else rightDown.cancel();
 
     // eject
-    if (OperatorInterface.reverseIntake())
-    {
-      reverse.schedule();
-    }
+    if (OperatorInterface.reverseIntake()) reverse.schedule(); else reverse.cancel();
 
     // shoot when up against speaker
     if (OperatorInterface.bumperShoot())
