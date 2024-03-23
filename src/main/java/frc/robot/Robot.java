@@ -51,12 +51,12 @@ public class Robot extends CommandRobotBase
   private final Command rightUp =  climber2.getUpCommand();
   private final Command leftDown = climber.getDownCommand();
   private final Command rightDown = climber2.getDownCommand();
-
+  private final Command cameraAdjust = new CameraArmAdjust(shooter_arm);
 
   private final Command resetHeading = new ResetHeadingCommand(drivetrain);
 
   private final SendableChooser<Command> autos = new SendableChooser<>();
-  private CenterOnAprilTag center_on_tag;
+  private CenterOnAprilTag center_on_tag = new CenterOnAprilTag(drivetrain);
 
   @Override
   public void robotInit()
@@ -143,9 +143,10 @@ public class Robot extends CommandRobotBase
     if (OperatorInterface.rightClimberUp()) rightUp.schedule(); else rightUp.cancel();
     if (OperatorInterface.leftClimberDown()) leftDown.schedule(); else leftDown.cancel();
     if (OperatorInterface.rightClimberDown()) rightDown.schedule(); else rightDown.cancel();
-
+    if(OperatorInterface.autoCam()) cameraAdjust.schedule(); else cameraAdjust.cancel();
     // eject
     if (OperatorInterface.reverseIntake()) reverse.schedule(); else reverse.cancel();
+    if (OperatorInterface.centerOnAprilTag()) center_on_tag.schedule(); else center_on_tag.cancel();
 
     // shoot when up against speaker
     if (OperatorInterface.bumperShoot())
@@ -153,11 +154,6 @@ public class Robot extends CommandRobotBase
       bumper_shoot.schedule();
     }
 
-    // TODO: change shooter angle based on tag and shoot
-    if (OperatorInterface.aprilTagShoot())
-    {
-      center_on_tag.schedule();
-    }
   }
 
   @Override

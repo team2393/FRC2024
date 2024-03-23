@@ -23,15 +23,16 @@ public class CameraArmAdjust extends Command
   {
     // TODO: Drive robot to several 'ty' and find a good arm angle for each
     //       ty,  arm angle
-    map.put( -6.0, 55.0);
-    map.put(-10.0, 50.0);
-    map.put(-20.0, 30.0);
+    map.put( -0.60, 55.0);
+    map.put(-10.0, 45.0);
+    map.put(-15.0, 39.0);
+    map.put(-20.0, 32.0);
   }
 
   public CameraArmAdjust(ShooterArm arm)
   {
     this.arm = arm;
-    addRequirements(arm);    
+      
   }
 
 

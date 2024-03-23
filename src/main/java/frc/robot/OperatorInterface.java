@@ -25,11 +25,6 @@ public class OperatorInterface extends SwerveOI
     return joystick.y();
   }
 
-  public static Trigger centerAprilTag()
-  {
-    return joystick.b();
-  }
-
   public static boolean leftClimberUp()
   {
     return buttons.getRawButton(8);
@@ -55,9 +50,14 @@ public class OperatorInterface extends SwerveOI
     return buttons.getRawButton(7);
   }
 
-  public static boolean aprilTagShoot()
+  public static boolean centerOnAprilTag()
   {
     return buttons.getRawButton(3);
+  }
+
+  public static boolean autoCam()
+  {
+    return buttons.getRawButton(1);
   }
 
   public static Trigger resetHeading()
