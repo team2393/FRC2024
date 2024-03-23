@@ -287,9 +287,9 @@ public class AutoNoMouse
       // Blue Speaker: Shoot Move Pickup Shoot (Chad edition)
       SequentialCommandGroup auto = new SequenceWithStart("BlueSpeakerPlus1 (Chad)", 1.5, 5.5, 180);
       auto.addCommands(new VariableWaitCommand());
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 55).withTimeout(1));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(1.0)); // Auto arm adjust, does the same thing but cooler 
       auto.addCommands(new ShootCommand(feeder, shooter));
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 40).withTimeout(.1));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(.1));
 
       // Pickup another ring from right behind
       Trajectory path2 = createTrajectory(true, 1.5, 5.5, 0,
@@ -509,9 +509,9 @@ public class AutoNoMouse
       // Blue Speaker: Shoot Move Pickup Shoot Pickup Shoot (Chad edition)
       SequentialCommandGroup auto = new SequenceWithStart("BMSMPSPS (Chad)", 1.5, 5.5, 180);
       auto.addCommands(new VariableWaitCommand());
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 55).withTimeout(1));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(1.0));
       auto.addCommands(new ShootCommand(feeder, shooter));
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 40).withTimeout(.1));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(.1));
 
       // Pickup another ring from right behind
       Trajectory path2 = createTrajectory(true, 1.5, 5.5, 0,
@@ -521,7 +521,7 @@ public class AutoNoMouse
         new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, 180).asProxy())));
 
       auto.addCommands(new ShootCommand(feeder, shooter));
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 35).withTimeout(.1));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(.1));
 
       // Pickup another ring to the right
       Trajectory path3 = createTrajectory(true, 2.6, 5.5, 180,
@@ -540,9 +540,9 @@ public class AutoNoMouse
       // Blue Speaker: Legendary 4 note
       SequentialCommandGroup auto = new SequenceWithStart("BlueMiddle4Note", 1.5, 5.5, 180);
       auto.addCommands(new VariableWaitCommand());
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 55).withTimeout(1.5));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(1.5));
       auto.addCommands(new ShootCommand(feeder, shooter));
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 42).withTimeout(.1));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(.1));
 
       // Pickup another ring from right behind
       Trajectory path1 = createTrajectory(true, 1.5, 5.5, 0,
@@ -552,7 +552,7 @@ public class AutoNoMouse
         new WaitCommand(.5).andThen(drivetrain.followTrajectory(path1, 180).asProxy())));
 
       auto.addCommands(new ShootCommand(feeder, shooter));
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 38).withTimeout(.1));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(.1));
 
       // Pickup another ring to the right
       Trajectory path2 = createTrajectory(true, 2.6, 5.5, 180,
@@ -563,7 +563,7 @@ public class AutoNoMouse
         new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, -145.0).asProxy())));
         
       auto.addCommands(new ShootCommand(feeder, shooter));
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 38).withTimeout(.1));
+      auto.addCommands(new CameraArmAdjust(shooter_arm).withTimeout(.1));
       
       // Pickup another ring to the far left
       Trajectory path3 = createTrajectory(true, 2.6, 6.8, 180,
