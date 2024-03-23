@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** Command that adjusts arm angle from april tag */
@@ -27,6 +28,7 @@ public class CameraArmAdjust extends Command
     map.put(-10.0, 45.0);
     map.put(-15.0, 39.0);
     map.put(-20.0, 32.0);
+    map.put(-25.0, 25.0);
   }
 
   public CameraArmAdjust(ShooterArm arm)
@@ -40,11 +42,13 @@ public class CameraArmAdjust extends Command
   public void execute()
   {
     if (! LimelightHelpers.getTV(camera))
-      return;
-
-    double ty = LimelightHelpers.getTY(camera);
-    double angle = map.get(ty);
-    // System.out.format("TY %6.2f -> Arm angle %6.2f\n", ty, angle);
-    arm.setAngle(angle);
+      return;      
+      
+      double ty = LimelightHelpers.getTY(camera);
+      double angle = map.get(ty);
+      // System.out.format("TY %6.2f -> Arm angle %6.2f\n", ty, angle);
+      arm.setAngle(angle);
+      
+      SmartDashboard.putNumber("Shooter Setpoint", angle < 40 ? 55 : 50);
   }
 }
