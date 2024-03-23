@@ -7,11 +7,12 @@ package frc.robot;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.LimelightHelpers.LimelightTarget_Fiducial;
+import frc.swervebot.CenterOnAprilTag;
 
 /** Command that adjusts arm angle from april tag */
 public class CameraArmAdjust extends Command
 {
-  final private static String camera = "limelight-front";
   final private ShooterArm arm;
 
   // Map of 'distance' to arm angle
@@ -22,7 +23,6 @@ public class CameraArmAdjust extends Command
   static final private InterpolatingDoubleTreeMap map = new InterpolatingDoubleTreeMap();
   static
   {
-    // TODO: Drive robot to several 'ty' and find a good arm angle for each
     //       ty,  arm angle
     map.put( -0.60, 55.0);
     map.put(-10.0, 45.0);
@@ -34,21 +34,20 @@ public class CameraArmAdjust extends Command
   public CameraArmAdjust(ShooterArm arm)
   {
     this.arm = arm;
-      
   }
-
 
   @Override
   public void execute()
   {
-    if (! LimelightHelpers.getTV(camera))
+    LimelightTarget_Fiducial tag = CenterOnAprilTag.findSuitableTag();
+    if (tag == null)
       return;      
       
-      double ty = LimelightHelpers.getTY(camera);
-      double angle = map.get(ty);
-      // System.out.format("TY %6.2f -> Arm angle %6.2f\n", ty, angle);
-      arm.setAngle(angle);
+    double ty = tag.ty;
+    double angle = map.get(ty);
+    // System.out.format("TY %6.2f -> Arm angle %6.2f\n", ty, angle);
+    arm.setAngle(angle);
       
-      SmartDashboard.putNumber("Shooter Setpoint", angle < 40 ? 55 : 50);
+    SmartDashboard.putNumber("Shooter Setpoint", angle < 40 ? 55 : 50);
   }
 }
