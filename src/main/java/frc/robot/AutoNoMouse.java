@@ -552,7 +552,7 @@ public class AutoNoMouse
         new WaitCommand(.5).andThen(drivetrain.followTrajectory(path1, 180).asProxy())));
 
       auto.addCommands(new ShootCommand(feeder, shooter));
-      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 38).withTimeout(.1));
+      auto.addCommands(new SetShooterAngleCommand(shooter_arm, 40).withTimeout(.1));
 
       // Pickup another ring to the right
       Trajectory path2 = createTrajectory(true, 2.6, 5.5, 180,
@@ -560,7 +560,7 @@ public class AutoNoMouse
                                                 2.6, 6.6, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, -145.0).asProxy())));
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path2, -155.0).asProxy())));
         
       auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new SetShooterAngleCommand(shooter_arm, 38).withTimeout(.1));
@@ -568,15 +568,14 @@ public class AutoNoMouse
       // Pickup another ring to the far left
       Trajectory path3 = createTrajectory(true, 2.6, 6.8, 180,
                                                 2.0, 5.45, -90,
-                                                2.0, 4.2, -90,
-                                                2.6, 4.2, 0);
+                                                2.0, 4.8, -90,
+                                                3.2, 4.8, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
-        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path3, 180).asProxy())));
-      
+        new WaitCommand(.5).andThen(drivetrain.followTrajectory(path3, 177).asProxy())));
+
       // // Move forward a bit and shoot
-      auto.addCommands(new SwerveToPositionCommand(drivetrain, 2.5, 4.2).asProxy());
-      auto.addCommands(new RotateToHeadingCommand(drivetrain, 145).asProxy());
+      auto.addCommands(new RotateToHeadingCommand(drivetrain, 155).asProxy());
       auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new PrintCommand("Done."));
       autos.add(auto);
