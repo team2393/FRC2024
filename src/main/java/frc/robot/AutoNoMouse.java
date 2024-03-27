@@ -569,12 +569,13 @@ public class AutoNoMouse
       Trajectory path3 = createTrajectory(true, 2.6, 6.8, 180,
                                                 2.0, 5.45, -90,
                                                 2.0, 4.8, -90,
-                                                3.2, 4.8, 0);
+                                                3.1, 4.8, 0);
       auto.addCommands(new ParallelCommandGroup(
         new OpenIntakeCommand(intake, feeder).withTimeout(7),
         new WaitCommand(.5).andThen(drivetrain.followTrajectory(path3, 177).asProxy())));
 
       // // Move forward a bit and shoot
+      auto.addCommands(new SwerveToPositionCommand(drivetrain, 2.8, 4.8).asProxy());
       auto.addCommands(new RotateToHeadingCommand(drivetrain, 155).asProxy());
       auto.addCommands(new ShootCommand(feeder, shooter));
       auto.addCommands(new PrintCommand("Done."));
