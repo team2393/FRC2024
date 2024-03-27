@@ -68,7 +68,7 @@ public class Robot extends CommandRobotBase
     // Speed settings:
     // SwerveDrivetrain controls maximum enforced by swerve(vx, vy, vr) and SwerveOI
     SwerveDrivetrain.MAX_METERS_PER_SEC = 3;
-    SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC = 120;
+    SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC = 200;
     // Slew limiters for interactive moves
     SwerveOI.forward_slew = new SlewRateLimiter(4);
     SwerveOI.side_slew = new SlewRateLimiter(4);
@@ -146,7 +146,7 @@ public class Robot extends CommandRobotBase
     if(OperatorInterface.autoCam()) cameraAdjust.schedule(); else cameraAdjust.cancel();
     // eject
     if (OperatorInterface.reverseIntake()) reverse.schedule(); else reverse.cancel();
-    if (OperatorInterface.centerOnAprilTag()) center_on_tag.schedule(); else center_on_tag.cancel();
+    if (OperatorInterface.centerOnAprilTagJoe() > .5) center_on_tag.schedule(); else center_on_tag.cancel();
 
     // shoot when up against speaker
     if (OperatorInterface.bumperShoot())
