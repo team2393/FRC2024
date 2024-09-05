@@ -18,6 +18,7 @@
       "/SmartDashboard/High": "Command",
       "/SmartDashboard/Intake": "Mechanism2d",
       "/SmartDashboard/Low": "Command",
+      "/SmartDashboard/Pass": "Command",
       "/SmartDashboard/ResetPosition": "Command",
       "/SmartDashboard/Scheduler": "Scheduler",
       "/SmartDashboard/SendableChooser[0]": "String Chooser"

@@ -24,11 +24,21 @@ public class CameraArmAdjust extends Command
   static
   {
     //       ty,  arm angle
-    map.put( -0.60, 55.0);
+    map.put(-0.03, 55.0);
+    map.put(-6.0, 50.0);
     map.put(-10.0, 45.0);
-    map.put(-15.0, 39.0);
-    map.put(-20.0, 32.0);
-    map.put(-25.0, 25.0);
+    map.put(-13.75, 40.0);
+    map.put(-16.0, 36.27);
+    map.put(-18.75, 33.75);
+    map.put(-20.5, 31.5);
+    map.put(-21.5, 29.99);
+    map.put(-23.0, 28.0);
+    map.put(-23.75, 26.5);
+
+    // map.put(-10.0, 45.0);
+    // map.put(-15.0, 39.0);
+    // map.put(-20.0, 32.0);
+    // map.put(-25.0, 25.0);
   }
 
   public CameraArmAdjust(ShooterArm arm)
@@ -48,6 +58,6 @@ public class CameraArmAdjust extends Command
     // System.out.format("TY %6.2f -> Arm angle %6.2f\n", ty, angle);
     arm.setAngle(angle);
       
-    SmartDashboard.putNumber("Shooter Setpoint", angle < 40 ? 55 : 50);
+    SmartDashboard.putNumber("Shooter Setpoint", 55);
   }
 }

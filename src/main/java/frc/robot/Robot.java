@@ -67,7 +67,7 @@ public class Robot extends CommandRobotBase
 
     // Speed settings:
     // SwerveDrivetrain controls maximum enforced by swerve(vx, vy, vr) and SwerveOI
-    SwerveDrivetrain.MAX_METERS_PER_SEC = 3;
+    SwerveDrivetrain.MAX_METERS_PER_SEC = 3.37;
     SwerveDrivetrain.MAX_ROTATION_DEG_PER_SEC = 200;
     // Slew limiters for interactive moves
     SwerveOI.forward_slew = new SlewRateLimiter(4);
@@ -98,6 +98,13 @@ public class Robot extends CommandRobotBase
     low.add("Set Shooter Angle", 35);
     low.add("Shooter Setpoint", 50);
     SmartDashboard.putData(low);
+
+    ApplySettingsCommand pass = new ApplySettingsCommand("Pass");
+    pass.add("Set Shooter Angle", 55);
+    pass.add("Shooter Setpoint", 40);
+    SmartDashboard.putData(pass);
+
+    center_on_tag.findSuitableTag();
   }
 
   @Override

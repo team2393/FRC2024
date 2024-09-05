@@ -31,7 +31,7 @@ public class ShooterArm extends SubsystemBase
   // private final SparkAbsoluteEncoder encoder = motor.getAbsoluteEncoder(Type.kDutyCycle);
   private final DutyCycleEncoder encoder = new DutyCycleEncoder(RobotMap.ARM_ENCODER);
   /** Zero degrees = arm horizontally out */
-  private final static double ZERO_OFFSET = -111.0 - 17;
+  private final static double ZERO_OFFSET = -221.5 - 17;
  
   // Rotate at a max speed of 45 deg/sec
   private final TrapezoidProfile.Constraints constraints = new TrapezoidProfile.Constraints(45, 45);

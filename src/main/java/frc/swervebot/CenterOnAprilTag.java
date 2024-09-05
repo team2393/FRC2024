@@ -24,8 +24,8 @@ public class CenterOnAprilTag extends Command
     this.drivetrain = drivetrain;
     addRequirements(drivetrain);
     
-    SmartDashboard.setDefaultNumber("CameraP", 0.05);
-    SmartDashboard.setDefaultNumber("CameraMax", 1.0);
+    SmartDashboard.setDefaultNumber("CameraP", 0.1);
+    SmartDashboard.setDefaultNumber("CameraMax", 4.0);
   }
 
   public static LimelightTarget_Fiducial findSuitableTag()
