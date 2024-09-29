@@ -245,6 +245,19 @@
               "_glyph": 148,
               "_showGlyph": false
             }
+          },
+          "9,3": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Pass",
+              "_title": "/SmartDashboard/Pass",
+              "_glyph": 148,
+              "_showGlyph": false
+            }
           }
         }
       }
@@ -481,8 +494,8 @@
     }
   ],
   "windowGeometry": {
-    "x": -6.400000095367432,
-    "y": 132.0,
+    "x": -4.800000190734863,
+    "y": 177.60000610351562,
     "width": 1068.800048828125,
     "height": 689.5999755859375
   }

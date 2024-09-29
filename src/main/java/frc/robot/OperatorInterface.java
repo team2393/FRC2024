@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.proto.Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.swervelib.SwerveOI;
 
@@ -50,9 +51,9 @@ public class OperatorInterface extends SwerveOI
     return buttons.getRawButton(7);
   }
 
-  public static boolean centerOnAprilTag()
+  public static double centerOnAprilTagJoe()
   {
-    return buttons.getRawButton(3);
+    return joystick.getLeftTriggerAxis();
   }
 
   public static boolean autoCam()
