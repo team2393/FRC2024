@@ -259,6 +259,9 @@ abstract public class SwerveDrivetrain extends SubsystemBase
       // Optimize module rotation
       states[i] = SwerveModuleState.optimize(states[i], modules[i].getAngle());
 
+      // TODO Cosine compensation,
+      // https://docs.wpilib.org/en/stable/docs/software/kinematics-and-odometry/swerve-drive-kinematics.html#cosine-compensation
+
       // Actually moving? Then rotate as requested
       if (Math.abs(states[i].speedMetersPerSecond) < MINIMUM_SPEED_THRESHOLD)
           states[i] = new SwerveModuleState(0, modules[i].getAngle());
